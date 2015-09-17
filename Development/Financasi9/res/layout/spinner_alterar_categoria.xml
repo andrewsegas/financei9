@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+     <TextView android:text="Grupo de Categoria"
+	  			android:textSize="14dip"
+	  			android:id="@+id/tipoCategoria"
+	  			android:layout_width="fill_parent"
+	        	android:layout_height="fill_parent"
+	        	android:gravity="left"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginTop="24dp"
+	  			android:layout_marginLeft="20dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/holo_orange_dark"/>
+        
+	    <Spinner
+	        	android:id="@+id/spinnerTipo"
+	        	android:layout_width="fill_parent"
+	  			android:layout_height="fill_parent"	  			
+	  			android:layout_marginTop="5dp"
+	  			android:layout_marginLeft="20dp"
+	  			android:layout_marginRight="20dp"
+	  	/>
+	    
+	   <TextView android:text="Categoria"
+	  			android:textSize="14dip"
+	  			android:id="@+id/categoria"
+	  			android:layout_width="fill_parent"
+	        	android:layout_height="fill_parent"
+	        	android:gravity="left"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginLeft="20dp"
+	  			android:layout_marginTop="20dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/holo_orange_dark"/>
+	       
+	    <Spinner
+	        	android:id="@+id/spinnerCategoria"
+	        	android:layout_width="fill_parent"
+	  			android:layout_height="fill_parent"	  			
+	  			android:layout_marginTop="5dp"
+	  			android:layout_marginLeft="20dp"
+	  			android:layout_marginRight="20dp"
+	  			android:entries="@array/itensmeses"
+	  	/>
+</LinearLayout>

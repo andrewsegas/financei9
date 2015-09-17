@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+     <TextView android:text="Envie agora o seu Feedback para nós. Seus comentários são essenciais para evolução do finançasi9."
+	  			android:textSize="14dip"
+	  			android:id="@+id/lblInformeEnviarEmail"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="4dp"
+	  			android:layout_marginTop="20dp"
+	  			android:layout_marginRight="16dp"
+	  			android:layout_marginLeft="17dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/holo_orange_dark"/>
+     
+     <TextView android:text="Obs: Nós iremos entrar em contato com você com no máximo 3 dias úteis."
+	  			android:textSize="13dip"
+	  			android:id="@+id/lblObservacao"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginTop="80dp"
+	  			android:layout_marginRight="18dp"
+	  			android:layout_marginLeft="22dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/black"/>
+     
+     <EditText 
+		android:inputType="textMultiLine"
+	    android:lines="10"
+	    android:minLines="10" 
+	    android:gravity="top|left"
+	    android:fontFamily="Calibri"
+	    android:textSize="13sp"
+	    android:maxLines="11"
+	    android:layout_height="wrap_content"
+	    android:layout_width="fill_parent"
+   		android:scrollbars="vertical" 
+    	android:hint="Deixe aqui seus comentários..."
+   	 	android:layout_marginBottom="2dp"
+		android:layout_marginTop="120dp"
+  		android:layout_marginRight="18dp"
+  		android:layout_marginLeft="22dp"
+        android:id="@+id/emailtext">
+     </EditText>
+     <requestFocus />
+  
+    <Button
+        android:id="@+id/btnEnviarEmail"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/confirmarSenha"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="322dp"
+        android:onClick="alterarSenha"
+        android:background="@drawable/btngray"
+        android:text="Enviar"
+        android:textColor="@android:color/black" />
+
+</RelativeLayout>

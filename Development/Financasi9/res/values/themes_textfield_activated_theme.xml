@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+  <style name="textfield_activated_Theme" parent="android:Theme.Light">
+
+    <item name="android:editTextBackground">@drawable/textfield_activated_theme_edit_text_holo_dark</item>
+
+  </style>
+
+</resources>

@@ -1,0 +1,22 @@
+{BANCOAPP}Santander Informa: Transacao Cartao Mastercard final 6369 de R$ 117,88 aprovada 
+em 01/09/15 as 12:48 DIVINO FOGAO C T DA
+
+
+{BANCOAPP}Santander Informa: Transacao Cartao Mastercard final 6369 de R$ 798,98 aprovada 
+em 02/09/15 as 12:48 MC DONALDS TESTE
+
+
+{BANCOAPP}Santander Informa: Transacao Cartao Mastercard final 6369 de R$ 109,88 aprovada 
+em 08/09/15 as 12:48 TESTE DE ESTABELECIMENTO
+
+
+{BANCOAPP}Santander Informa: Transacao Cartao Mastercard final 6369 de R$ 73,00 aprovada 
+em 09/09/15 as 12:48 NINFAS NIGTH CLUB
+
+
+{BANCOAPP}Santander Informa: Transacao Cartao Mastercard final 6369 de R$ 9,89 aprovada 
+em 15/09/15 as SUBWAY TESTE E TAL
+
+
+{BANCOAPP}Santander Informa: Transacao Cartao Mastercard final 6369 de R$ 5,80 aprovada 
+em 05/19/15 as 12:48 BAR DO TIO JOÃO

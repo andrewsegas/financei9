@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp" >
+
+    <RelativeLayout
+        android:id="@+id/layout_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:id="@+id/layoutAdapter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal" >
+
+        <ImageView
+        android:layout_width="14dp"
+        android:layout_height="fill_parent"
+         android:layout_marginRight="3dp"
+        android:layout_gravity="left|top"
+        android:src="@drawable/store" />
+            
+            <TextView
+                android:id="@+id/lblEstabelecimento"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="Local:"
+                android:textSize="14dp"
+                android:gravity="left|top"
+                android:textColor="#078582"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+               />
+
+            <TextView
+                android:id="@+id/txt_estabelecimento"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_weight="1"
+                android:gravity="right|top"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal" />
+        </LinearLayout>
+        
+         <LinearLayout
+            android:id="@+id/layoutAdapterTipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutAdapter"
+            android:orientation="horizontal" >
+		
+		<ImageView
+        android:layout_width="15dp"
+        android:layout_height="fill_parent"
+        android:layout_gravity="left|top"
+        android:layout_marginRight="3dp"
+        android:src="@drawable/tipo" />
+            
+            <TextView
+                android:id="@+id/lblTipo"
+                android:layout_width="69dp"
+                android:layout_height="wrap_content"
+                android:text="Categoria:"
+                android:textSize="14dp"
+                android:textColor="#078582"
+                android:gravity="left|top"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+               />
+
+            <TextView
+                android:id="@+id/txtTipo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_weight="1"
+                android:gravity="right|top"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutDtHora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutAdapterTipo"
+            android:orientation="horizontal" >
+
+            <ImageView
+        android:layout_width="15dp"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="3dp"
+        android:layout_gravity="left|top"
+        android:src="@drawable/date" />
+            
+            
+            <TextView
+                android:id="@+id/lbl_dtHora"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+				android:text="Data e Hora:"
+				android:textSize="14dp"
+				android:gravity="left|top"
+                android:textColor="#078582"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+              />
+
+            <TextView
+                android:id="@+id/txt_dtHora"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="14dp"
+                android:gravity="right|top"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutDtHora"
+            android:orientation="horizontal" >
+            
+             <ImageView
+        android:layout_width="18dp"
+        android:layout_height="fill_parent"
+        android:layout_gravity="left|top"
+        android:layout_marginRight="3dp"
+        android:src="@drawable/money" />
+
+            <TextView
+                android:id="@+id/lbl_valor"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Valor:"
+                android:gravity="left|top"
+            	android:textColor="#078582"
+            	android:textSize="14dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+               />
+
+            <TextView
+                android:id="@+id/txt_valor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="14dp"
+                android:gravity="right|top"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal" />
+        </LinearLayout>
+        
+         <LinearLayout
+            android:id="@+id/layoutFinalCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutValor"
+            android:orientation="horizontal" >
+
+              <ImageView
+        android:layout_width="18dp"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="3dp"
+        android:layout_gravity="left|top"
+        android:src="@drawable/cartao" />
+              
+            <TextView
+                android:id="@+id/lbl_card"
+                android:layout_width="76dp"
+                android:layout_height="wrap_content"
+                android:text="Cartão:"
+                android:gravity="left|top"
+            	android:textColor="#078582"
+            	android:textSize="14dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+               />
+
+            <TextView
+                android:id="@+id/txt_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="14dp"
+                android:gravity="right|top"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="normal" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

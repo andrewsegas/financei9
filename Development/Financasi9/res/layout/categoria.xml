@@ -1,0 +1,74 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+	<LinearLayout
+	  android:id="@+id/despesas"
+	  android:orientation="vertical"
+	  android:layout_width="match_parent"
+	  android:layout_height="match_parent">
+	  
+	    <TextView android:text="Algumas categorias já cadastradas"
+	  			android:textSize="17dip"
+	  			android:id="@+id/escolhaMesesid"
+	  			android:layout_width="fill_parent"
+	        	android:layout_height="fill_parent"
+	        	android:gravity="center"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginTop="23dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/holo_orange_dark"/>
+	     
+	     <TextView
+                android:id="@+id/lblRenda"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:text="&#160;&#160;&#160; Receitas"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:background="#d1f2c6"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:textColor="#006400"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+               />
+
+           <ListView
+			    android:id="@+id/listViewRenda"
+			    android:layout_width="fill_parent"
+			    android:layout_height="fill_parent" 
+	   	        android:layout_marginLeft="3dp"
+	   	        android:layout_marginBottom="5dp"
+		        android:layout_marginRight="3dp"
+		        android:layout_marginTop="5dp">
+			</ListView> 
+			
+	       <TextView
+                android:id="@+id/lblEssenciais"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="7dp"
+                android:background="#f9e1b5"
+                android:gravity="center_vertical"
+                android:text="&#160;&#160;&#160; Despesas"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="#FF4500"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+               />
+
+           <ListView
+			    android:id="@+id/listViewEssenciais"
+			    android:layout_width="match_parent"
+			    android:layout_height="fill_parent" 
+	   	        android:layout_marginLeft="3dp"
+	   	        android:layout_marginBottom="5dp"
+		        android:layout_marginRight="3dp"
+		        android:layout_marginTop="5dp">
+			</ListView>
+			
+	
+	</LinearLayout>
+</ScrollView>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+     <TextView android:text="Dividir valor em:"
+	  			android:textSize="14dip"
+	  			android:id="@+id/dividirValor"
+	  			android:layout_width="fill_parent"
+	        	android:layout_height="fill_parent"
+	        	android:gravity="left"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginTop="24dp"
+	  			android:layout_marginLeft="20dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/holo_orange_dark"/>
+        
+	    <Spinner
+	        	android:id="@+id/spinnerQtdVezes"
+	        	android:layout_width="fill_parent"
+	  			android:layout_height="fill_parent"	  			
+	  			android:layout_marginTop="5dp"
+	  			android:layout_marginLeft="20dp"
+	  			android:layout_marginRight="20dp"
+	  			android:entries="@array/qtdVezes"
+	  	/>
+</LinearLayout>

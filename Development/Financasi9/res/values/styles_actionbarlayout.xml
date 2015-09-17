@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- File created by the Android Action Bar Style Generator
+
+     Copyright (C) 2011 The Android Open Source Project
+     Copyright (C) 2012 readyState Software Ltd
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <style name="Theme.Actionbarlayout" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_actionbarlayout</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Actionbarlayout</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Actionbarlayout</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Actionbarlayout</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Actionbarlayout</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Actionbarlayout</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_actionbarlayout</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_actionbarlayout</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Actionbarlayout</item>
+        <item name="android:actionBarTabTextStyle">@style/TabTextColor.Actionbartema</item>
+
+        <item name="actionBarItemBackground">@drawable/selectable_background_actionbarlayout</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Actionbarlayout</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Actionbarlayout</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Actionbarlayout</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Actionbarlayout</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.Actionbarlayout</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_actionbarlayout</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_actionbarlayout</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Actionbarlayout</item>
+        <item name="actionBarTabTextStyle">@style/TabTextColor.Actionbartema</item>
+
+                <!-- Light.DarkActionBar specific -->
+        <item name="actionBarWidgetTheme">@style/Theme.Actionbarlayout.Widget</item>
+
+    </style>
+
+    <style name="ActionBar.Solid.Actionbarlayout" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/ab_solid_actionbarlayout</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_actionbarlayout</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_actionbarlayout</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Actionbarlayout</item>
+
+        <item name="background">@drawable/ab_solid_actionbarlayout</item>
+        <item name="backgroundStacked">@drawable/ab_stacked_solid_actionbarlayout</item>
+        <item name="backgroundSplit">@drawable/ab_bottom_solid_actionbarlayout</item>
+        <item name="progressBarStyle">@style/ProgressBar.Actionbarlayout</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Actionbarlayout" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_actionbarlayout</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Actionbarlayout</item>
+
+        <item name="background">@drawable/ab_transparent_actionbarlayout</item>
+        <item name="progressBarStyle">@style/ProgressBar.Actionbarlayout</item>
+    </style>
+	
+    <style name="PopupMenu.Actionbarlayout" parent="@style/Widget.AppCompat.PopupMenu">	
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_actionbarlayout</item>	
+    </style>
+	
+    <style name="DropDownListView.Actionbarlayout" parent="@style/Widget.AppCompat.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_actionbarlayout</item>
+    </style>
+
+    <style name="ActionBarTabStyle.Actionbarlayout" parent="@style/Widget.AppCompat.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_actionbarlayout</item>
+    </style>
+	
+    <style name="TabTextColor.Actionbartema" parent="@style/Widget.AppCompat.Light.ActionBar.TabText">
+		<item name="android:textColor">#ffffff</item>
+	</style>
+    
+    <style name="DropDownNav.Actionbarlayout" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
+        <item name="android:background">@drawable/spinner_background_ab_actionbarlayout</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_actionbarlayout</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_actionbarlayout</item>
+    </style>
+    
+    <style name="ProgressBar.Actionbarlayout" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_actionbarlayout</item>
+    </style>
+    
+    <style name="ActionButton.CloseMode.Actionbarlayout" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_actionbarlayout</item>
+    </style>
+    
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Actionbarlayout.Widget" parent="@style/Theme.AppCompat">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Actionbarlayout</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Actionbarlayout</item>
+
+        <item name="popupMenuStyle">@style/PopupMenu.Actionbarlayout</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Actionbarlayout</item>
+    </style>
+
+</resources>

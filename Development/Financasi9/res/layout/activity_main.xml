@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.br.i9.ProcessoLogin.MainActivity" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
+
+    <EditText
+        android:id="@+id/txtLoginNewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/RegisterNewUser"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/NomeNewUser"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="110dp"
+        android:layout_marginLeft="35dp"
+        android:drawableLeft="@drawable/ic_account_key_white"
+        android:background="@drawable/textfield_activated_theme_textfield_focused_holo_dark"
+        android:ems="10"
+        android:hint="@string/senha"
+        android:inputType="textPassword"
+        android:maxLength="10"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/NomeNewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtLoginNewUser"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:drawableLeft="@drawable/ic_account_white"
+        android:ems="10"
+        android:hint="@string/LoginOrEmail"
+        android:inputType="textPersonName"
+        android:maxLength="30"
+        android:background="@drawable/textfield_activated_theme_textfield_focused_holo_dark"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="40dp"
+        android:singleLine="true"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" >
+
+		<requestFocus />
+        
+    </EditText>
+
+    <Button
+        android:id="@+id/btnAcessar"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="170sp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/RegisterNewUser"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:onClick="ValidarLogin"
+        android:background="@drawable/btnback"
+        android:text="@string/lg"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/RegisterNewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/EsqueciMinhaSenha"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp"
+        android:gravity="center"
+        android:onClick="RegistreNewUser"
+        android:clickable="true"
+        android:text="@string/cc"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/EsqueciMinhaSenha"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:clickable="true"
+        android:onClick="RecuperarSenhaUsuario"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="34dp"
+        android:text="@string/EsqueciSenha" />
+
+</RelativeLayout>

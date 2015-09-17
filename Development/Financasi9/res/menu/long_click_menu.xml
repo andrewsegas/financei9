@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<item
+      android:id="@+id/ttitle"
+      android:title="@string/transacoes"
+      android:showAsAction="always"
+      />
+    <item
+      android:id="@+id/delete_item"
+      android:showAsAction="always"
+      android:title="Excluir"/>
+    <item 
+      android:id="@+id/Detalhes_item"
+      android:showAsAction="always"
+      android:title="Detalhes"/>
+    <item 
+      android:id="@+id/altera_categoria_item"
+      android:showAsAction="always"
+      android:title="Alterar categoria"/>   
+    <item 
+      android:id="@+id/dividir_valor_item"
+      android:showAsAction="always"
+      android:title="Dividir valor"/> 
+</menu>

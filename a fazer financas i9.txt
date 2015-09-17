@@ -1,0 +1,17 @@
+modelos que temos:
+
+Seguranca Santander: Pagamento $ 1168,00 em Conta Corrente 02/09/15 09:12. Duvidas ligue:CAPITAIS 40043535 DEMAIS 08007023535
+
+{BANCOAPP}Santander Informa: Transacao Cartao Mastercard final 6369 de R$ 7,88 aprovada em 01/09/15 as 12:48 DIVINO FOGAO C T DA
+
+{BANCOAPP}Santander Informa: DOC/TED a credito efetuado em 31/08/15 as 23:33 no valor de R$ 66,00
+
+HSBC Alertas: Saque realizado na conta 070*-02*67-7* no valor de R$ 20,00 em 02/09/2015 as 19:58:41.
+
+HSBC Alertas: Cartao 4446 62** **** **11 realizou uma compra de R$ 13,66 na loja ANDRE BONTEMPO FR no dia 27/08/2015.
+
+
+ERROS
+Quando passa de mil, o banco manda o valor com ponto ex 1.500,00 E Nao esta contabilizando.
+
+quando é um resgate da poupança o banco envia 2 sms's iguais - Santander.

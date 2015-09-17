@@ -1,0 +1,133 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+	<LinearLayout
+	  android:id="@+id/receitas"
+	  android:orientation="vertical"
+	  android:layout_width="match_parent"
+	  android:layout_height="match_parent">
+	  
+	    <TextView android:text="Geral"
+	  			android:id="@+id/lblGeral"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginTop="20dp"
+	  			android:layout_marginLeft="13dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/black"
+	  			android:textSize="16sp"
+	  			android:textStyle="bold"
+	  			/>
+	    
+   	      <View	android:id="@+id/secondtDivider"
+	        	android:layout_height="2dp"
+	        	android:layout_marginTop="10dp"
+	        	android:layout_width="fill_parent"
+	        	android:layout_marginLeft="8dp"
+	        	android:layout_marginRight="8dp"
+	        	android:background="#C8C8C8" />
+
+   	      <Switch
+		        android:id="@+id/notificacoes"
+		        android:layout_width="fill_parent"
+		        android:layout_height="33dp"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginTop="14dp"
+	  			android:layout_marginRight="13dp"
+	  			android:layout_marginLeft="13dp"
+		        android:text="Notificações" />
+   	      
+   	      <TextView android:text="Ainda possui dúvidas?"
+	  			android:textSize="15sp"
+	  			android:id="@+id/lblAindaTenhoDuvidas"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="33dp"
+	  			android:layout_marginBottom="2dp"
+	  			android:onClick="aindaPossuiDuvidas"
+	  			android:layout_marginTop="18dp"
+	  			android:layout_marginLeft="13dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/black"/>
+   	      
+   	       <TextView android:text="Enviar problemas ou sugestões"
+	  			android:textSize="15sp"
+	  			android:id="@+id/problemaSugestoes"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="33dp"
+	  			android:onClick="problemasOuSugestoes"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginTop="18dp"
+	  			android:layout_marginLeft="13dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/black"/>
+   	       
+	      <TextView android:text="Sobre"
+	  			android:textSize="15sp"
+	  			android:id="@+id/lblsobre"
+	  			android:layout_width="fill_parent"
+	  			android:onClick="sobre"
+	  			android:layout_height="33dp"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginTop="14dp"
+	  			android:layout_marginLeft="13dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/black"/>
+	    
+	      
+	    <TextView android:text="Conta"
+	  			android:textSize="16sp"
+	  			android:id="@+id/lblConta"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginTop="8dp"
+	  			android:layout_marginLeft="13dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/black"
+				android:textStyle="bold"
+	  			/>
+	    
+	   	<View	android:id="@+id/threeDivider"
+	        	android:layout_height="2dp"
+	        	android:layout_marginTop="8dp"
+	        	android:layout_width="fill_parent"
+	        	android:layout_marginLeft="8dp"
+	        	android:layout_marginRight="8dp"
+	        	android:background="#C8C8C8" />
+	    
+	      <TextView
+		        android:id="@+id/alterarSenha"
+		        android:layout_width="wrap_content"
+		        android:layout_height="39dp"
+		        android:layout_marginTop="14dp"
+		        android:layout_marginLeft="13dp"
+		        android:gravity="left"
+		        android:onClick="alterarSenha"
+		        android:clickable="true"
+		        android:text="Alterar senha"
+		        android:textColor="@android:color/black"
+		        android:textSize="15sp" 
+        	/>
+	      
+	     <TextView
+		        android:id="@+id/apagarconta"
+		        android:layout_width="wrap_content"
+		        android:layout_height="39dp"
+		        android:layout_marginTop="6dp"
+		        android:layout_marginLeft="11dp"
+		        android:gravity="left"
+		        android:onClick="apagarConta"
+		        android:focusableInTouchMode="true"
+		        android:contentDescription="Teste de Descricao de Testo"
+		        android:clickable="true"
+		        android:text="Apagar conta"
+		        android:textColor="@android:color/black"
+		        android:textSize="15sp" 
+        	/>
+	
+	</LinearLayout>
+</ScrollView>

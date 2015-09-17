@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/txtLoginNewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="160dp"
+        android:drawableLeft="@drawable/ic_account_white"
+        android:ems="10"
+        android:hint="@string/Login"
+        android:background="@drawable/textfield_activated_theme_textfield_focused_holo_dark"
+		android:layout_marginLeft="35dp"
+        android:layout_marginRight="40dp"
+        android:maxLength="30"
+        android:inputType="textPersonName"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/SenhaNewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txtLoginNewUser"
+        android:drawableLeft="@drawable/ic_account_key_white"
+        android:ems="10"
+        android:hint="@string/senha"
+        android:background="@drawable/textfield_activated_theme_textfield_focused_holo_dark"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="40dp"
+        android:inputType="textPassword"
+        android:maxLength="10"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/EmailNewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/SenhaNewUser"
+        android:drawableLeft="@drawable/ic_email_white"
+        android:background="@drawable/textfield_activated_theme_textfield_focused_holo_dark"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="40dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:hint="@string/Email"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="12sp"
+        />
+
+    <EditText
+        android:id="@+id/NomeNewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/EmailNewUser"
+        android:drawableLeft="@drawable/ic_account_white"
+        android:background="@drawable/textfield_activated_theme_textfield_focused_holo_dark"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="40dp"
+        android:ems="10"
+        android:maxLength="80"
+        android:hint="@string/Nome"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btnCadastarUsuario"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/NomeNewUser"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:onClick="CadastrarUsuario"
+        android:background="@drawable/btnback"
+        android:text="@string/Cadastrar"
+        android:textColor="@android:color/black" />
+
+</RelativeLayout>

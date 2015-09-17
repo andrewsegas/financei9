@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Finançasi9</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <!-- Pagina de Login -->
+    <string name="cc">Novo no Finançasi9 ? Registre-se</string>
+    <string name="lg">Acessar</string>
+    <string name="senha">Senha</string>
+    <string name="LoginOrEmail">Login</string>
+    <string name="slogan"> SEU CONTROLE FINANCEIRO + SEGURO + INTELIGENTE </string>
+    <string name="EsqueciSenha"> ESQUECI MINHA SENHA </string>
+    <string name="EsqueciSenhaOrientacao">Por favor, informe o e-mail abaixo e mandaremos sua senha para o e-mail devidamente cadastrado. </string>
+    <!-- Splash Screen -->
+    <string name="Scfi"> SEU CONTROLE FINANCEIRO + INTELIGENTE </string>
+    <string name="Organize"> ORGANIZE SUAS FINANÇAS E ECONOMIZE </string>
+    <!-- Registro New User -->
+    <string name="Cadastrar"> Cadastrar </string>
+    <string name="Login">Login </string>
+    <string name="Email">example@servidor.com </string>
+    <string name="Nome">Nome </string>
+    <string name="cancelar">Cancelar </string>
+    <string name="search">Pesquisar</string>
+    <string name="action_check_updates">Updates</string>
+    <string name="settings">Configurações</string>
+    <!-- RecuperarSenha -->
+    <string name="RecuperarSenha">Recuperar</string>
+    <string-array name="itens">
+        <item>Resumo</item>
+        <item>Categorias</item>
+        <item>Transações</item>
+        <item>Gráficos</item>
+        <item>FAQ</item>
+        <item>Configurações</item>
+        <item>Sair</item>
+    </string-array>
+    <string name="drawer_open">Menu Finanças</string>
+    <string name="drawer_close">Fechar Menu</string>
+    
+    <string name="despesas">Despesas</string>
+    <string name="geral">Geral</string>
+    <string name="receitas">Receitas</string>
+    
+    <string name="receitasFirstPage">Despesas&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[@valor]</string>
+    <string name="despesasFirstPage">Receitas&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[@valor]</string>
+    <string name="receitas_FirstPage">Total:&#160;&#160;&#160;&#160;[@valor]</string>
+    <string name="despesas_FirstPage">Total:&#160;&#160;&#160;&#160;[@valor]</string>
+    <string name="situacaoAtual">Situação atual:&#160;&#160;&#160;&#160;[@valor]</string>
+    <string name="AcompanhamentoGrafico">Acompanhamento gráfico</string>
+    <string name="InformacoesReceitas">Acompanhamento de receitas</string>
+    <string name="InformacoesDespesas">Acompanhamento de despesas</string>
+    
+    
+    <string name="Meses">Escolha o mês</string>
+    
+    <string-array name="itensmeses">
+        <item>Janeiro</item>
+        <item>Fevereiro</item>
+        <item>Março</item>
+        <item>Abril</item>
+        <item>Maio</item>
+        <item>Junho</item>
+        <item>Julho</item>
+        <item>Agosto</item>
+        <item>Setembro</item>
+        <item>Outubro</item>
+        <item>Novembro</item>
+        <item>Dezembro</item>
+    </string-array>
+    
+     <string-array name="qtdVezes">
+        <item>2x</item>
+        <item>3x</item>
+        <item>4x</item>
+        <item>5x</item>
+        <item>6x</item>
+        <item>7x</item>
+        <item>8x</item>
+        <item>9x</item>
+        <item>10x</item>
+        <item>11x</item>
+        <item>12x</item>
+        <item>13x</item>
+        <item>14x</item>
+        <item>15x</item>
+        <item>16x</item>
+        <item>17x</item>
+        <item>18x</item>
+        <item>19x</item>
+        <item>20x</item>        
+    </string-array>
+    
+     
+    <string name="escolhaMeses">Escolha o mês abaixo para visualizar sua análise financeira.</string>
+    <string name="escolhaMesesReceitas">Escolha o mês abaixo para visualizar suas receitas</string>
+    <string name="escolhaMesesDespesas">Escolha o mês abaixo para visualizar suas despesas</string>
+    
+    <!-- PAGINAS FAQ -->
+    <string name="perg1Faq"> O que é o finanças i9 ?</string>
+    <string name="respo1Faq"> Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
+        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
+        					  e os embaralhou para fazer um livro de modelos de tipos.
+        					  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
+        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
+        					  e os embaralhou para fazer um livro de modelos de tipos.
+        					  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
+        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
+        					  e os embaralhou para fazer um livro de modelos de tipos.</string>
+    
+    <string name="perg2Faq"> Como é identificado uma movimentação ?</string>
+    <string name="respo2Faq"> Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos
+        Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
+        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
+        					  e os embaralhou para fazer um livro de modelos de tipos.
+        					  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
+        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
+        					  e os embaralhou para fazer um livro de modelos de tipos.</string>
+    
+    <string name="perg3Faq"> Como é classificado os lançamentos ?</string>
+    <string name="respo3Faq"> Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
+        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
+        					  e os embaralhou para fazer um livro de modelos de tipos.
+        					  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
+        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
+        					  e os embaralhou para fazer um livro de modelos de tipos.</string>
+        					  
+	<string name="descricaoApp"> Aplicativo financeiro para disponilizar ao usuário o controle ágil e fácil dos gastos diários. </string>
+	<string name="versaoApp">Versão: 1.0.0</string>
+    
+	<string name="transacoes"><b>Opções da transação<hr></hr></b></string>
+	
+	<string name="categorias"><b>Categorias<hr></hr></b></string>
+            
+</resources>

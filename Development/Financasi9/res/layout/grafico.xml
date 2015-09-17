@@ -1,0 +1,94 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+	<LinearLayout
+	  android:id="@+id/grafico"
+	  android:orientation="vertical"
+	  android:layout_width="match_parent"
+	  android:layout_height="match_parent">
+	  
+	    <TextView android:text="Escolha o mês de pesquisa"
+	  			android:textSize="14dip"
+	  			android:id="@+id/escolhaMesesid"
+	  			android:layout_width="fill_parent"
+	        	android:layout_height="fill_parent"
+	        	android:gravity="center"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginTop="20dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/holo_orange_dark"/>
+	    
+	      <View	android:id="@+id/secondtDivider"
+	        	android:layout_height="1dp"
+	        	android:layout_marginTop="15dp"
+	        	android:layout_width="fill_parent"
+	        	android:layout_marginLeft="28dp"
+	        	android:layout_marginRight="28dp"
+	        	android:background="#C8C8C8" />
+	      
+		<!-- DropDown de Meses -->    
+	    <Spinner
+	        	android:id="@+id/dropdownMeses"
+	        	android:layout_width="fill_parent"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginLeft="40dp"
+	  			android:layout_marginTop="10dp"
+	  			android:layout_marginRight="40dp"
+	  			android:entries="@array/itensmeses"
+	  			android:prompt="@string/Meses"
+	  	/>
+	    
+	     <View	android:id="@+id/threeDivider"
+	        	android:layout_height="1dp"
+	        	android:layout_marginTop="8dp"
+	        	android:layout_width="fill_parent"
+	        	android:layout_marginLeft="28dp"
+	        	android:layout_marginRight="28dp"
+	        	android:background="#C8C8C8" />
+	     
+	    <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="30dp"
+	        android:layout_marginRight="30dp"
+	        android:layout_marginTop="13dp"
+	        android:text="Acompanhamento de Receitas"
+	        android:textAlignment="center"
+	        android:textColor="@android:color/holo_red_light"
+	        android:textSize="14dip"
+	        android:id="@+id/recitasText" />
+        	
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChartReceitas"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="13dp"
+       	android:layout_marginRight="13dp"
+       	android:layout_marginBottom="15dp"
+        android:layout_height="250dp" />
+    
+    	    <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="30dp"
+	        android:layout_marginRight="30dp"
+	        android:layout_marginTop="13dp"
+	        android:text="Acompanhamento de Despesas"
+	        android:textAlignment="center"
+	        android:textColor="@android:color/holo_red_light"
+	        android:textSize="14dip"
+	        android:id="@+id/despesasText" />
+	
+      <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChartDespesas"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="13dp"
+       	android:layout_marginRight="13dp"
+       	android:layout_marginBottom="15dp"
+        android:layout_height="250dp" />
+	</LinearLayout>
+</ScrollView>

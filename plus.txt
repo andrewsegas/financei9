@@ -1,0 +1,34 @@
+cadastrar TAGS pare recebimento de sms de qualquer pessoa com
+tag
+R$ nnnn,nn
+local: ....até o final do sms
+
+
+
+ex :
+movimentoi9 no valor de R$ 96,00 locali9 caseiro
+
+
+cadastrar TAGS para agendamento:
+
+agendamentoi9 no valor de R$ 1200,00 datai9 21/05/2015 locali9 Faculdade
+
+______________________________________
+
+meta de poupança
+ex: 3.000 no mes de dezembro
+estamos em setembro faltam 3 meses, então tenho que economizar 1 mil por mes
+
+receita é de 2.000
+quando for chegando em mil, vou notificando ao 50%, 75 %, 90%.
+e notifica quando conseguir virar o mes.
+
+
+___________________________________________
+
+Cadastro de Recorrencias - para lembrar o usuario se ele gostaria de receber lembretes (cadastrar na agenda)
+
+______________________________________________
+
+União de contas, notificar em outro celular quando cair uma transação na conta consolidada
+

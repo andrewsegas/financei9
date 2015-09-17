@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical" >
+    
+     <TextView
+        android:id="@+id/textoEsqueciMinhaSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtEsqueciMinhaSenha"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="166dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/EsqueciSenhaOrientacao"
+        android:textColor="@android:color/white"
+        android:textSize="13sp" />
+    
+    <Button
+        android:id="@+id/btnRecuperarSenha"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/SenhaRecuperarTxt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/btnback"
+        android:onClick="RecuperarSenha"
+        android:textColor="@android:color/black"
+        android:text="@string/RecuperarSenha" />
+
+    <EditText
+        android:id="@+id/SenhaRecuperarTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:drawableLeft="@drawable/ic_email_white"
+        android:layout_marginTop="230dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="40dp"
+        android:ems="10"
+        android:hint="@string/Email"
+        android:background="@drawable/textfield_activated_theme_textfield_focused_holo_dark"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="12sp" 
+        android:inputType="textEmailAddress" >
+
+        <requestFocus />
+    </EditText>
+
+</RelativeLayout>
+

@@ -1,0 +1,102 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+	<LinearLayout
+	  android:id="@+id/faq"
+	  android:orientation="vertical"
+	  android:layout_width="match_parent"
+	  android:layout_height="match_parent">
+
+	  
+	    <TextView android:text="@string/perg1Faq"
+	  			android:textSize="14dip"
+	  			android:id="@+id/pergunta1"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="1dp"
+	  			android:layout_marginTop="10dp"
+	  			android:layout_marginLeft="5dp"
+	  			android:layout_marginRight="5dp"
+	  			android:textAlignment="gravity"
+	  			android:textStyle="bold"
+	  			android:textColor="@android:color/black"
+	  	/>
+	    
+	    <TextView android:text="@string/respo1Faq"
+	  			android:textSize="13dip"
+	  			android:id="@+id/resposta1"
+	  			android:layout_width="wrap_content"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="3dp"
+	  			android:layout_marginLeft="5dp"
+	  			android:layout_marginRight="5dp"
+	  			android:layout_weight="1"
+	  			android:layout_marginTop="3dp"
+	  			android:layout_gravity="center_vertical"
+	  			android:textStyle="normal"
+	  			android:textColor="@android:color/black"
+	  	/>
+	    
+	    <TextView android:text="@string/perg2Faq"
+	  			android:textSize="14dip"
+	  			android:id="@+id/pergunta2"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="1dp"
+	  			android:layout_marginTop="1dp"
+	  			android:layout_marginLeft="5dp"
+	  			android:layout_marginRight="5dp"
+	  			android:textAlignment="gravity"
+	  			android:textStyle="bold"
+	  			android:textColor="@android:color/black"
+	  	/>
+	    
+	    <TextView android:text="@string/respo2Faq"
+	  			android:textSize="13dip"
+	  			android:id="@+id/resposta2"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="3dp"
+	  			android:layout_marginTop="3dp"
+	  			android:layout_marginLeft="5dp"
+	  			android:layout_marginRight="5dp"
+	  			android:textAlignment="gravity"
+	  			android:textStyle="normal"
+	  			android:textColor="@android:color/black"
+	  	/>
+	    
+	    <TextView android:text="@string/perg3Faq"
+	  			android:textSize="14dip"
+	  			android:id="@+id/pergunta3"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="1dp"
+	  			android:layout_marginTop="1dp"
+	  			android:layout_marginLeft="5dp"
+	  			android:layout_marginRight="5dp"
+	  			android:textAlignment="gravity"
+	  			android:textStyle="bold"
+	  			android:textColor="@android:color/black"
+	  	/>
+	    
+	    <TextView android:text="@string/respo3Faq"
+	  			android:textSize="13dip"
+	  			android:id="@+id/resposta3"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="3dp"
+	  			android:layout_marginTop="6dp"
+	  			android:layout_marginLeft="5dp"
+	  			android:layout_marginRight="5dp"
+	  			android:textAlignment="gravity"
+	  			android:textStyle="normal"
+	  			android:textColor="@android:color/black"
+	  	/>
+	    
+	
+	
+	</LinearLayout>
+</ScrollView>

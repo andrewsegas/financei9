@@ -1,0 +1,7 @@
+leitor inteligente de sms, identificando constantes e variaveis, identificando atraves da virgula antecedida e sucedida por numeros (achou o valor) e encontrando a data do sms, e o local que é uma variavel sucedida por uma constante...
+
+Assim qualquer banco MESMO que nao esteja mapeado pode fornecer informações para o seu controle financeiro... inclusive em outros paises...
+
+
+o que você pretende fazer essa noite ???
+
