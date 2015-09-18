@@ -67,6 +67,19 @@ public class CrudDatabase {
 		
 		bd.update("Usuarios", valores, "USULogin = '"+ usuario.getLogin() + "'", null);
 	}
+
+	public void RegistrarNovaCategoria(String nmNovaCategoria, String tipoGrupoCategoria)
+	{
+		ContentValues valores = new ContentValues();
+		
+		valores.put("CAT_NOME", nmNovaCategoria);
+		valores.put("CAT_GRUPO", tipoGrupoCategoria);
+		valores.put("CAT_USUID", this.usuarioLogado().getId());
+		valores.put("CAT_USULOGIN", this.usuarioLogado().getLogin());
+		valores.put("CAT_SISTEMA", "0");
+		
+		bd.insert("CATEGORIAS", null, valores);
+	}
 	
 	public void ApagarUsuario(Login usuario)
 	{		
@@ -303,7 +316,7 @@ public class CrudDatabase {
 		//[_IDCAT], [CAT_NOME], [CAT_GRUPO], [CAT_USUID], [CAT_USULOGIN], [CAT_SISTEMA]
 		String[] colunas = new String[]{"_IDCAT", "CAT_NOME", "CAT_GRUPO", "CAT_SISTEMA"};
 		List<String> categorias = new ArrayList<String>();
-		Cursor cursor = bd.query("CATEGORIAS", colunas, "CAT_GRUPO ='" + sWhere + "'", null, null, null, null);
+		Cursor cursor = bd.query("CATEGORIAS", colunas, sWhere, null, null, null, "CAT_NOME ASC");
 		
 		if(cursor.getCount() > 0){
 			cursor.moveToFirst();
@@ -321,7 +334,7 @@ public class CrudDatabase {
 		
 		String[] colunas = new String[]{"_IDCAT", "CAT_NOME", "CAT_GRUPO", "CAT_SISTEMA"};
 		
-		Cursor cursor = bd.query("CATEGORIAS", colunas, sWhere, null, null, null, null);
+		Cursor cursor = bd.query("CATEGORIAS", colunas, sWhere, null, null, null, "CAT_NOME ASC");
 		
 		
 		if(cursor.getCount() > 0){
@@ -330,8 +343,8 @@ public class CrudDatabase {
 				Categorias cat = new Categorias(
 						cursor.getString(1),
 						cursor.getString(2),
-						cursor.getInt(0));
-				
+						cursor.getInt(0),
+						cursor.getString(3));
 				
 				Categorias.add(cat);
 			}while(cursor.moveToNext());

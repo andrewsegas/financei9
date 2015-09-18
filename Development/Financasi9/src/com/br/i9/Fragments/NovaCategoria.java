@@ -46,7 +46,10 @@ public class NovaCategoria extends Fragment {
 		btnCadastar.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				CadastrarCategoria();
+				if(label.contains("Receitas"))				
+					CadastrarCategoria("1");
+				else
+					CadastrarCategoria("2");
 			}
 		});
 		
@@ -88,21 +91,42 @@ public class NovaCategoria extends Fragment {
 			});
 	}
 	
-	public void CadastrarCategoria()
+	public void CadastrarCategoria(String tipoGrupo)
 	{
 		if(!ValidacaoDeCampos.ValidaCampos(nmNovaCategoria.getText().toString()))
 		{
-			Popup = PopUp.Popup(viewLista.getContext());
-			 Popup.setCancelable(false);
-			 Popup.setTitle("Finançasi9")
-			 .setMessage("Categoria cadastrada com sucesso")
-		     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-		         public void onClick(DialogInterface dialog, int which) {
-		        	 nmNovaCategoria.setText("");
-		        	 dialog.dismiss();
-		         }
-		      })
-		      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+			 List<String> categoriaExiste = bd.lerCategorias("CAT_NOME = RTRIM('"+ nmNovaCategoria.getText().toString() +"')");
+			 
+			 if(categoriaExiste.size() > 0)
+			 {
+				Popup = PopUp.Popup(viewLista.getContext());
+				 Popup.setCancelable(false);
+				 Popup.setTitle("Finançasi9")
+				 .setMessage("Ops! Já existe uma categoria para esta descrição.")
+			     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+			         public void onClick(DialogInterface dialog, int which) {
+			        	 nmNovaCategoria.setText("");
+			        	 dialog.dismiss();
+			         }
+			      })
+			      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+			 }
+			 else
+			 {
+				 bd.RegistrarNovaCategoria(nmNovaCategoria.getText().toString(), tipoGrupo);
+				 
+				Popup = PopUp.Popup(viewLista.getContext());
+				 Popup.setCancelable(false);
+				 Popup.setTitle("Finançasi9")
+				 .setMessage("Categoria cadastrada com sucesso.")
+			     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+			         public void onClick(DialogInterface dialog, int which) {
+			        	 nmNovaCategoria.setText("");
+			        	 dialog.dismiss();
+			         }
+			      })
+			      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+			 }
 		}
 		else
 		{

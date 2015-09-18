@@ -26,22 +26,34 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.Spinner;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 	
 public class Categorias extends Fragment {
 
 	Builder Popup;
+	int categoriaSistema, idNovaCategoria, idOldCategoria;
+	View viewLista,  poupSinner;
+	Spinner spinnerCategoria;
+	CrudDatabase bd;
+	ListView listViewRenda, listViewDespesas;
+	String label;
+	List<com.br.i9.Class.Categorias> listReceitas;
+	List<com.br.i9.Class.Categorias> listDespesas;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-		 View viewLista = inflater.inflate(R.layout.categoria, null);
-		 ListView listViewRenda = (ListView) viewLista.findViewById(R.id.listViewRenda);
-		 ListView listViewDespesas = (ListView) viewLista.findViewById(R.id.listViewEssenciais);
-		 CrudDatabase bd = new CrudDatabase(getActivity());
+		 viewLista = inflater.inflate(R.layout.categoria, null);
+		 listViewRenda = (ListView) viewLista.findViewById(R.id.listViewRenda);
+		 listViewDespesas = (ListView) viewLista.findViewById(R.id.listViewEssenciais);
+		 poupSinner = inflater.inflate(R.layout.spinner_alterar_categoria, null);
+		 Spinner spinnerTipoCategoria = (Spinner)poupSinner.findViewById(R.id.spinnerTipo);
+		 spinnerCategoria = (Spinner)poupSinner.findViewById(R.id.spinnerCategoria);
+		 bd = new CrudDatabase(getActivity());
 		 Popup = PopUp.Popup(viewLista.getContext());
 		 
 		 GerarCategorias(viewLista, listViewRenda, bd, "1");
@@ -49,6 +61,33 @@ public class Categorias extends Fragment {
 		 
 		registerForContextMenu(listViewRenda);  
 		registerForContextMenu(listViewDespesas);
+		
+		listReceitas = bd.TodasCategorias("CAT_GRUPO = 1");
+		listDespesas = bd.TodasCategorias("CAT_GRUPO = 2");
+		
+		listViewRenda.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				categoriaSistema = Integer.parseInt(listReceitas.get(position).getcatSistema());
+				idOldCategoria = listReceitas.get(position).getnId();
+				return false;
+			}
+		});
+		
+		listViewDespesas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				categoriaSistema = Integer.parseInt(listDespesas.get(position).getcatSistema());
+				idOldCategoria = listDespesas.get(position).getnId();
+				return false;
+			}
+		});
+		 
+		popularSpinnerTipoCategoria(spinnerTipoCategoria);
 		 
 		return(viewLista);
 	}
@@ -62,17 +101,39 @@ public class Categorias extends Fragment {
 	  
 	@Override    
 	public boolean onContextItemSelected(MenuItem item){    
-		 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-
             if(item.getTitle().toString().contains("Excluir")){
-  			  Popup.setTitle("Finançasi9")
-  			    .setCancelable(true)
-  			     .setMessage( info.position + "Há transações vinculadas a esta categoria. Para excluir, será necessário ajustar as transações para uma nova categoria.")
-  			     .setNegativeButton("OK", new DialogInterface.OnClickListener() {
-  			         public void onClick(DialogInterface dialog, int which) { 
-  			             dialog.cancel();
-  			         }
-  			      }).setIcon(android.R.drawable.ic_dialog_alert).show();
+            	
+            	if(categoriaSistema != 1)
+            	{
+        		 Popup = PopUp.Popup(viewLista.getContext());
+           		 Popup.setCancelable(false);
+           		 Popup.setTitle("Finançasi9").setView(poupSinner).setMessage("Há transações vinculadas a esta categoria. Por favor, "
+           		 		+ "escolha a nova categoria das transações.")
+           		 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
+           	         public void onClick(DialogInterface dialog, int which) { 
+           	        	 ((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
+           	         }
+           	      })
+           	     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+           	         public void onClick(DialogInterface dialog, int which) { 
+           	        	((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
+           	        	 dialog.dismiss();
+           	         }
+           	      })
+           	      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+	  			  }
+            	else
+            	{
+            		Popup = PopUp.Popup(viewLista.getContext());
+            		Popup.setTitle("Finançasi9")
+	  			    .setCancelable(true)
+	  			     .setMessage( "Não é possível excluir categorias nativas do sistema.")
+	  			     .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+	  			         public void onClick(DialogInterface dialog, int which) { 
+	  			             dialog.cancel();
+	  			         }
+	  			      }).setIcon(android.R.drawable.ic_dialog_alert).show();
+            	}
   			  
             }    
           return true;    
@@ -111,7 +172,8 @@ public class Categorias extends Fragment {
 			Categoria.add(new com.br.i9.Class.Categorias(
 					listCat.get(i).getnmCategoria(),
 					listCat.get(i).getgrCategoria(),
-					listCat.get(i).getnId()
+					listCat.get(i).getnId(),
+					listCat.get(i).getcatSistema()
 					));
 		}
 		
@@ -127,6 +189,58 @@ public class Categorias extends Fragment {
 		ajusteListView.ajustarListViewInScrollView(listview);
 	}
 	
+	public void popularSpinnerTipoCategoria(Spinner spinnerTipoCategoria)
+	{
+		 List<String> lables = bd.lerGruposDeCategorias();
+		
+		 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, lables);
+	     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	 
+	     spinnerTipoCategoria.setAdapter(dataAdapter);
+	     
+	     spinnerTipoCategoria.setOnItemSelectedListener(new OnItemSelectedListener() {
+			    @Override
+			    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+			        label = parentView.getItemAtPosition(position).toString();
+			        if(label.contains("Receitas"))
+			        	popularSpinnerCategoria("1");
+			        else
+			        	popularSpinnerCategoria("2");
+			    }
+			    @Override
+			    public void onNothingSelected(AdapterView<?> parentView) {
+			    }
+			});
+	}
+	
+	private void popularSpinnerCategoria(final String tipoCategoria)
+	{
+		 List<String> lables = bd.lerCategorias("CAT_GRUPO ='" + tipoCategoria + "' AND _IDCAT <> '"+ idOldCategoria +"'");
+		
+		 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, lables);
+	     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	 
+	     spinnerCategoria.setAdapter(dataAdapter);
+	     
+	     spinnerCategoria.setOnItemSelectedListener(new OnItemSelectedListener() {
+			    @Override
+			    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+			        if(label.contains("Receitas"))
+			        {
+			        	List<com.br.i9.Class.Categorias> Receitas = bd.TodasCategorias("CAT_GRUPO ='1' AND _IDCAT <> '"+ idOldCategoria +"'");
+			        	idNovaCategoria = Receitas.get(position).getnId();
+			        }
+			        else
+			        {
+			        	List<com.br.i9.Class.Categorias> Despesas = bd.TodasCategorias("CAT_GRUPO ='2' AND _IDCAT <> '"+ idOldCategoria +"'");
+			        	idNovaCategoria = Despesas.get(position).getnId();
+			        }
+			    }
+			    @Override
+			    public void onNothingSelected(AdapterView<?> parentView) {
+			    }
+			});
+	}
 	private void fragments(Fragment cfragment, String title)
 	{
 		Bundle data = new Bundle();

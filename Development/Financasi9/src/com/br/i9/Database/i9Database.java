@@ -28,10 +28,10 @@ public class i9Database extends SQLiteOpenHelper {
 		
 		try{
 		bd.execSQL("CREATE TABLE IF NOT EXISTS Usuarios(_USUid INTEGER NOT NULL Primary key AUTOINCREMENT,"
-				+ "UsuNome VARCHAR(50) NOT NULL,"
-				+ "USULogin CHAR(20) NOT NULL,"
-				+ "USUEmail VARCHAR(250) NOT NULL,"
-				+ "USUSenha CHAR(10) NOT NULL,"
+				+ "UsuNome VARCHAR(50) NOT NULL collate nocase,"
+				+ "USULogin CHAR(20) NOT NULL collate nocase,"
+				+ "USUEmail VARCHAR(250) NOT NULL collate nocase,"
+				+ "USUSenha CHAR(10) NOT NULL collate nocase,"
 				+ "USUAtivo BIT NOT NULL DEFAULT 1,"
 				+ "USUUltimoAcesso DATETIME DEFAULT CURRENT_TIMESTAMP"
 				+ ");");
@@ -41,15 +41,15 @@ public class i9Database extends SQLiteOpenHelper {
 				+ "TELEFONE VARCHAR2(15) NOT NULL,"
 				+ "CATEGORIA VARCHAR2(15) NOT NULL,"
 				+ "nmBANCO VARCHAR2(20) NOT NULL,"
-				+ "nmESTABELECIMENTO VARCHAR2(20) ,"
+				+ "nmESTABELECIMENTO VARCHAR2(20),"
 				+ "dtMOVIMENTO VARCHAR2(20) NOT NULL,"
-				+ "nrCARTAO VARCHAR2(4) ,"
+				+ "nrCARTAO VARCHAR2(4),"
 				+ "cSMSALL VARCHAR2(160) NOT NULL,"
 				+ "cRecDesp VARCHAR2(1)"
 				+ ");");
 		
 		bd.execSQL("CREATE TABLE IF NOT EXISTS CATEGORIAS (_IDCAT INTEGER Primary key AUTOINCREMENT,"
-				+ "CAT_NOME VARCHAR2(20) NOT NULL,"		//Nome da categoria
+				+ "CAT_NOME VARCHAR2(20) NOT NULL collate nocase,"		//Nome da categoria
 				+ "CAT_GRUPO CHAR(1) NOT NULL,"	//Grupo de categoria pertencente
 				+ "CAT_USUID INTEGER ,"					//id do usuario
 				+ "CAT_USULOGIN CHAR(20) ,"				//usuario da categoria
@@ -58,7 +58,7 @@ public class i9Database extends SQLiteOpenHelper {
 		
 		bd.execSQL("CREATE TABLE IF NOT EXISTS CATXEST (_IDCXE INTEGER Primary key AUTOINCREMENT," //Tabela de categorias x estabelecimento
 				+ "CXE_CATID INTEGER NOT NULL,"					//ID da categoria
-				+ "CXE_CATNOME VARCHAR2(20) NOT NULL,"			//nome da categoria
+				+ "CXE_CATNOME VARCHAR2(20) NOT NULL collate nocase,"			//nome da categoria
 				+ "CXE_ESTABELECIMENTO VARCHAR2(20) NOT NULL,"	//estabelecimento que vai chegar direto pra categoria
 				+ "CXE_USUID INTEGER ,"							//id do usuario
 				+ "CXE_USULOGIN CHAR(20)"						//usuario da categoria
