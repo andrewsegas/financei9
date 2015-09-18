@@ -3,24 +3,18 @@ package com.br.i9.Class;
 public class Categorias {
 	private String nmCategoria;
 	private String grCategoria;
-	private String catSistema;
 	private Integer nId;
 
-	public Categorias(String nmCategoria, String grCategoria, int nId, String catSistema) {
+	public Categorias(String nmCategoria, String grCategoria, int nId) {
 			super();
 			this.nmCategoria = nmCategoria;
 			this.grCategoria = grCategoria;
 			this.nId = nId;
-			this.catSistema = catSistema;
 			
 	}
 
 	public void setnmCategoria(String _nmCategoria) {
 		this.nmCategoria = _nmCategoria;
-	}
-	public void setcatSistema(String _catSistema)
-	{
-		this.catSistema = _catSistema;
 	}
 
 	public void setgrCategoria(String _grCategoria) {
@@ -39,10 +33,6 @@ public class Categorias {
 		return grCategoria;
 	}
 
-	public String getcatSistema()
-	{
-		return catSistema;
-	}
 	public Integer getnId() {
 		return nId;
 	}
