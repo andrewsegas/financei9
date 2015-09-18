@@ -139,25 +139,6 @@ public class CrudDatabase {
 		return cursor.getString(0);
 	}
 	
-	public List<String> lerGruposDeCategorias()
-	{
-		String[] colunas = new String[]{"idGrupo", "nmGrupo"};
-		Cursor cursor = null;
-		List<String> grupos = new ArrayList<String>();
-		
-		cursor = bd.query("GRUPOCATEGORIA", colunas, null, null, null, null, null);
-				
-		if(cursor.getCount() > 0){	
-			cursor.moveToFirst();
-			do
-			{
-				grupos.add(cursor.getString(1));
-			}while(cursor.moveToNext());
-		}
-		
-		return(grupos);
-	}
-	
 	public void UpdateConfiguracaoNotificacao(String valor)
 	{
 		ContentValues valores = new ContentValues();

@@ -59,6 +59,7 @@
 	  			android:layout_below="@+id/tipoCategorias"
 	  			android:layout_marginLeft="20dp"
 	  			android:layout_marginRight="20dp"
+	  			android:entries="@array/tipos"
 	  	/>
      
      <Button

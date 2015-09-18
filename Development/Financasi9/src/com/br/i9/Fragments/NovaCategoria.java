@@ -73,14 +73,7 @@ public class NovaCategoria extends Fragment {
 	
 	private void popularSpinnerTipoCategoria(Spinner spinnerTipoCategoria)
 	{
-		 List<String> lables = bd.lerGruposDeCategorias();
-		
-		 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, lables);
-	     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	 
-	     spinnerTipoCategoria.setAdapter(dataAdapter);
-	     
-	     spinnerTipoCategoria.setOnItemSelectedListener(new OnItemSelectedListener() {
+		spinnerTipoCategoria.setOnItemSelectedListener(new OnItemSelectedListener() {
 			    @Override
 			    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 			        label = parentView.getItemAtPosition(position).toString();

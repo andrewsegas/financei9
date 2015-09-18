@@ -35,6 +35,12 @@
         <item>Configurações</item>
         <item>Sair</item>
     </string-array>
+    
+     <string-array name="tipos">
+        <item>Receitas</item>
+        <item>Despesas</item>
+    </string-array>
+    
     <string name="drawer_open">Menu Finanças</string>
     <string name="drawer_close">Fechar Menu</string>
     
