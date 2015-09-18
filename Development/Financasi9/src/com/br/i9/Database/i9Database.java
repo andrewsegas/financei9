@@ -39,18 +39,21 @@ public class i9Database extends SQLiteOpenHelper {
 		bd.execSQL("CREATE TABLE IF NOT EXISTS MOVIMENTOS (_IDMov INTEGER Primary key AUTOINCREMENT,"
 				+ "VALOR VARCHAR2(8) NOT NULL,"
 				+ "TELEFONE VARCHAR2(15) NOT NULL,"
+				+ "MOV_IDCAT INTEGER NOT NULL,"
 				+ "CATEGORIA VARCHAR2(15) NOT NULL,"
 				+ "nmBANCO VARCHAR2(20) NOT NULL,"
 				+ "nmESTABELECIMENTO VARCHAR2(20) ,"
 				+ "dtMOVIMENTO VARCHAR2(20) NOT NULL,"
 				+ "nrCARTAO VARCHAR2(4) ,"
 				+ "cSMSALL VARCHAR2(160) NOT NULL,"
-				+ "cRecDesp VARCHAR2(1)"
+				+ "cRecDesp VARCHAR2(1),"
+				+ "MOV_USUID INTEGER,"
+				+ "MOV_USULOGIN CHAR(20)"
 				+ ");");
 		
 		bd.execSQL("CREATE TABLE IF NOT EXISTS CATEGORIAS (_IDCAT INTEGER Primary key AUTOINCREMENT,"
 				+ "CAT_NOME VARCHAR2(20) NOT NULL,"		//Nome da categoria
-				+ "CAT_GRUPO CHAR(1) NOT NULL,"	//Grupo de categoria pertencente
+				+ "CAT_GRUPO VARCHAR2(20) NOT NULL,"	//Grupo de categoria pertencente
 				+ "CAT_USUID INTEGER ,"					//id do usuario
 				+ "CAT_USULOGIN CHAR(20) ,"				//usuario da categoria
 				+ "CAT_SISTEMA VARCHAR2(1)" 			//categoria cadastrada automaticamente pelo sistema
@@ -66,10 +69,16 @@ public class i9Database extends SQLiteOpenHelper {
 		
 		bd.execSQL("CREATE TABLE IF NOT EXISTS CONFIG("
 				+ "CFG_NOTIFI CHAR(1) NOT NULL, "
+				+ "CFG_VARRESMS CHAR(1), "
 				+ "CFG_USUID INTEGER NOT NULL, "
 				+ "CFG_USULOGIN CHAR(20)"
 				+ ");");
 		
+		bd.execSQL("CREATE TABLE IF NOT EXISTS GRUPOCATEGORIA(idGrupo INTEGER Primary key "
+						+ "AUTOINCREMENT, nmGrupo VARCHAR2(40) NOT NULL);");
+		
+		
+		PreencherGrupoDeCategorias(bd);
 		PreencherCategoriasSistema(bd);
 		
 		}
@@ -86,6 +95,16 @@ public class i9Database extends SQLiteOpenHelper {
 		}
 	}
 	
+	private void PreencherGrupoDeCategorias(SQLiteDatabase bd)
+	{
+		ContentValues valores = new ContentValues();
+		valores.put("nmGrupo",  "Receitas");
+		bd.insert("GRUPOCATEGORIA", null, valores);
+		
+		ContentValues valor = new ContentValues();
+		valor.put("nmGrupo",  "Despesas");
+		bd.insert("GRUPOCATEGORIA", null, valor);
+	}
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase bd, int arg1, int arg2) {
@@ -95,16 +114,16 @@ public class i9Database extends SQLiteOpenHelper {
 	private void PreencherCategoriasSistema(SQLiteDatabase bd){
 		int nUsuId = 0 ;
 		String sUsuLogin = "SISTEMA";
-		String[][] aCategorias = {	{"Outras Receitas", "1"}, //Nome da categoria , 1-1 2-2
-									{"Outras Despesas", "2"},
-									{"Contas", "2"},
-									{"Educação", "2"},
-									{"Transporte", "2"},
-									{"Mercado", "2"},
-									{"Lazer", "2"},
-									{"Alimentação", "2"},
-									{"Salario", "1"},
-									{"Desnecessarios", "2"},
+		String[][] aCategorias = {	{"Outras Receitas", "Receitas"}, //Nome da categoria , 1-1 2-2
+									{"Outras Despesas", "Despesas"},
+									{"Contas", "Despesas"},
+									{"Educação", "Despesas"},
+									{"Transporte", "Despesas"},
+									{"Mercado", "Despesas"},
+									{"Lazer", "Despesas"},
+									{"Alimentação", "Despesas"},
+									{"Salario", "Receitas"},
+									{"Desnecessarios", "Despesas"},
 		}; 
 		
 		for (int i = 0; i < aCategorias.length; i++) {

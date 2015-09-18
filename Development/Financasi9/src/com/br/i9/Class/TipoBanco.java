@@ -11,6 +11,7 @@ public class TipoBanco implements Serializable  {
 	private String DataCompra;
 	private String nmEstabelecimento;
 	private String nrBanco;
+	private int nIdCategoria;
 	private String Categoria;
 	private String nrCartao;
 	private String cRecDesp; //receitas = 1 ou despesas = 2
@@ -28,6 +29,7 @@ public class TipoBanco implements Serializable  {
 	public void setnIniMoney(int _nIniMoney) {nIniMoney =_nIniMoney;}
 	public void setnFimMoney(int _nFimMoney) {nFimMoney =_nFimMoney;}
 	public void setnrBanco(String _nrBanco) {nrBanco = _nrBanco;}
+	public void setIdCategoria(int _nIdCategoria) {nIdCategoria = _nIdCategoria;}
 	public void setCategoria(String _categoria) {Categoria = _categoria;}
 	public void setCartao(String _nrCartao) {nrCartao = _nrCartao;}
 	public void setRecDesp(String _cRecDesp) {cRecDesp = _cRecDesp;} //receitas 1 e despesas 2
@@ -38,6 +40,7 @@ public class TipoBanco implements Serializable  {
 	public String getnmEstabelecimento() {return nmEstabelecimento;}
 	public String getDataCompra() {return DataCompra;}
 	public String getnrBanco() {return nrBanco;}
+	public int getIdCategoria() {return nIdCategoria;}
 	public String getCategoria() {return Categoria;}
 	public String getCartao() {return nrCartao;}
 	public String getRecDesp() {return cRecDesp;}//receitas 1 e despesas 2

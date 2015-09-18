@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsMessage;
-import android.widget.Toast;
 
 public class RecebeSms extends BroadcastReceiver {
 	Builder Popup;
@@ -40,6 +39,7 @@ public class RecebeSms extends BroadcastReceiver {
         TipoBanco MensagemBanco = new TipoBanco();
         db = new CrudDatabase(context);
         Boolean SMSBancario;
+        String sMsg ;
 
         if (bundle != null)
         {
@@ -52,17 +52,16 @@ public class RecebeSms extends BroadcastReceiver {
             }
 
             try {
-            		SMSBancario = TratamentoMensagens.ValidarTipoMensagem(msgs);
+            	   	sMsg = msgs[0].getDisplayMessageBody().toString();
+            	   	
+            		SMSBancario = TratamentoMensagens.ValidarTipoMensagem(sMsg);
             		
             		if(SMSBancario == true)
             		{
-	            		MensagemBanco = TratamentoMensagens.LerTipoMensagem(msgs, db);
+	            		MensagemBanco = TratamentoMensagens.LerTipoMensagem(sMsg, db, false);
 	            		MensagemBanco.setnrBanco(msgs[0].getDisplayOriginatingAddress());
-	            		MensagemBanco.setCategoria("S/C");
 	            		
 	            		db.RegistrarMovimentos(MensagemBanco);
-	            		//Remover esse toast após validação total do rcebimento da mensagem
-	                	Toast.makeText(context, "Gasto em " + MensagemBanco.getnmEstabelecimento() + " Registrado com sucesso", Toast.LENGTH_LONG).show();
 	                	
 	                	//consultar se ta configurado pra receber notificação
 	                    showNotification(context, MensagemBanco.getcMoney(), MensagemBanco.getnmEstabelecimento(), MensagemBanco.getRecDesp());
@@ -91,7 +90,7 @@ public class RecebeSms extends BroadcastReceiver {
 	            new Intent(context,  com.br.i9.Class.Transacoes.class), 0);
 		
 	    		String sTitle = "Finançasi9";
-	    		String sText = db.ultimoUsuarioLogado(true).toUpperCase() + ", ";
+	    		String sText = db.ultimoUsuarioLogado(true,1).toUpperCase() + ", ";
 	    		if (sRecDesp == "1"){
 	    			sText = sText + "Você recebeu R$ " + sMoney; 
 	    		}else{

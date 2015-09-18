@@ -56,6 +56,7 @@ public class CrudDatabase {
 	{
 		ContentValues valores = new ContentValues();
 		valores.put("CFG_NOTIFI",  "1");
+		valores.put("CFG_VARRESMS",  "0");
 		valores.put("CFG_USUID",  TheFirstPage.UsuID);
 		valores.put("CFG_USULOGIN",  TheFirstPage.UsuName);
 		bd.insert("CONFIG", null, valores);
@@ -109,6 +110,7 @@ public class CrudDatabase {
 			Usu.setUltimAcesso(cursor.getString(5));
 		}
 		
+		cursor.close();
 		return(Usu);
 	}
 	
@@ -116,6 +118,7 @@ public class CrudDatabase {
 	{
 		String[] colunas = new String[]{"CFG_NOTIFI"};
 		Cursor cursor = null;
+		String sReturn ;
 
 		cursor = bd.query("CONFIG", colunas, null, null, null, null, null);
 
@@ -123,7 +126,10 @@ public class CrudDatabase {
 			cursor.moveToFirst();
 		}
 	
-		return cursor.getString(0);
+		sReturn = cursor.getString(0);
+
+		cursor.close();
+		return sReturn;
 	}
 	
 	public List<String> lerGruposDeCategorias()
@@ -142,6 +148,7 @@ public class CrudDatabase {
 			}while(cursor.moveToNext());
 		}
 		
+		cursor.close();
 		return(grupos);
 	}
 	
@@ -168,10 +175,13 @@ public class CrudDatabase {
 				Usu.setEmail(cursor.getString(3));
 				Usu.setSenha(cursor.getString(4));
 		}
+		
+		cursor.close();
 		return(Usu);
 	}
 	
-	public String ultimoUsuarioLogado(Boolean ValidarUsuarioLogado){
+	// o Parametro tipoGer = 1 retorna o usuario, = 0 retorna o ID
+	public String ultimoUsuarioLogado(Boolean ValidarUsuarioLogado, int tipoGet){
 		Login Usu = new Login();
 		String[] colunas = new String[]{"_USUid", "USULogin"};
 		Cursor cursor = null;
@@ -192,7 +202,13 @@ public class CrudDatabase {
 			Usu.setLogin(cursor.getString(1));
 		}
 		
-		return Usu.getLogin();
+		if (tipoGet == 0){
+			cursor.close();
+			return String.valueOf(Usu.getId());
+		}else{
+			cursor.close();
+			return Usu.getLogin();
+		}
 	}
 	
 	public Login usuarioLogado(){
@@ -212,6 +228,7 @@ public class CrudDatabase {
 			Usu.setSenha(cursor.getString(5));
 		}
 		
+			cursor.close();
 		return Usu;
 	}
 	
@@ -223,9 +240,23 @@ public class CrudDatabase {
 	public void RegistrarMovimentos(TipoBanco SMSRecebido)
 	{
 		ContentValues valores = new ContentValues();
+		int nUsuId;
+		String sUsuName;
 		
-		valores.put("VALOR", SMSRecebido.getcMoney());
+		valores.put("VALOR", SMSRecebido.getcMoney().replace(".", ""));
 		valores.put("TELEFONE", SMSRecebido.getnrBanco());
+		
+		if(SMSRecebido.getCategoria() == null){
+			if(SMSRecebido.getRecDesp() == "2"){
+				SMSRecebido.setCategoria("Outras Despesas");
+				SMSRecebido.setIdCategoria(2);
+			}else{
+				SMSRecebido.setCategoria("Outras Receitas");
+				SMSRecebido.setIdCategoria(1);
+			}
+		}
+		
+		valores.put("MOV_IDCAT", SMSRecebido.getIdCategoria());
 		valores.put("CATEGORIA", SMSRecebido.getCategoria());
 		valores.put("nmBANCO", SMSRecebido.getnmBanco());
 		valores.put("nmESTABELECIMENTO", SMSRecebido.getnmEstabelecimento());
@@ -233,6 +264,17 @@ public class CrudDatabase {
 		valores.put("nrCARTAO", SMSRecebido.getCartao());
 		valores.put("cSMSALL", SMSRecebido.getmsg());
 		valores.put("cRecDesp", SMSRecebido.getRecDesp());
+		
+		if(TheFirstPage.UsuName == null){
+			nUsuId = Integer.parseInt(ultimoUsuarioLogado(true, 0));
+			sUsuName = ultimoUsuarioLogado(true, 1);
+		}else{
+			nUsuId = TheFirstPage.UsuID;
+			sUsuName = TheFirstPage.UsuName;
+		}
+			
+			valores.put("MOV_USUID", nUsuId);
+			valores.put("MOV_USULOGIN", sUsuName);
 		
 		bd.insert("MOVIMENTOS", null, valores);
 	}
@@ -269,6 +311,7 @@ public class CrudDatabase {
 				GastosMov.add(mov);
 			}while(cursor.moveToNext());
 		}
+		cursor.close();
 	return(GastosMov);
 	}
 	
@@ -281,13 +324,19 @@ public class CrudDatabase {
 		String[] colunas = new String[]{"(SUM(VALOR))", "cRecDesp"};
 		Cursor cursor = null;
 		String cWhere = "cRecDesp ='" + cRecDesp + "'";
+		String sReturn;
+		
 		cursor = bd.query("MOVIMENTOS", colunas, cWhere ,  null, "cRecDesp" , null, "_IDMov DESC");
 		
 		if(cursor.getCount() > 0){
 			cursor.moveToFirst();
-			return cursor.getString(0);
+			sReturn = cursor.getString(0);
+			cursor.close();
+			return sReturn;
+
 		}
 		else{
+			cursor.close();
 			return "0";
 		}
 		
@@ -311,6 +360,8 @@ public class CrudDatabase {
 				categorias.add(cursor.getString(1));
 			}while(cursor.moveToNext());
 		}
+		
+		cursor.close();
 		return(categorias);
 	}
 	
@@ -336,8 +387,30 @@ public class CrudDatabase {
 				Categorias.add(cat);
 			}while(cursor.moveToNext());
 		}
+		
+		cursor.close();
 		return(Categorias);
 	}
+	
+	//VERIFICA SE OS SMS JA FORAM VARRIDOS
+	public boolean VarrerTodosSMS(){
+		String[] colunas = new String[]{ "CFG_VARRESMS", "CFG_USUID" };
+		ContentValues valores = new ContentValues();
+		
+		Cursor cursor = bd.query("CONFIG", colunas , "CFG_USUID = " + TheFirstPage.UsuID + " AND CFG_VARRESMS = '1' ", null, null, null, null);
+		
+		if(cursor.getCount() > 0){
+			cursor.close();
+			return false;
+		}
+		
+		
+		valores.put("CFG_VARRESMS",  0);
+		bd.update("CONFIG", valores, "CFG_USUID = " + TheFirstPage.UsuID, null);
+		cursor.close();
+		return true;
+	}
+	
 	
 	public void ApagarMovimento(Long idMov)
 	{		
