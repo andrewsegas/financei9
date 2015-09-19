@@ -76,7 +76,7 @@ public class Geral extends Fragment {
         String[] xData = { "Despesas", "Receitas"};
         int[] cores = { Color.rgb(255,99,71), Color.rgb(50,205,50) };
         
-        if(!sRec.contains("0") && !sDesp.contains("0"))
+        if(!sRec.contains("0") || !sDesp.contains("0"))
         	GerarGrafico.GerarGraficoPie(mChart, yData, xData, cores); 	
 	}
 }
