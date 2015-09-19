@@ -7,11 +7,12 @@
     android:padding="15dp" >
 
     <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="14dp"
         android:layout_height="fill_parent"
         android:layout_marginRight="3dp"
         android:layout_gravity="left|top"
-        android:src="@drawable/date" />
+        android:src="@drawable/ic_drawer" />
             
          <TextView
              android:id="@+id/txtCategoria"

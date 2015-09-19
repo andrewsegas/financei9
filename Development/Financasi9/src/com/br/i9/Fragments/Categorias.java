@@ -43,6 +43,8 @@ public class Categorias extends Fragment {
 	String label;
 	List<com.br.i9.Class.Categorias> listReceitas;
 	List<com.br.i9.Class.Categorias> listDespesas;
+	public static int [] imgArrayReceitas = {R.drawable.date,R.drawable.date,R.drawable.date};
+	public static int [] imgArrayDespesas = {R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date};
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -56,8 +58,8 @@ public class Categorias extends Fragment {
 		 bd = new CrudDatabase(getActivity());
 		 Popup = PopUp.Popup(viewLista.getContext());
 		 
-		 GerarCategorias(viewLista, listViewRenda, bd, "1");
-		 GerarCategorias(viewLista, listViewDespesas, bd, "2");
+		 GerarCategorias(viewLista, listViewRenda, bd, "1", imgArrayReceitas);
+		 GerarCategorias(viewLista, listViewDespesas, bd, "2", imgArrayDespesas);
 		 
 		registerForContextMenu(listViewRenda);  
 		registerForContextMenu(listViewDespesas);
@@ -105,22 +107,22 @@ public class Categorias extends Fragment {
             	
             	if(categoriaSistema != 1)
             	{
-        		 Popup = PopUp.Popup(viewLista.getContext());
-           		 Popup.setCancelable(false);
-           		 Popup.setTitle("Finançasi9").setView(poupSinner).setMessage("Há transações vinculadas a esta categoria. Por favor, "
-           		 		+ "escolha a nova categoria das transações.")
-           		 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
-           	         public void onClick(DialogInterface dialog, int which) { 
-           	        	 ((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
-           	         }
-           	      })
-           	     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-           	         public void onClick(DialogInterface dialog, int which) { 
-           	        	((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
-           	        	 dialog.dismiss();
-           	         }
-           	      })
-           	      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+	        		 Popup = PopUp.Popup(viewLista.getContext());
+	           		 Popup.setCancelable(false);
+	           		 Popup.setTitle("Finançasi9").setView(poupSinner).setMessage("Há transações vinculadas a esta categoria. Por favor, "
+	           		 		+ "escolha a nova categoria das transações.")
+	           		 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
+	           	         public void onClick(DialogInterface dialog, int which) { 
+	           	        	 ((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
+	           	         }
+	           	      })
+	           	     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+	           	         public void onClick(DialogInterface dialog, int which) { 
+	           	        	((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
+	           	        	 dialog.dismiss();
+	           	         }
+	           	      })
+	           	      .setIcon(android.R.drawable.ic_dialog_info).show().create();
 	  			  }
             	else
             	{
@@ -163,7 +165,7 @@ public class Categorias extends Fragment {
 		    });
 	}
 		
-	public void GerarCategorias(View viewLista, ListView listViewRenda, CrudDatabase bd, String sWhere)
+	public void GerarCategorias(View viewLista, ListView listViewRenda, CrudDatabase bd, String sWhere, int[] Arrayimgs)
 	{		
 		ArrayList<com.br.i9.Class.Categorias> Categoria = new ArrayList<com.br.i9.Class.Categorias>();
 		List<com.br.i9.Class.Categorias> listCat = bd.TodasCategorias("CAT_GRUPO = " + sWhere);
@@ -177,7 +179,7 @@ public class Categorias extends Fragment {
 					));
 		}
 		
-		CategoriasAdapter adapter = new CategoriasAdapter(getActivity(), Categoria);
+		CategoriasAdapter adapter = new CategoriasAdapter(getActivity(), Categoria, Arrayimgs);
 		listViewRenda.setAdapter(adapter);
 		
 		ajustaListView(listViewRenda);

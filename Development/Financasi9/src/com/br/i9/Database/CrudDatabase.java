@@ -122,6 +122,8 @@ public class CrudDatabase {
 			Usu.setUltimAcesso(cursor.getString(5));
 		}
 		
+		cursor.close();
+		
 		return(Usu);
 	}
 	
@@ -135,7 +137,7 @@ public class CrudDatabase {
 		if(cursor.getCount() > 0){	
 			cursor.moveToFirst();
 		}
-	
+		cursor.close();
 		return cursor.getString(0);
 	}
 	
@@ -162,6 +164,8 @@ public class CrudDatabase {
 				Usu.setEmail(cursor.getString(3));
 				Usu.setSenha(cursor.getString(4));
 		}
+		cursor.close();
+		
 		return(Usu);
 	}
 	
@@ -186,6 +190,8 @@ public class CrudDatabase {
 			Usu.setLogin(cursor.getString(1));
 		}
 		
+		cursor.close();
+		
 		return Usu.getLogin();
 	}
 	
@@ -206,6 +212,8 @@ public class CrudDatabase {
 			Usu.setSenha(cursor.getString(5));
 		}
 		
+		cursor.close();
+			
 		return Usu;
 	}
 	
@@ -263,6 +271,9 @@ public class CrudDatabase {
 				GastosMov.add(mov);
 			}while(cursor.moveToNext());
 		}
+		
+		cursor.close();
+		
 	return(GastosMov);
 	}
 	
@@ -279,7 +290,9 @@ public class CrudDatabase {
 		
 		if(cursor.getCount() > 0){
 			cursor.moveToFirst();
-			return cursor.getString(0);
+			String valor = cursor.getString(0);
+			cursor.close();
+			return valor;
 		}
 		else{
 			return "0";
@@ -305,6 +318,9 @@ public class CrudDatabase {
 				categorias.add(cursor.getString(1));
 			}while(cursor.moveToNext());
 		}
+		
+		cursor.close();
+			
 		return(categorias);
 	}
 	
@@ -330,6 +346,9 @@ public class CrudDatabase {
 				Categorias.add(cat);
 			}while(cursor.moveToNext());
 		}
+		
+		cursor.close();
+		
 		return(Categorias);
 	}
 	

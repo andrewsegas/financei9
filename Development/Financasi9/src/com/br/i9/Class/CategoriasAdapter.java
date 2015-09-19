@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -16,11 +17,13 @@ public class CategoriasAdapter extends BaseAdapter {
 	Context context;
 	protected List<Categorias> listCategorias;
 	LayoutInflater inflater;
+	int[] imageId;
 
-	public CategoriasAdapter(Context context, List<Categorias> listCategorias) {
+	public CategoriasAdapter(Context context, List<Categorias> listCategorias, int[] Arrayimage) {
 		this.listCategorias = listCategorias;
 		this.inflater = LayoutInflater.from(context);
 		this.context = context;
+		this.imageId = Arrayimage;
 	}
 
 	public int getCount() {
@@ -43,6 +46,7 @@ public class CategoriasAdapter extends BaseAdapter {
 			convertView = this.inflater.inflate(R.layout.layout_adapter_categorias, parent, false);
 
 			holder.nomeCategoria = (TextView) convertView.findViewById(R.id.txtCategoria);
+			holder.img =(ImageView) convertView.findViewById(R.id.imageView1);   
 
 			convertView.setTag(holder);
 		} 
@@ -54,13 +58,14 @@ public class CategoriasAdapter extends BaseAdapter {
 		Categorias categoria = listCategorias.get(position);
 		holder.nomeCategoria.setText(categoria.getnmCategoria());
 		holder.nomeCategoria.setId(Integer.parseInt(categoria.getgrCategoria()));
-
+		holder.img.setImageResource(imageId[position]);
 
 		return convertView;
 	}
 
 	private class ViewHolder {
 		TextView nomeCategoria;
+		ImageView img;
 	}
 
 }

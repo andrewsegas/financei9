@@ -38,6 +38,7 @@ public class Transacoes extends Fragment {
 	Builder Popup;
 	View viewLista = null, poupSinner = null, poupSinnerDividirValor = null;
 	Button btnAplicarCategoria;
+	int idMovAlterarCategoria = 0;
 	ListView listViewTran;
 	CrudDatabase bd = null;
 	AjusteListView ajusteListView;
@@ -102,6 +103,7 @@ public class Transacoes extends Fragment {
     	else
     		 if(item.getTitle().toString().contains("Alterar categoria"))
     		 {
+    			 idMovAlterarCategoria = Integer.parseInt(arrayReceitas.get(info.position).getIdMov().toString());
     			 Alterarcategoria();
     		 }
 		 else
@@ -245,8 +247,10 @@ public class Transacoes extends Fragment {
 	     spinnerTipoCategoria.setOnItemSelectedListener(new OnItemSelectedListener() {
 			    @Override
 			    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-			        String label = parentView.getItemAtPosition(position).toString();
-			        popularSpinnerCategoria(label);
+			        if(parentView.getItemAtPosition(position).toString().contains("Receitas"))
+			        	popularSpinnerCategoria("1");
+			        else
+			        	popularSpinnerCategoria("2");
 			    }
 			    @Override
 			    public void onNothingSelected(AdapterView<?> parentView) {
@@ -256,7 +260,7 @@ public class Transacoes extends Fragment {
 	
 	private void popularSpinnerCategoria(String tipoCategoria)
 	{
-		 List<String> lables = bd.lerCategorias(tipoCategoria);
+		 List<String> lables = bd.lerCategorias("CAT_GRUPO = '"+tipoCategoria+"'");
 		
 		 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, lables);
 	     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -267,22 +271,6 @@ public class Transacoes extends Fragment {
 			    @Override
 			    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 			        String label = parentView.getItemAtPosition(position).toString();
-			        
-			        Popup = PopUp.Popup(viewLista.getContext());
-					  Popup.setTitle("Finançasi9")
-					    .setCancelable(true)
-					     .setMessage("Deseja alterar a categoria para " + label + "?")
-					     .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-					         public void onClick(DialogInterface dialog, int which) { 
-
-					         }
-					      })
-					     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-					         public void onClick(DialogInterface dialog, int which) { 
-					             dialog.cancel();
-					         }
-					      }).setIcon(android.R.drawable.ic_dialog_alert).show();
-					  
 			    }
 			    @Override
 			    public void onNothingSelected(AdapterView<?> parentView) {
