@@ -22,3 +22,7 @@ em 05/19/15 as 12:48 RAGAZZO
 
 {BANCOAPP}Santander Informa: Transacao Cartao Mastercard final 6369 de R$ 9,80 aprovada 
 em 18/19/15 as 20:48 Japones
+
+--------------- PADRÃO DE DEPOSITOS SANTANDER -------------------
+
+{BANCOAPP}Santander Informa: DOC/TED a credito efetuado em 01/09/15 as 12:48 no valor de R$ 500,00

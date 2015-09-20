@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Html;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -144,7 +145,10 @@ public class Categorias extends Fragment {
 		           		 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
 		           	         public void onClick(DialogInterface dialog, int which) {
 		           	        	 bd.AtualizarCategoriaTransacao(nmCategoriaNew, nmcategoriaOld);
-		           	        	Toast.makeText(getActivity().getApplicationContext(), "Transações atualizadas e categoria excluída com sucesso",
+		           	        	 bd.ApagarCategoria(idOldCategoria);
+		           	        	Toast.makeText(getActivity().getApplicationContext(), Html.fromHtml("<font size='1' align='center'> Transações atualizadas e categoria excluída com sucesso"
+		    		   					+"</font>"
+		    		   					),
 			                            Toast.LENGTH_SHORT).show();
 		           	        	 ((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
 		           	         }

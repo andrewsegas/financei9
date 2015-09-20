@@ -40,6 +40,7 @@ public class Transacoes extends Fragment {
 	Button btnAplicarCategoria;
 	int idMovAlterarCategoria = 0;
 	ListView listViewTran;
+	String nmNovaCategoria;
 	CrudDatabase bd = null;
 	AjusteListView ajusteListView;
 	Spinner spinnerTipoCategoria, spinnerCategoria, spinnerMeses;
@@ -192,6 +193,9 @@ public class Transacoes extends Fragment {
 		 Popup.setTitle("Finançasi9").setView(poupSinner)
 		 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
 	         public void onClick(DialogInterface dialog, int which) { 
+	        	 bd.AtualizarCategoriaMovimentos(nmNovaCategoria, idMovAlterarCategoria);
+	        	 Toast.makeText(getActivity().getApplicationContext(), "Categoria atualizada com sucesso",
+                         Toast.LENGTH_SHORT).show();
 	        	 ((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
 	         }
 	      })
@@ -270,7 +274,7 @@ public class Transacoes extends Fragment {
 	     spinnerCategoria.setOnItemSelectedListener(new OnItemSelectedListener() {
 			    @Override
 			    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-			        String label = parentView.getItemAtPosition(position).toString();
+			        nmNovaCategoria = parentView.getItemAtPosition(position).toString();
 			    }
 			    @Override
 			    public void onNothingSelected(AdapterView<?> parentView) {

@@ -91,7 +91,15 @@ public class CrudDatabase {
 		ContentValues valores = new ContentValues();
 		valores.put("CATEGORIA",  newCat);
 		
-		bd.delete("MOVIMENTOS", "CATEGORIA = '"+ oldCat + "'", null);
+		bd.update("MOVIMENTOS", valores, "CATEGORIA = '"+ oldCat + "'", null);
+	}
+	
+	public void AtualizarCategoriaMovimentos(String nmNovaCategoria, int idMov)
+	{
+		ContentValues valores = new ContentValues();
+		valores.put("CATEGORIA",  nmNovaCategoria);
+		
+		bd.update("MOVIMENTOS", valores, "_IDMov = '"+ idMov + "'", null);		
 	}
 	
 	public void ApagarUsuario(Login usuario)
