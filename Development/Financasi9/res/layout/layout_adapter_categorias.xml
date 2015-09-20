@@ -12,7 +12,7 @@
         android:layout_height="fill_parent"
         android:layout_marginRight="3dp"
         android:layout_gravity="left|top"
-        android:src="@drawable/ic_drawer" />
+        android:src="@drawable/categoriausuario" />
             
          <TextView
              android:id="@+id/txtCategoria"

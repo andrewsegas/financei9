@@ -17,9 +17,9 @@ public class CategoriasAdapter extends BaseAdapter {
 	Context context;
 	protected List<Categorias> listCategorias;
 	LayoutInflater inflater;
-	int[] imageId;
+	List<Integer> imageId;
 
-	public CategoriasAdapter(Context context, List<Categorias> listCategorias, int[] Arrayimage) {
+	public CategoriasAdapter(Context context, List<Categorias> listCategorias, List<Integer> Arrayimage) {
 		this.listCategorias = listCategorias;
 		this.inflater = LayoutInflater.from(context);
 		this.context = context;
@@ -58,7 +58,7 @@ public class CategoriasAdapter extends BaseAdapter {
 		Categorias categoria = listCategorias.get(position);
 		holder.nomeCategoria.setText(categoria.getnmCategoria());
 		holder.nomeCategoria.setId(Integer.parseInt(categoria.getgrCategoria()));
-		holder.img.setImageResource(imageId[position]);
+		holder.img.setImageResource(imageId.get(position));
 
 		return convertView;
 	}

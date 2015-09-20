@@ -7,6 +7,7 @@ import com.br.i9.R;
 import com.br.i9.ActivityPrincipais.TheFirstPage;
 import com.br.i9.Class.AjusteListView;
 import com.br.i9.Class.CategoriasAdapter;
+import com.br.i9.Class.MovimentosGastos;
 import com.br.i9.Class.PopUp;
 import com.br.i9.Database.CrudDatabase;
 
@@ -29,6 +30,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 	
@@ -40,15 +42,11 @@ public class Categorias extends Fragment {
 	Spinner spinnerCategoria;
 	CrudDatabase bd;
 	ListView listViewRenda, listViewDespesas;
-	String label;
+	String label, nmcategoriaOld, nmCategoriaNew;
 	List<com.br.i9.Class.Categorias> listReceitas;
 	List<com.br.i9.Class.Categorias> listDespesas;
-	public static int [] imgArrayReceitas = {
-												R.drawable.depositos-32,
-												R.drawable.OutraReceita-32,
-												R.drawable.date
-											};
-	public static int [] imgArrayDespesas = {R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date};
+	List<Integer> imgListArrayReceitas = new ArrayList<Integer>();
+	List<Integer> imgListArrayDespesas = new ArrayList<Integer>();
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -62,8 +60,30 @@ public class Categorias extends Fragment {
 		 bd = new CrudDatabase(getActivity());
 		 Popup = PopUp.Popup(viewLista.getContext());
 		 
-		 GerarCategorias(viewLista, listViewRenda, bd, "1", imgArrayReceitas);
-		 GerarCategorias(viewLista, listViewDespesas, bd, "2", imgArrayDespesas);
+		 List<String> lablesReceitasNaoSistema = bd.lerCategorias("CAT_GRUPO ='1' AND CAT_SISTEMA = '0'");
+		 
+		 if(lablesReceitasNaoSistema.size() != 0)
+		 {
+			 for(int i = 0; i < lablesReceitasNaoSistema.size(); i++)
+			 {
+				 imgListArrayReceitas.add(R.drawable.categoriausuario);
+			 }
+		 }
+		 
+		 List<String> lablesDespesaNaoSistema = bd.lerCategorias("CAT_GRUPO ='2' AND CAT_SISTEMA = '0'");
+		 
+		 if(lablesDespesaNaoSistema.size() != 0)
+		 {
+			 for(int i = 0; i < lablesDespesaNaoSistema.size(); i++)
+			 {
+				 imgListArrayDespesas.add(R.drawable.categoriausuario);
+			 }
+		 }
+		 
+		 popularListasArrayIcons();
+		
+		 GerarCategorias(viewLista, listViewRenda, bd, "1", imgListArrayReceitas);
+		 GerarCategorias(viewLista, listViewDespesas, bd, "2", imgListArrayDespesas);
 		 
 		registerForContextMenu(listViewRenda);  
 		registerForContextMenu(listViewDespesas);
@@ -78,6 +98,7 @@ public class Categorias extends Fragment {
 					int position, long id) {
 				categoriaSistema = Integer.parseInt(listReceitas.get(position).getcatSistema());
 				idOldCategoria = listReceitas.get(position).getnId();
+				nmcategoriaOld = listReceitas.get(position).getnmCategoria();
 				return false;
 			}
 		});
@@ -89,6 +110,7 @@ public class Categorias extends Fragment {
 					int position, long id) {
 				categoriaSistema = Integer.parseInt(listDespesas.get(position).getcatSistema());
 				idOldCategoria = listDespesas.get(position).getnId();
+				nmcategoriaOld = listDespesas.get(position).getnmCategoria();
 				return false;
 			}
 		});
@@ -111,22 +133,50 @@ public class Categorias extends Fragment {
             	
             	if(categoriaSistema != 1)
             	{
-	        		 Popup = PopUp.Popup(viewLista.getContext());
-	           		 Popup.setCancelable(false);
-	           		 Popup.setTitle("Finançasi9").setView(poupSinner).setMessage("Há transações vinculadas a esta categoria. Por favor, "
-	           		 		+ "escolha a nova categoria das transações.")
-	           		 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
-	           	         public void onClick(DialogInterface dialog, int which) { 
-	           	        	 ((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
-	           	         }
-	           	      })
-	           	     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-	           	         public void onClick(DialogInterface dialog, int which) { 
-	           	        	((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
-	           	        	 dialog.dismiss();
-	           	         }
-	           	      })
-	           	      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+            		List<MovimentosGastos> aMovimentos = bd.SelecionarTodosMovimentos("CATEGORIA = '"+ nmcategoriaOld +"'", "_IDMov DESC");
+            		
+            		if(aMovimentos.size() != 0)
+            		{
+		        		 Popup = PopUp.Popup(viewLista.getContext());
+		           		 Popup.setCancelable(false);
+		           		 Popup.setTitle("Finançasi9").setView(poupSinner).setMessage("Há transações vinculadas a esta categoria. Por favor, "
+		           		 		+ "escolha a nova categoria das transações.")
+		           		 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
+		           	         public void onClick(DialogInterface dialog, int which) {
+		           	        	 bd.AtualizarCategoriaTransacao(nmCategoriaNew, nmcategoriaOld);
+		           	        	Toast.makeText(getActivity().getApplicationContext(), "Transações atualizadas e categoria excluída com sucesso",
+			                            Toast.LENGTH_SHORT).show();
+		           	        	 ((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
+		           	         }
+		           	      })
+		           	     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+		           	         public void onClick(DialogInterface dialog, int which) { 
+		           	        	((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
+		           	        	 dialog.dismiss();
+		           	         }
+		           	      })
+		           	      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+            		}
+            		else
+            		{
+            			 Popup = PopUp.Popup(viewLista.getContext());
+		           		 Popup.setCancelable(false);
+		           		 Popup.setTitle("Finançasi9")
+		           		 .setMessage("Deseja excluir esta categoria?")
+		           		 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+		           	         public void onClick(DialogInterface dialog, int which) { 
+		           	        	bd.ApagarCategoria(idOldCategoria);
+		           	        	Toast.makeText(getActivity().getApplicationContext(), "Categoria excluída com sucesso",
+			                            Toast.LENGTH_SHORT).show();
+		           	         }
+		           	      })
+		           	     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+		           	         public void onClick(DialogInterface dialog, int which) { 
+		           	        	 dialog.dismiss();
+		           	         }
+		           	      })
+		           	      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+            		}
 	  			  }
             	else
             	{
@@ -169,7 +219,7 @@ public class Categorias extends Fragment {
 		    });
 	}
 		
-	public void GerarCategorias(View viewLista, ListView listViewRenda, CrudDatabase bd, String sWhere, int[] Arrayimgs)
+	public void GerarCategorias(View viewLista, ListView listViewRenda, CrudDatabase bd, String sWhere, List<Integer> Arrayimgs)
 	{		
 		ArrayList<com.br.i9.Class.Categorias> Categoria = new ArrayList<com.br.i9.Class.Categorias>();
 		List<com.br.i9.Class.Categorias> listCat = bd.TodasCategorias("CAT_GRUPO = " + sWhere);
@@ -228,11 +278,13 @@ public class Categorias extends Fragment {
 			        {
 			        	List<com.br.i9.Class.Categorias> Receitas = bd.TodasCategorias("CAT_GRUPO ='1' AND _IDCAT <> '"+ idOldCategoria +"'");
 			        	idNovaCategoria = Receitas.get(position).getnId();
+			        	nmCategoriaNew = Receitas.get(position).getnmCategoria();
 			        }
 			        else
 			        {
 			        	List<com.br.i9.Class.Categorias> Despesas = bd.TodasCategorias("CAT_GRUPO ='2' AND _IDCAT <> '"+ idOldCategoria +"'");
 			        	idNovaCategoria = Despesas.get(position).getnId();
+			        	nmCategoriaNew = Despesas.get(position).getnmCategoria();
 			        }
 			    }
 			    @Override
@@ -256,5 +308,20 @@ public class Categorias extends Fragment {
 		  ft.replace(R.id.content_frame, cfragment);
 		  
 		  ft.addToBackStack("pilha").commit();
+	}
+	
+	private void popularListasArrayIcons()
+	{
+		 imgListArrayReceitas.add(R.drawable.outrareceita);
+		 imgListArrayReceitas.add(R.drawable.salario);
+		 
+		 imgListArrayDespesas.add(R.drawable.outrasdespesas);
+		 imgListArrayDespesas.add(R.drawable.contas);
+		 imgListArrayDespesas.add(R.drawable.educacao);
+		 imgListArrayDespesas.add(R.drawable.transporte);
+		 imgListArrayDespesas.add(R.drawable.mercado);
+		 imgListArrayDespesas.add(R.drawable.lazer);
+		 imgListArrayDespesas.add(R.drawable.alimentacao);
+		 imgListArrayDespesas.add(R.drawable.desnecessario);
 	}
 }
