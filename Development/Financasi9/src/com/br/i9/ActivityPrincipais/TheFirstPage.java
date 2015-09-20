@@ -24,7 +24,6 @@ import com.br.i9.Fragments.Geral;
 import com.br.i9.Fragments.Grafico;
 import com.br.i9.Fragments.Receitas;
 import com.br.i9.Fragments.Transacoes;
-import com.br.i9.Database.CrudDatabase;
 
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;

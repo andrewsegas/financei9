@@ -30,7 +30,7 @@ public class TCM {
 				objSms.setAddress(c.getString(c
 						.getColumnIndexOrThrow("address")));
 				objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
-				//objSms.setReadState(c.getString(c.getColumnIndex("read")));
+				objSms.setReadState(c.getString(c.getColumnIndex("read")));
 				objSms.setTime(c.getString(c.getColumnIndexOrThrow("date")));
 				if (c.getString(c.getColumnIndexOrThrow("type")).contains("1")) {
 					objSms.setFolderName("inbox");
