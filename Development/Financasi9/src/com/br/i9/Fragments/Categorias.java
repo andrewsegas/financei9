@@ -43,7 +43,11 @@ public class Categorias extends Fragment {
 	String label;
 	List<com.br.i9.Class.Categorias> listReceitas;
 	List<com.br.i9.Class.Categorias> listDespesas;
-	public static int [] imgArrayReceitas = {R.drawable.date,R.drawable.date,R.drawable.date};
+	public static int [] imgArrayReceitas = {
+												R.drawable.date,
+												R.drawable.date,
+												R.drawable.date
+											};
 	public static int [] imgArrayDespesas = {R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date,R.drawable.date};
 	
 	@Override
@@ -236,6 +240,7 @@ public class Categorias extends Fragment {
 			    }
 			});
 	}
+	
 	private void fragments(Fragment cfragment, String title)
 	{
 		Bundle data = new Bundle();
