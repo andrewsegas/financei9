@@ -166,7 +166,11 @@ public class TheFirstPage extends ActionBarActivity {
 		    
 		    bd = new CrudDatabase(getApplicationContext());
 			bd.PreencherTabelaConfig();
-			//tcm.varreSMS(getApplicationContext());
+			
+			if(bd.VarrerTodosSMS()){
+				//tcm.varreSMS(getApplicationContext());	//ESTA EM FASE DE TESTE
+			}
+			
 	  }
 
       @Override

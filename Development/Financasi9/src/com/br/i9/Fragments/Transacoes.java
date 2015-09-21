@@ -62,7 +62,7 @@ public class Transacoes extends Fragment {
 		ajusteSpinner.ajusteSpinnerMes(bd, spinnerMeses);
 		GerarTransacoes(bd, viewLista, listViewTran, spinnerMeses, ajusteListView, bd.getMonth());
 		
-		popularSpinnerTipoCategoria(spinnerTipoCategoria);
+		//popularSpinnerTipoCategoria(spinnerTipoCategoria);
 		
 		registerForContextMenu(listViewTran);
 		
@@ -246,8 +246,20 @@ public class Transacoes extends Fragment {
 		      }).setIcon(android.R.drawable.ic_dialog_alert).show();
 	}
 	
+<<<<<<< HEAD
 	private void popularSpinnerTipoCategoria(Spinner spinnerTipoCategoria)
 	{	     
+=======
+	/*private void popularSpinnerTipoCategoria(Spinner spinnerTipoCategoria)
+	{
+		 List<String> lables = bd.lerGruposDeCategorias();
+		
+		 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, lables);
+	     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	 
+	     spinnerTipoCategoria.setAdapter(dataAdapter);
+	     
+>>>>>>> origin/master
 	     spinnerTipoCategoria.setOnItemSelectedListener(new OnItemSelectedListener() {
 			    @Override
 			    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -260,7 +272,7 @@ public class Transacoes extends Fragment {
 			    public void onNothingSelected(AdapterView<?> parentView) {
 			    }
 			});
-	}
+	}*/
 	
 	private void popularSpinnerCategoria(String tipoCategoria)
 	{

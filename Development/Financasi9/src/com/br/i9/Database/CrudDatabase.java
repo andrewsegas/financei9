@@ -56,6 +56,7 @@ public class CrudDatabase {
 	{
 		ContentValues valores = new ContentValues();
 		valores.put("CFG_NOTIFI",  "1");
+		valores.put("CFG_VARRESMS",  "0");
 		valores.put("CFG_USUID",  TheFirstPage.UsuID);
 		valores.put("CFG_USULOGIN",  TheFirstPage.UsuName);
 		bd.insert("CONFIG", null, valores);
@@ -144,7 +145,10 @@ public class CrudDatabase {
 		}
 		
 		cursor.close();
+<<<<<<< HEAD
 		
+=======
+>>>>>>> origin/master
 		return(Usu);
 	}
 	
@@ -152,16 +156,47 @@ public class CrudDatabase {
 	{
 		String[] colunas = new String[]{"CFG_NOTIFI"};
 		Cursor cursor = null;
+		String sReturn ;
 
 		cursor = bd.query("CONFIG", colunas, null, null, null, null, null);
 
 		if(cursor.getCount() > 0){	
 			cursor.moveToFirst();
 		}
+<<<<<<< HEAD
 		cursor.close();
 		return cursor.getString(0);
 	}
 	
+=======
+	
+		sReturn = cursor.getString(0);
+
+		cursor.close();
+		return sReturn;
+	}
+	
+	public List<String> lerGruposDeCategorias()
+	{
+		String[] colunas = new String[]{"idGrupo", "nmGrupo"};
+		Cursor cursor = null;
+		List<String> grupos = new ArrayList<String>();
+		
+		cursor = bd.query("GRUPOCATEGORIA", colunas, null, null, null, null, null);
+				
+		if(cursor.getCount() > 0){	
+			cursor.moveToFirst();
+			do
+			{
+				grupos.add(cursor.getString(1));
+			}while(cursor.moveToNext());
+		}
+		
+		cursor.close();
+		return(grupos);
+	}
+	
+>>>>>>> origin/master
 	public void UpdateConfiguracaoNotificacao(String valor)
 	{
 		ContentValues valores = new ContentValues();
@@ -185,12 +220,18 @@ public class CrudDatabase {
 				Usu.setEmail(cursor.getString(3));
 				Usu.setSenha(cursor.getString(4));
 		}
+<<<<<<< HEAD
 		cursor.close();
 		
+=======
+		
+		cursor.close();
+>>>>>>> origin/master
 		return(Usu);
 	}
 	
-	public String ultimoUsuarioLogado(Boolean ValidarUsuarioLogado){
+	// o Parametro tipoGer = 1 retorna o usuario, = 0 retorna o ID
+	public String ultimoUsuarioLogado(Boolean ValidarUsuarioLogado, int tipoGet){
 		Login Usu = new Login();
 		String[] colunas = new String[]{"_USUid", "USULogin"};
 		Cursor cursor = null;
@@ -211,9 +252,19 @@ public class CrudDatabase {
 			Usu.setLogin(cursor.getString(1));
 		}
 		
+<<<<<<< HEAD
 		cursor.close();
 		
 		return Usu.getLogin();
+=======
+		if (tipoGet == 0){
+			cursor.close();
+			return String.valueOf(Usu.getId());
+		}else{
+			cursor.close();
+			return Usu.getLogin();
+		}
+>>>>>>> origin/master
 	}
 	
 	public Login usuarioLogado(){
@@ -233,8 +284,12 @@ public class CrudDatabase {
 			Usu.setSenha(cursor.getString(5));
 		}
 		
+<<<<<<< HEAD
 		cursor.close();
 			
+=======
+			cursor.close();
+>>>>>>> origin/master
 		return Usu;
 	}
 	
@@ -246,9 +301,23 @@ public class CrudDatabase {
 	public void RegistrarMovimentos(TipoBanco SMSRecebido)
 	{
 		ContentValues valores = new ContentValues();
+		int nUsuId;
+		String sUsuName;
 		
-		valores.put("VALOR", SMSRecebido.getcMoney());
+		valores.put("VALOR", SMSRecebido.getcMoney().replace(".", ""));
 		valores.put("TELEFONE", SMSRecebido.getnrBanco());
+		
+		if(SMSRecebido.getCategoria() == null){
+			if(SMSRecebido.getRecDesp() == "2"){
+				SMSRecebido.setCategoria("Outras Despesas");
+				SMSRecebido.setIdCategoria(2);
+			}else{
+				SMSRecebido.setCategoria("Outras Receitas");
+				SMSRecebido.setIdCategoria(1);
+			}
+		}
+		
+		valores.put("MOV_IDCAT", SMSRecebido.getIdCategoria());
 		valores.put("CATEGORIA", SMSRecebido.getCategoria());
 		valores.put("nmBANCO", SMSRecebido.getnmBanco());
 		valores.put("nmESTABELECIMENTO", SMSRecebido.getnmEstabelecimento());
@@ -256,6 +325,17 @@ public class CrudDatabase {
 		valores.put("nrCARTAO", SMSRecebido.getCartao());
 		valores.put("cSMSALL", SMSRecebido.getmsg());
 		valores.put("cRecDesp", SMSRecebido.getRecDesp());
+		
+		if(TheFirstPage.UsuName == null){
+			nUsuId = Integer.parseInt(ultimoUsuarioLogado(true, 0));
+			sUsuName = ultimoUsuarioLogado(true, 1);
+		}else{
+			nUsuId = TheFirstPage.UsuID;
+			sUsuName = TheFirstPage.UsuName;
+		}
+			
+			valores.put("MOV_USUID", nUsuId);
+			valores.put("MOV_USULOGIN", sUsuName);
 		
 		bd.insert("MOVIMENTOS", null, valores);
 	}
@@ -292,9 +372,13 @@ public class CrudDatabase {
 				GastosMov.add(mov);
 			}while(cursor.moveToNext());
 		}
+<<<<<<< HEAD
 		
 		cursor.close();
 		
+=======
+		cursor.close();
+>>>>>>> origin/master
 	return(GastosMov);
 	}
 	
@@ -307,15 +391,25 @@ public class CrudDatabase {
 		String[] colunas = new String[]{"(SUM(VALOR))", "cRecDesp"};
 		Cursor cursor = null;
 		String cWhere = "cRecDesp ='" + cRecDesp + "'";
+		String sReturn;
+		
 		cursor = bd.query("MOVIMENTOS", colunas, cWhere ,  null, "cRecDesp" , null, "_IDMov DESC");
 		
 		if(cursor.getCount() > 0){
 			cursor.moveToFirst();
+<<<<<<< HEAD
 			String valor = cursor.getString(0);
 			cursor.close();
 			return valor;
+=======
+			sReturn = cursor.getString(0);
+			cursor.close();
+			return sReturn;
+
+>>>>>>> origin/master
 		}
 		else{
+			cursor.close();
 			return "0";
 		}
 		
@@ -341,7 +435,10 @@ public class CrudDatabase {
 		}
 		
 		cursor.close();
+<<<<<<< HEAD
 			
+=======
+>>>>>>> origin/master
 		return(categorias);
 	}
 	
@@ -369,9 +466,32 @@ public class CrudDatabase {
 		}
 		
 		cursor.close();
+<<<<<<< HEAD
 		
+=======
+>>>>>>> origin/master
 		return(Categorias);
 	}
+	
+	//VERIFICA SE OS SMS JA FORAM VARRIDOS
+	public boolean VarrerTodosSMS(){
+		String[] colunas = new String[]{ "CFG_VARRESMS", "CFG_USUID" };
+		ContentValues valores = new ContentValues();
+		
+		Cursor cursor = bd.query("CONFIG", colunas , "CFG_USUID = " + TheFirstPage.UsuID + " AND CFG_VARRESMS = '1' ", null, null, null, null);
+		
+		if(cursor.getCount() > 0){
+			cursor.close();
+			return false;
+		}
+		
+		
+		valores.put("CFG_VARRESMS",  0);
+		bd.update("CONFIG", valores, "CFG_USUID = " + TheFirstPage.UsuID, null);
+		cursor.close();
+		return true;
+	}
+	
 	
 	public void ApagarMovimento(Long idMov)
 	{		

@@ -4,17 +4,18 @@ package com.br.i9.Class;
 
 import com.br.i9.Database.CrudDatabase;
 
-import android.telephony.SmsMessage;
-
 public class TratamentoMensagens {
 	
-	public static TipoBanco LerTipoMensagem(SmsMessage[] msgs, CrudDatabase db)
+	public static TipoBanco LerTipoMensagem(String sMsg, CrudDatabase db, Boolean lVarreSMS)
 	{	
         TipoBanco TipoMensagem = new TipoBanco();
         int nFinal = 0 ;
         int nAs = 0 ;
         String cData = "";
-        TipoMensagem.msg(msgs[0].getDisplayMessageBody().toString());
+
+        TipoMensagem.msg(sMsg);
+        
+        
 		
         if (TipoMensagem.getmsg().contains("R$ ")){
         
@@ -34,8 +35,10 @@ public class TratamentoMensagens {
 						TipoMensagem.setDataCompra(cData);
 					}
 				}else{
+					if (!lVarreSMS){
+						TipoMensagem.setDataCompra(db.getDateTime("dd-MM-yyyy").replace("-", "/")); //Ajustar isso aqui para a data de hoje	
+					}
 					
-					TipoMensagem.setDataCompra(db.getDateTime("dd-MM-yyyy").replace("-", "/")); //Ajustar isso aqui para a data de hoje
 				}
 				
 				if(TipoMensagem.getmsg().contains(" a credito ")) {
@@ -138,11 +141,11 @@ public class TratamentoMensagens {
         return TipoMensagem;
 	}
 	
-	public static Boolean ValidarTipoMensagem(SmsMessage[] msgs)
+	public static Boolean ValidarTipoMensagem(String sMsg)
 	{
 		TipoBanco Banco = new TipoBanco();
 		Boolean MensagemTratada = false;
-		Banco.msg(msgs[0].getDisplayMessageBody().toString());
+		Banco.msg(sMsg);
 		
 		
 		if(Banco.getmsg().contains(Banco.Santander())) {
