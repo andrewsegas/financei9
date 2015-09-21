@@ -39,16 +39,10 @@ public class i9Database extends SQLiteOpenHelper {
 		bd.execSQL("CREATE TABLE IF NOT EXISTS MOVIMENTOS (_IDMov INTEGER Primary key AUTOINCREMENT,"
 				+ "VALOR VARCHAR2(8) NOT NULL,"
 				+ "TELEFONE VARCHAR2(15) NOT NULL,"
-<<<<<<< HEAD
+				+ "MOV_IDCAT INTEGER NOT NULL,"
 				+ "CATEGORIA VARCHAR2(15) NOT NULL collate nocase,"
 				+ "nmBANCO VARCHAR2(20) NOT NULL collate nocase,"
 				+ "nmESTABELECIMENTO VARCHAR2(20) collate nocase,"
-=======
-				+ "MOV_IDCAT INTEGER NOT NULL,"
-				+ "CATEGORIA VARCHAR2(15) NOT NULL,"
-				+ "nmBANCO VARCHAR2(20) NOT NULL,"
-				+ "nmESTABELECIMENTO VARCHAR2(20) ,"
->>>>>>> origin/master
 				+ "dtMOVIMENTO VARCHAR2(20) NOT NULL,"
 				+ "nrCARTAO VARCHAR2(4),"
 				+ "cSMSALL VARCHAR2(160) NOT NULL,"
@@ -58,13 +52,8 @@ public class i9Database extends SQLiteOpenHelper {
 				+ ");");
 		
 		bd.execSQL("CREATE TABLE IF NOT EXISTS CATEGORIAS (_IDCAT INTEGER Primary key AUTOINCREMENT,"
-<<<<<<< HEAD
 				+ "CAT_NOME VARCHAR2(20) NOT NULL collate nocase,"		//Nome da categoria
 				+ "CAT_GRUPO CHAR(1) NOT NULL,"	//Grupo de categoria pertencente
-=======
-				+ "CAT_NOME VARCHAR2(20) NOT NULL,"		//Nome da categoria
-				+ "CAT_GRUPO VARCHAR2(20) NOT NULL,"	//Grupo de categoria pertencente
->>>>>>> origin/master
 				+ "CAT_USUID INTEGER ,"					//id do usuario
 				+ "CAT_USULOGIN CHAR(20) ,"				//usuario da categoria
 				+ "CAT_SISTEMA VARCHAR2(1)" 			//categoria cadastrada automaticamente pelo sistema
@@ -125,16 +114,16 @@ public class i9Database extends SQLiteOpenHelper {
 	private void PreencherCategoriasSistema(SQLiteDatabase bd){
 		int nUsuId = 0 ;
 		String sUsuLogin = "SISTEMA";
-		String[][] aCategorias = {	{"Outras Receitas", "Receitas"}, //Nome da categoria , 1-1 2-2
-									{"Outras Despesas", "Despesas"},
-									{"Contas", "Despesas"},
-									{"Educação", "Despesas"},
-									{"Transporte", "Despesas"},
-									{"Mercado", "Despesas"},
-									{"Lazer", "Despesas"},
-									{"Alimentação", "Despesas"},
-									{"Salario", "Receitas"},
-									{"Desnecessarios", "Despesas"},
+		String[][] aCategorias = {	{"Outras Receitas", "1"}, //Nome da categoria , 1-1 2-2
+									{"Outras Despesas", "2"},
+									{"Contas", "2"},
+									{"Educação", "2"},
+									{"Transporte", "2"},
+									{"Mercado", "2"},
+									{"Lazer", "2"},
+									{"Alimentação", "2"},
+									{"Salario", "1"},
+									{"Desnecessarios", "2"},
 		}; 
 		
 		for (int i = 0; i < aCategorias.length; i++) {

@@ -60,17 +60,10 @@ public class TCM {
 				objSms.setId(cursor.getString(cursor.getColumnIndexOrThrow("_id")));
 				objSms.setAddress(cursor.getString(cursor
 						.getColumnIndexOrThrow("address")));
-<<<<<<< HEAD
-				objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
-				objSms.setReadState(c.getString(c.getColumnIndex("read")));
-				objSms.setTime(c.getString(c.getColumnIndexOrThrow("date")));
-				if (c.getString(c.getColumnIndexOrThrow("type")).contains("1")) {
-=======
 				objSms.setMsg(cursor.getString(cursor.getColumnIndexOrThrow("body")));
 				//objSms.setReadState(cursor.getString(cursor.getColumnIndex("read")));
 				objSms.setTime(cursor.getString(cursor.getColumnIndexOrThrow("date")));
 				if (cursor.getString(cursor.getColumnIndexOrThrow("type")).contains("1")) {
->>>>>>> origin/master
 					objSms.setFolderName("inbox");
 				} else {
 					objSms.setFolderName("sent");

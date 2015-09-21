@@ -145,10 +145,7 @@ public class CrudDatabase {
 		}
 		
 		cursor.close();
-<<<<<<< HEAD
-		
-=======
->>>>>>> origin/master
+
 		return(Usu);
 	}
 	
@@ -163,12 +160,7 @@ public class CrudDatabase {
 		if(cursor.getCount() > 0){	
 			cursor.moveToFirst();
 		}
-<<<<<<< HEAD
-		cursor.close();
-		return cursor.getString(0);
-	}
-	
-=======
+
 	
 		sReturn = cursor.getString(0);
 
@@ -196,7 +188,7 @@ public class CrudDatabase {
 		return(grupos);
 	}
 	
->>>>>>> origin/master
+
 	public void UpdateConfiguracaoNotificacao(String valor)
 	{
 		ContentValues valores = new ContentValues();
@@ -220,13 +212,9 @@ public class CrudDatabase {
 				Usu.setEmail(cursor.getString(3));
 				Usu.setSenha(cursor.getString(4));
 		}
-<<<<<<< HEAD
+
 		cursor.close();
-		
-=======
-		
-		cursor.close();
->>>>>>> origin/master
+
 		return(Usu);
 	}
 	
@@ -252,11 +240,7 @@ public class CrudDatabase {
 			Usu.setLogin(cursor.getString(1));
 		}
 		
-<<<<<<< HEAD
-		cursor.close();
-		
-		return Usu.getLogin();
-=======
+
 		if (tipoGet == 0){
 			cursor.close();
 			return String.valueOf(Usu.getId());
@@ -264,7 +248,7 @@ public class CrudDatabase {
 			cursor.close();
 			return Usu.getLogin();
 		}
->>>>>>> origin/master
+
 	}
 	
 	public Login usuarioLogado(){
@@ -284,12 +268,9 @@ public class CrudDatabase {
 			Usu.setSenha(cursor.getString(5));
 		}
 		
-<<<<<<< HEAD
-		cursor.close();
-			
-=======
+
 			cursor.close();
->>>>>>> origin/master
+
 		return Usu;
 	}
 	
@@ -372,13 +353,8 @@ public class CrudDatabase {
 				GastosMov.add(mov);
 			}while(cursor.moveToNext());
 		}
-<<<<<<< HEAD
-		
+
 		cursor.close();
-		
-=======
-		cursor.close();
->>>>>>> origin/master
 	return(GastosMov);
 	}
 	
@@ -397,16 +373,11 @@ public class CrudDatabase {
 		
 		if(cursor.getCount() > 0){
 			cursor.moveToFirst();
-<<<<<<< HEAD
-			String valor = cursor.getString(0);
-			cursor.close();
-			return valor;
-=======
+
 			sReturn = cursor.getString(0);
 			cursor.close();
 			return sReturn;
 
->>>>>>> origin/master
 		}
 		else{
 			cursor.close();
@@ -435,10 +406,7 @@ public class CrudDatabase {
 		}
 		
 		cursor.close();
-<<<<<<< HEAD
-			
-=======
->>>>>>> origin/master
+
 		return(categorias);
 	}
 	
@@ -466,10 +434,7 @@ public class CrudDatabase {
 		}
 		
 		cursor.close();
-<<<<<<< HEAD
-		
-=======
->>>>>>> origin/master
+
 		return(Categorias);
 	}
 	
