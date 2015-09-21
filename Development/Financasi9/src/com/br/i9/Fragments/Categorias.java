@@ -41,6 +41,7 @@ public class Categorias extends Fragment {
 	int categoriaSistema, idNovaCategoria, idOldCategoria;
 	View viewLista,  poupSinner;
 	Spinner spinnerCategoria;
+	CategoriasAdapter adapter;
 	CrudDatabase bd;
 	ListView listViewRenda, listViewDespesas;
 	String label, nmcategoriaOld, nmCategoriaNew;
@@ -221,6 +222,14 @@ public class Categorias extends Fragment {
 		            return true;
 		        }
 		    });
+		    
+		    menu.findItem(R.id.action_check_updates).setOnMenuItemClickListener(new OnMenuItemClickListener(){
+		        @Override
+		        public boolean onMenuItemClick(MenuItem item) {
+		        	adapter.notifyDataSetChanged();
+		        	return true;
+		        }
+		    });
 	}
 		
 	public void GerarCategorias(View viewLista, ListView listViewRenda, CrudDatabase bd, String sWhere, List<Integer> Arrayimgs)
@@ -237,7 +246,7 @@ public class Categorias extends Fragment {
 					));
 		}
 		
-		CategoriasAdapter adapter = new CategoriasAdapter(getActivity(), Categoria, Arrayimgs);
+		adapter = new CategoriasAdapter(getActivity(), Categoria, Arrayimgs);
 		listViewRenda.setAdapter(adapter);
 		
 		ajustaListView(listViewRenda);
