@@ -441,16 +441,15 @@ public class CrudDatabase {
 	//VERIFICA SE OS SMS JA FORAM VARRIDOS
 	public boolean VarrerTodosSMS(){
 		String[] colunas = new String[]{ "CFG_VARRESMS", "CFG_USUID" };
-		ContentValues valores = new ContentValues();
 		
-		Cursor cursor = bd.query("CONFIG", colunas , "CFG_USUID = " + TheFirstPage.UsuID + " AND CFG_VARRESMS = '1' ", null, null, null, null);
+		Cursor cursor = bd.query("CONFIG", colunas , "CFG_USUID = '" + TheFirstPage.UsuID + "' AND CFG_VARRESMS = '1' ", null, null, null, null);
 		
 		if(cursor.getCount() > 0){
 			cursor.close();
 			return false;
 		}
 		
-		
+		ContentValues valores = new ContentValues();
 		valores.put("CFG_VARRESMS",  0);
 		bd.update("CONFIG", valores, "CFG_USUID = " + TheFirstPage.UsuID, null);
 		cursor.close();

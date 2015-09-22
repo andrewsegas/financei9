@@ -68,9 +68,9 @@ public class i9Database extends SQLiteOpenHelper {
 				+ ");");
 		
 		bd.execSQL("CREATE TABLE IF NOT EXISTS CONFIG("
-				+ "CFG_NOTIFI CHAR(1) NOT NULL, "
-				+ "CFG_VARRESMS CHAR(1), "
-				+ "CFG_USUID INTEGER NOT NULL, "
+				+ "CFG_NOTIFI CHAR(1) NOT NULL,"
+				+ "CFG_VARRESMS CHAR(1),"
+				+ "CFG_USUID INTEGER NOT NULL,"
 				+ "CFG_USULOGIN CHAR(20)"
 				+ ");");
 		
