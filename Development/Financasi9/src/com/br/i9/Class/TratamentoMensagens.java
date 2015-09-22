@@ -121,7 +121,7 @@ public class TratamentoMensagens {
 				TipoMensagem.setnmBanco("Banco do Brasil");
 				TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("em "), TipoMensagem.getmsg().indexOf("em ")+19));
 			}
-			else if(TipoMensagem.getmsg().contains(TipoMensagem.Itau())) {//Itau
+			else if(TipoMensagem.getmsg().toUpperCase().contains(TipoMensagem.Itau())) {//Itau
 					TipoMensagem.setnmBanco("Itau");
 					
 					//Logica para Pegar o valor da transacao //no ITAU as vezes nao tem espaço
@@ -143,8 +143,8 @@ public class TratamentoMensagens {
 							TipoMensagem.setRecDesp("2"); //Despesas
 						}
 					 
-					if(TipoMensagem.getmsg().contains(" Final ")){
-						nFinal = TipoMensagem.getmsg().indexOf("Final ") + 6;
+					if(TipoMensagem.getmsg().contains(" final ")){
+						nFinal = TipoMensagem.getmsg().indexOf("final ") + 6;
 						if(nFinal <= TipoMensagem.getnIniMoney()){ //essa condição é para nao ter o problema de ter o "final" no nome do estabelecimento
 							TipoMensagem.setCartao(TipoMensagem.getmsg().substring(nFinal,nFinal + 4));
 						}
@@ -153,7 +153,7 @@ public class TratamentoMensagens {
 					}
 					
 					if(TipoMensagem.getmsg().contains("SAQUE")){
-						TipoMensagem.setnmEstabelecimento("SAQUE");
+						TipoMensagem.setnmEstabelecimento("SAQUE");	
 					}else if(TipoMensagem.getmsg().contains("Local: ")){
 						TipoMensagem.setnmEstabelecimento(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("Local: "), TipoMensagem.getmsg().indexOf(". ")));	
 					}else if(TipoMensagem.getmsg().contains("DOC")){
@@ -164,8 +164,14 @@ public class TratamentoMensagens {
 						TipoMensagem.setnmEstabelecimento("Transferencia");
 					}
 					
-					TipoMensagem.setDataCompra(db.getDateTime("dd-MM-yyyy").replace("-", "/")); //Ajustar isso aqui para a data de hoje
-				
+					
+					if(TipoMensagem.getmsg().contains("APROVAD")){
+						TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("APROVAD") + 9, TipoMensagem.getmsg().indexOf("APROVAD") + 14));
+					}else if(TipoMensagem.getmsg().contains("TED")){
+						TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("em ") + 3, TipoMensagem.getmsg().indexOf("em ")+8));
+					}else{
+						TipoMensagem.setDataCompra(db.getDateTime("dd-MM-yyyy").replace("-", "/")); //Ajustar isso aqui para a data de hoje
+					}
 			}
         }else if(TipoMensagem.getmsg().contains(" $ ")){ //Seguranca santander
         	
@@ -208,7 +214,7 @@ public class TratamentoMensagens {
 		}
 		else
 		{
-			if(Banco.getmsg().contains(Banco.Itau())) {
+			if(Banco.getmsg().toUpperCase().contains(Banco.Itau())) {
 				MensagemTratada = true;
 			}
 		}
