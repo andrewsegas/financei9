@@ -48,7 +48,7 @@ public class TipoBanco implements Serializable  {
 	public int getnFimMoney() { return nFimMoney;}   
     public CharSequence Santander() {return "Santander Informa";}//"{BANCOAPP}Santander Informa:";}
     public CharSequence SegurancaSantander() {return "Seguranca Santander:";}//"{BANCOAPP}Santander Informa:";}
-    public CharSequence Itau() {return "TAM ITAUCARD";}
+    public CharSequence Itau() {return "ITAU";}
     public CharSequence Hsbc() {return "HSBC Alertas";}
     public CharSequence BancoBrasil() {return "BB Informa:";}
 }
