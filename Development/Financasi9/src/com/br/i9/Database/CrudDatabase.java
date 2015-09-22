@@ -54,6 +54,16 @@ public class CrudDatabase {
 	
 	public void PreencherTabelaConfig()
 	{
+		String[] colunas = new String[]{ "CFG_USUID" };
+		
+		Cursor cursor = bd.query("CONFIG", colunas , "CFG_USUID = '" + TheFirstPage.UsuID + "'" , null, null, null, null);
+		
+		if(cursor.getCount() > 0){
+			cursor.close();
+			return ;
+		}
+		
+		cursor.close();
 		ContentValues valores = new ContentValues();
 		valores.put("CFG_NOTIFI",  "1");
 		valores.put("CFG_VARRESMS",  "0");
@@ -382,6 +392,42 @@ public class CrudDatabase {
 		else{
 			cursor.close();
 			return "0";
+		}
+		
+	}
+	
+	/*------------------------------
+	 * Params
+	 * cRecDesp = "1" receita - "2" despesa 
+	 * cMes = mes para consulta
+	 * Return array com 2 dimensões [x][0] = valor ; [x][1] = categoria
+	------------------------------*/	
+	public String[][] CategoriaRecDespMes(String cRecDesp, String cMes){
+		String[] colunas = new String[]{"(SUM(VALOR))", "CATEGORIA", "cRecDesp"};
+		Cursor cursor = null;
+		String cWhere = "cRecDesp ='" + cRecDesp + "'";
+		String[][] aCategorias ;
+		
+		cursor = bd.query("MOVIMENTOS", colunas, cWhere , null, "MOV_IDCAT" , null, "_IDMov DESC");
+		
+		if(cursor.getCount() > 0){
+			aCategorias = new String[cursor.getCount()][2];
+			cursor.moveToFirst();
+			
+			for (int i = 0; i < cursor.getCount() -1 ; i++) {
+				aCategorias[i][0] = cursor.getString(0) ; //soma dos valores
+				aCategorias[i][1] = cursor.getString(1) ; //campo categoria
+				cursor.moveToNext();
+			}
+			
+			cursor.close();
+			return aCategorias;
+
+		}
+		else{
+			cursor.close();
+			aCategorias = new String[0][2];
+			return aCategorias;
 		}
 		
 	}
