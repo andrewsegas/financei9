@@ -1,5 +1,8 @@
 package com.br.i9.Fragments;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.br.i9.R;
 import com.br.i9.Class.AjusteSpinner;
 import com.br.i9.Class.GerarGrafico;
@@ -56,10 +59,17 @@ public class Grafico extends Fragment{
 	
 	private void GerarGraficoReceitas(PieChart mChart, int MesReferencia)
 	{
+		CrudDatabase db = new CrudDatabase(getActivity());
+		String[][] aCategorias ;
+		
+		aCategorias = db.CategoriaRecDespMes("1", null);
+		
 		float[] yData = { (float) 47.3, (float) 52.7, (float) 33.6, (float) 33.4 };
 		String[] xData = { "Salário", "Depositos", "Acordos", "Freelancer"};
 		int[] cores = { Color.rgb(153,255,000), Color.rgb(255,204,000), Color.rgb(153,204,153), Color.rgb(255,051,051) };
         
+		
+		
 		GerarGrafico.GerarGraficoPie(mChart, yData, xData, cores);
 	}
 	

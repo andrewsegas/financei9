@@ -68,7 +68,7 @@ public class Geral extends Fragment {
 		ndTotal = (Double.valueOf(sRec.replace(",", ".")))
 					- (Double.valueOf(sDesp.replace(",", ".")));
 		
-		sTotal = String.valueOf(ndTotal);
+		sTotal = String.valueOf(Math.round(ndTotal));
 		
 		situacaoAtual.setText("Situação Atual :   R$ " + sTotal.replace(".", ","));
 		
