@@ -26,3 +26,9 @@ em 18/19/15 as 20:48 Japones
 --------------- PADRÃO DE DEPOSITOS SANTANDER -------------------
 
 {BANCOAPP}Santander Informa: DOC/TED a credito efetuado em 01/09/15 as 12:48 no valor de R$ 500,00
+
+{BANCOAPP}Santander Informa: DOC/TED a credito efetuado em 22/09/15 as 12:48 no valor de R$ 80,00
+
+{BANCOAPP}Santander Informa: DOC/TED a credito efetuado em 22/09/15 as 06:48 no valor de R$ 91,33
+
+{BANCOAPP}Santander Informa: DOC/TED a credito efetuado em 12/07/15 as 16:48 no valor de R$ 1000.10

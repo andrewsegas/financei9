@@ -490,7 +490,7 @@ public class CrudDatabase {
 		
 		Cursor cursor = bd.query("CONFIG", colunas , "CFG_USUID = '" + TheFirstPage.UsuID + "' AND CFG_VARRESMS = '1' ", null, null, null, null);
 		
-		if(cursor.getCount() > 0){
+		if(cursor.getCount() == 0){
 			cursor.close();
 			return false;
 		}
