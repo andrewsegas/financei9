@@ -1,13 +1,12 @@
 package com.br.i9.Fragments;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.br.i9.R;
 import com.br.i9.Class.AjusteSpinner;
 import com.br.i9.Class.GerarGrafico;
 import com.br.i9.Database.CrudDatabase;
 import com.github.mikephil.charting.charts.PieChart;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -60,6 +59,7 @@ public class Grafico extends Fragment{
 	private void GerarGraficoReceitas(PieChart mChart, int MesReferencia)
 	{
 		CrudDatabase db = new CrudDatabase(getActivity());
+		@SuppressWarnings("unused")
 		String[][] aCategorias ;
 		
 		aCategorias = db.CategoriaRecDespMes("1", null);

@@ -1,9 +1,5 @@
 package com.br.i9;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.br.i9.Class.Sms;
 import com.br.i9.Class.TipoBanco;
 import com.br.i9.Class.TratamentoMensagens;
 import com.br.i9.Database.CrudDatabase;
