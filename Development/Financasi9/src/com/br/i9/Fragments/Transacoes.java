@@ -41,6 +41,7 @@ public class Transacoes extends Fragment {
 	int idMovAlterarCategoria = 0;
 	ListView listViewTran;
 	String nmNovaCategoria;
+	int mesCorrent;
 	CrudDatabase bd = null;
 	AjusteListView ajusteListView;
 	Spinner spinnerTipoCategoria, spinnerCategoria, spinnerMeses;
@@ -60,7 +61,8 @@ public class Transacoes extends Fragment {
 		ajusteListView = new AjusteListView();
 		
 		ajusteSpinner.ajusteSpinnerMes(bd, spinnerMeses);
-		GerarTransacoes(bd, viewLista, listViewTran, spinnerMeses, ajusteListView, bd.getMonth());
+		mesCorrent = bd.getMonth();
+		GerarTransacoes(bd, viewLista, listViewTran, spinnerMeses, ajusteListView, mesCorrent);
 		
 		popularSpinnerTipoCategoria(spinnerTipoCategoria);
 		
@@ -69,7 +71,8 @@ public class Transacoes extends Fragment {
 		spinnerMeses.setOnItemSelectedListener(new OnItemSelectedListener() {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-		    	GerarTransacoes(bd, viewLista, listViewTran, spinnerMeses, ajusteListView, position);
+		    	mesCorrent = position;
+		    	GerarTransacoes(bd, viewLista, listViewTran, spinnerMeses, ajusteListView, mesCorrent);
 		    }
 		    @Override
 		    public void onNothingSelected(AdapterView<?> parentView) {
@@ -126,7 +129,7 @@ public class Transacoes extends Fragment {
 	    // TODO Add your menu entries here
 	    super.onCreateOptionsMenu(menu, inflater);
 	    
-	    menu.findItem(R.id.action_check_updates).setVisible(true);
+	    menu.findItem(R.id.action_check_updates).setVisible(false);
 	    menu.findItem(R.id.action_search).setVisible(true);
 	}
 
@@ -194,6 +197,7 @@ public class Transacoes extends Fragment {
 		 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
 	         public void onClick(DialogInterface dialog, int which) { 
 	        	 bd.AtualizarCategoriaMovimentos(nmNovaCategoria, idMovAlterarCategoria);
+	        	 GerarTransacoes(bd, viewLista, listViewTran, spinnerMeses, ajusteListView, mesCorrent);
 	        	 Toast.makeText(getActivity().getApplicationContext(), "Categoria atualizada com sucesso",
                          Toast.LENGTH_SHORT).show();
 	        	 ((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
@@ -235,6 +239,7 @@ public class Transacoes extends Fragment {
 		     .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 		         public void onClick(DialogInterface dialog, int which) { 
 		        	 bd.ApagarMovimento(idMov);
+		        	 GerarTransacoes(bd, viewLista, listViewTran, spinnerMeses, ajusteListView, mesCorrent);
 		        	 Toast.makeText(getActivity().getApplicationContext(), "Transação excluída com sucesso",
 	                            Toast.LENGTH_SHORT).show();
 		         }

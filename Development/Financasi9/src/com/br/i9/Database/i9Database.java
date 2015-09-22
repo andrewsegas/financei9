@@ -122,8 +122,8 @@ public class i9Database extends SQLiteOpenHelper {
 									{"Mercado", "2"},
 									{"Lazer", "2"},
 									{"Alimentação", "2"},
-									{"Salario", "1"},
-									{"Desnecessarios", "2"},
+									{"Salário", "1"},
+									{"Desnecessários", "2"},
 		}; 
 		
 		for (int i = 0; i < aCategorias.length; i++) {

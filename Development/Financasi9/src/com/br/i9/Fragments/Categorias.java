@@ -147,6 +147,8 @@ public class Categorias extends Fragment {
 		           	         public void onClick(DialogInterface dialog, int which) {
 		           	        	 bd.AtualizarCategoriaTransacao(nmCategoriaNew, nmcategoriaOld);
 		           	        	 bd.ApagarCategoria(idOldCategoria);
+		           	        	 GerarCategorias(viewLista, listViewRenda, bd, "1", imgListArrayReceitas);
+		           	        	 GerarCategorias(viewLista, listViewDespesas, bd, "2", imgListArrayDespesas);
 		           	        	Toast.makeText(getActivity().getApplicationContext(), Html.fromHtml("<font size='1' align='center'> Transações atualizadas e categoria excluída com sucesso"
 		    		   					+"</font>"
 		    		   					),
@@ -171,6 +173,8 @@ public class Categorias extends Fragment {
 		           		 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 		           	         public void onClick(DialogInterface dialog, int which) { 
 		           	        	bd.ApagarCategoria(idOldCategoria);
+		           	         GerarCategorias(viewLista, listViewRenda, bd, "1", imgListArrayReceitas);
+		           			 GerarCategorias(viewLista, listViewDespesas, bd, "2", imgListArrayDespesas);
 		           	        	Toast.makeText(getActivity().getApplicationContext(), "Categoria excluída com sucesso",
 			                            Toast.LENGTH_SHORT).show();
 		           	         }
@@ -210,7 +214,7 @@ public class Categorias extends Fragment {
 		    // TODO Add your menu entries here
 		    super.onCreateOptionsMenu(menu, inflater);
 		    
-		    menu.findItem(R.id.action_check_updates).setVisible(true);
+		    menu.findItem(R.id.action_check_updates).setVisible(false);
 		    menu.findItem(R.id.action_search).setVisible(true);
 		    
 		    menu.findItem(R.id.action_search).setOnMenuItemClickListener(new OnMenuItemClickListener(){
@@ -220,14 +224,6 @@ public class Categorias extends Fragment {
 		        	NovaCategoria categoriaFragment = new NovaCategoria();
 		        	fragments(categoriaFragment, "Categoria");
 		            return true;
-		        }
-		    });
-		    
-		    menu.findItem(R.id.action_check_updates).setOnMenuItemClickListener(new OnMenuItemClickListener(){
-		        @Override
-		        public boolean onMenuItemClick(MenuItem item) {
-		        	adapter.notifyDataSetChanged();
-		        	return true;
 		        }
 		    });
 	}
