@@ -17,7 +17,7 @@ public class TratamentoMensagens {
         
         
 		
-        if (TipoMensagem.getmsg().contains("R$ ")){
+        if (TipoMensagem.getmsg().contains("R$")){
         
 	        if(TipoMensagem.getmsg().contains(TipoMensagem.Santander())) { //Santander
 				TipoMensagem.setnmBanco("Santander");
@@ -53,16 +53,24 @@ public class TratamentoMensagens {
 						TipoMensagem.setCartao(TipoMensagem.getmsg().substring(nFinal,nFinal + 4));
 					}
 				}else{
-					TipoMensagem.setCartao("CC");
+					TipoMensagem.setCartao("SC");
 				}
 				if(TipoMensagem.getmsg().contains(" aprovada ")){//se contem "aprovada" -> pega o local depois de "as"
 					nAs = TipoMensagem.getmsg().indexOf(" as ") + 8;// variavel para pegar o estabelecimento ex: as 10:30 NOME DO ESTABELECIMENTO
 					TipoMensagem.setnmEstabelecimento(TipoMensagem.getmsg().substring(nAs + 2 , TipoMensagem.getmsg().length()));
 				}else{
-					TipoMensagem.setnmEstabelecimento("S/E");
+					if (TipoMensagem.getmsg().contains("DOC/TEC")){
+						
+						TipoMensagem.setnmEstabelecimento("DOC/TED");
+					}else if (TipoMensagem.getmsg().contains("Transferencia")){
+						
+						TipoMensagem.setnmEstabelecimento("Transferencia");
+					}else{
+						TipoMensagem.setnmEstabelecimento("S/E");
+					}
 				}
 	
-			}else if(TipoMensagem.getmsg().contains(TipoMensagem.Hsbc())) {//Banco do Brasil{
+			}else if(TipoMensagem.getmsg().contains(TipoMensagem.Hsbc())) {//HSBC
 
 				TipoMensagem.setnmBanco("HSBC");
 				
@@ -96,7 +104,7 @@ public class TratamentoMensagens {
 						TipoMensagem.setCartao(TipoMensagem.getmsg().substring(nFinal,nFinal + 4));
 					}
 				}else{
-					TipoMensagem.setCartao("CC");
+					TipoMensagem.setCartao("SC");
 				}
 				if(TipoMensagem.getmsg().contains(" na loja ")){//se contem "na loja" -> pega o local 
 					nAs = TipoMensagem.getmsg().indexOf(" na loja ") + 9;
@@ -109,15 +117,55 @@ public class TratamentoMensagens {
 				}
 			}
 			else if(TipoMensagem.getmsg().contains(TipoMensagem.BancoBrasil())) {//Banco do Brasil
+				
 				TipoMensagem.setnmBanco("Banco do Brasil");
 				TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("em "), TipoMensagem.getmsg().indexOf("em ")+19));
 			}
-			else
-			{
-				if(TipoMensagem.getmsg().contains(TipoMensagem.Itau())) {//Itau
+			else if(TipoMensagem.getmsg().contains(TipoMensagem.Itau())) {//Itau
 					TipoMensagem.setnmBanco("Itau");
-					TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("em "), TipoMensagem.getmsg().indexOf("em ")+15));
-				}
+					
+					//Logica para Pegar o valor da transacao //no ITAU as vezes nao tem espaço
+					
+					 if (TipoMensagem.getmsg().contains("R$") && !TipoMensagem.getmsg().contains("R$ ")){
+						 TipoMensagem.setnIniMoney(TipoMensagem.getmsg().indexOf("R$") + 2);
+						 TipoMensagem.setnFimMoney(TipoMensagem.getmsg().indexOf(",",TipoMensagem.getnIniMoney()) + 3);
+						 TipoMensagem.setcMoney(TipoMensagem.getmsg().substring(TipoMensagem.getnIniMoney(),TipoMensagem.getnFimMoney()));
+							
+					 }else{
+						 TipoMensagem.setnIniMoney(TipoMensagem.getmsg().indexOf("R$ ") + 3);
+						 TipoMensagem.setnFimMoney(TipoMensagem.getmsg().indexOf(",",TipoMensagem.getnIniMoney()) + 3);
+						 TipoMensagem.setcMoney(TipoMensagem.getmsg().substring(TipoMensagem.getnIniMoney(),TipoMensagem.getnFimMoney()));
+					 }
+					
+					 if(TipoMensagem.getmsg().contains("CREDITO")) {
+							TipoMensagem.setRecDesp("1"); //Receitas
+						}else{
+							TipoMensagem.setRecDesp("2"); //Despesas
+						}
+					 
+					if(TipoMensagem.getmsg().contains(" Final ")){
+						nFinal = TipoMensagem.getmsg().indexOf("Final ") + 6;
+						if(nFinal <= TipoMensagem.getnIniMoney()){ //essa condição é para nao ter o problema de ter o "final" no nome do estabelecimento
+							TipoMensagem.setCartao(TipoMensagem.getmsg().substring(nFinal,nFinal + 4));
+						}
+					}else{
+						TipoMensagem.setCartao("SC");
+					}
+					
+					if(TipoMensagem.getmsg().contains("SAQUE")){
+						TipoMensagem.setnmEstabelecimento("SAQUE");
+					}else if(TipoMensagem.getmsg().contains("Local: ")){
+						TipoMensagem.setnmEstabelecimento(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("Local: "), TipoMensagem.getmsg().indexOf(". ")));	
+					}else if(TipoMensagem.getmsg().contains("DOC")){
+						TipoMensagem.setnmEstabelecimento("DOC");
+					}else if(TipoMensagem.getmsg().contains("TED")){
+						TipoMensagem.setnmEstabelecimento("TED");
+					}else if(TipoMensagem.getmsg().contains("Transferencia")){
+						TipoMensagem.setnmEstabelecimento("Transferencia");
+					}
+					
+					TipoMensagem.setDataCompra(db.getDateTime("dd-MM-yyyy").replace("-", "/")); //Ajustar isso aqui para a data de hoje
+				
 			}
         }else if(TipoMensagem.getmsg().contains(" $ ")){ //Seguranca santander
         	
@@ -132,7 +180,7 @@ public class TratamentoMensagens {
 			
 			TipoMensagem.setRecDesp("2"); //Despesas
 			
-			TipoMensagem.setCartao("CC");
+			TipoMensagem.setCartao("SC");
 			
 			TipoMensagem.setnmEstabelecimento("S/E");
         	
