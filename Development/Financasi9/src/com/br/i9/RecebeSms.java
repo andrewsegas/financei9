@@ -5,6 +5,7 @@ package com.br.i9;
 //* @alteracao Cesar Augusto
 //**************************************************************/
 
+import com.br.i9.Class.Notificacao;
 import com.br.i9.Class.TipoBanco;
 import com.br.i9.Class.TratamentoMensagens;
 import com.br.i9.Database.CrudDatabase;
@@ -64,7 +65,10 @@ public class RecebeSms extends BroadcastReceiver {
 	            		db.RegistrarMovimentos(MensagemBanco);
 	                	
 	                	//consultar se ta configurado pra receber notificação
-	                    showNotification(context, MensagemBanco.getcMoney(), MensagemBanco.getnmEstabelecimento(), MensagemBanco.getRecDesp());
+	            		//notificaTransacao
+	            		
+	            		Notificacao.notificaTransacao(context, MensagemBanco.getcMoney(), MensagemBanco.getnmEstabelecimento(), MensagemBanco.getRecDesp(), db);
+	            		
             		}
       	
             	
@@ -84,33 +88,5 @@ public class RecebeSms extends BroadcastReceiver {
     
         
 	}
-	
-	private void showNotification(Context context, String sMoney, String sEstabelecimento, String sRecDesp) {
-		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-	            new Intent(context,  com.br.i9.Class.Transacoes.class), 0);
-		
-	    		String sTitle = "Finançasi9";
-	    		String sText = db.ultimoUsuarioLogado(true,1).toUpperCase() + ", ";
-	    		if (sRecDesp == "1"){
-	    			sText = sText + "Você recebeu R$ " + sMoney; 
-	    		}else{
-	    			sText = sText + "Você gastou R$ "  + sMoney + System.getProperty("line.separator") + "em " + sEstabelecimento;
-	    		}
-	    		
-	    NotificationCompat.Builder mBuilder =
-	            new NotificationCompat.Builder(context)
-	            .setSmallIcon(R.drawable.ico_launcher)
-	            .setContentTitle(sTitle)
-	            .setStyle(new NotificationCompat.BigTextStyle().bigText(sText))
-	            .setContentText(sText);
-
-	    mBuilder.setContentIntent(contentIntent);
-	    mBuilder.setDefaults(Notification.DEFAULT_SOUND);
-	    mBuilder.setAutoCancel(true);
-	    NotificationManager mNotificationManager =
-	        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-	    mNotificationManager.notify(1, mBuilder.build());
-
-	} 	
 	
 }//class

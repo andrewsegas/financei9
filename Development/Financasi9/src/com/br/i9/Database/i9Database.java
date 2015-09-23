@@ -52,7 +52,7 @@ public class i9Database extends SQLiteOpenHelper {
 				+ ");");
 		
 		bd.execSQL("CREATE TABLE IF NOT EXISTS CATEGORIAS (_IDCAT INTEGER Primary key AUTOINCREMENT,"
-				+ "CAT_NOME VARCHAR2(300) NOT NULL collate nocase,"		//Nome da categoria
+				+ "CAT_NOME VARCHAR2(30) NOT NULL collate nocase,"		//Nome da categoria
 				+ "CAT_GRUPO CHAR(1) NOT NULL,"	//Grupo de categoria pertencente
 				+ "CAT_USUID INTEGER ,"					//id do usuario
 				+ "CAT_USULOGIN CHAR(20) ,"				//usuario da categoria
@@ -61,7 +61,7 @@ public class i9Database extends SQLiteOpenHelper {
 		
 		bd.execSQL("CREATE TABLE IF NOT EXISTS CATXEST (_IDCXE INTEGER Primary key AUTOINCREMENT," //Tabela de categorias x estabelecimento
 				+ "CXE_CATID INTEGER NOT NULL,"					//ID da categoria
-				+ "CXE_CATNOME VARCHAR2(300) NOT NULL collate nocase,"			//nome da categoria
+				+ "CXE_CATNOME VARCHAR2(30) NOT NULL collate nocase,"			//nome da categoria
 				+ "CXE_ESTABELECIMENTO VARCHAR2(20) NOT NULL,"	//estabelecimento que vai chegar direto pra categoria
 				+ "CXE_USUID INTEGER ,"							//id do usuario
 				+ "CXE_USULOGIN CHAR(20)"						//usuario da categoria

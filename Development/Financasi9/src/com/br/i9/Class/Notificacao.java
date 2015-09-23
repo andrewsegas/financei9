@@ -1,11 +1,14 @@
 package com.br.i9.Class;
 
 import com.br.i9.R;
+import com.br.i9.ActivityPrincipais.MainActivity;
+import com.br.i9.ActivityPrincipais.TheFirstPage;
 import com.br.i9.Database.CrudDatabase;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
@@ -32,6 +35,14 @@ public class Notificacao {
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
 				new Intent(context,  com.br.i9.Fragments.Transacoes.class), 0);
 		
+		Intent resultIntent = new Intent(context, TheFirstPage.class); 
+		
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+		stackBuilder.addNextIntent(resultIntent);
+		stackBuilder.addParentStack(TheFirstPage.class);
+		PendingIntent resultPendingIntent =
+		         stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+		
 		NotificationCompat.Builder mBuilder =
 				new NotificationCompat.Builder(context)
 				.setSmallIcon(R.drawable.ico_launcher)
@@ -39,7 +50,7 @@ public class Notificacao {
 				.setStyle(new NotificationCompat.BigTextStyle().bigText(sText))
 				.setContentText(sText);
 
-		mBuilder.setContentIntent(contentIntent);
+		mBuilder.setContentIntent(resultPendingIntent);
 		mBuilder.setDefaults(Notification.DEFAULT_SOUND);
 		mBuilder.setAutoCancel(true);
 		NotificationManager mNotificationManager =
