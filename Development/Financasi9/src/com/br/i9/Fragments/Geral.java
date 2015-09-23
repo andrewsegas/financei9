@@ -63,15 +63,40 @@ public class Geral extends Fragment {
 		sRec = db.ReceitaDespesaMes("1", null);
 		sDesp = db.ReceitaDespesaMes("2", null);
 		
-		receitasMes.setText("Receitas:   R$ " + sRec) ;
-		despesasMes.setText("Despesas:   R$ " + sDesp) ;
+		if(sDesp.length() >= 4)
+		{
+			despesasMes.setText("Despesas: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 1)+"."+sDesp.substring(1, sDesp.length())));
+		}
+		else
+			despesasMes.setText("Despesas:   R$ " + sDesp) ;
+		
+		
+		if(sRec.length() >= 4)
+		{
+			receitasMes.setText("Despesas: R$ " + sRec.replace(sRec, sRec.substring(0, 1)+"."+sRec.substring(1, sRec.length())));
+		}
+		else
+			receitasMes.setText("Receitas:   R$ " + sRec) ;
 		
 		ndTotal = (Double.valueOf(sRec.replace(",", ".")))
 					- (Double.valueOf(sDesp.replace(",", ".")));
 		
 		sTotal = String.valueOf(Math.round(ndTotal));
 		
-		situacaoAtual.setText("Situação Atual :   R$ " + sTotal.replace(".", ","));
+		if(sTotal.contains("-") && sTotal.length() >= 4)
+		{
+			situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(sTotal, sTotal.substring(0, 2)+"."+sTotal.substring(2, sTotal.length()))+
+ 					"</font>"
+ 					));
+		}
+		else
+			if(sTotal.length() >= 4)
+			{
+				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(sTotal, sTotal.substring(0, 1)+"."+sTotal.substring(1, sTotal.length())));
+			}
+		else
+				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(".",","));
+		
 		
         float[] yData = { Float.valueOf(sDesp.replace(",", ".")), Float.valueOf(sRec.replace(",", ".")) };
         String[] xData = { "Despesas", "Receitas"};

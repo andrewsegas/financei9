@@ -29,7 +29,7 @@ public class Receitas extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
 		 final View viewLista = inflater.inflate(R.layout.receitas, null);
-		 final TextView despesasMes = (TextView) viewLista.findViewById(R.id.receitasId);
+		 final TextView receitasMes = (TextView) viewLista.findViewById(R.id.receitasId);
 		 final Spinner spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
 		 final ListView listViewTran =(ListView) viewLista.findViewById(R.id.listViewId);
 		 final AjusteListView ajusteListView = new AjusteListView();
@@ -37,12 +37,12 @@ public class Receitas extends Fragment{
 		 final CrudDatabase db = new CrudDatabase(getActivity());		 
 		 
 		 ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);
-		 gerarReceitas(db, despesasMes, ajusteSpinner,spinnerMeses,ajusteListView,listViewTran, viewLista, db.getMonth());
+		 gerarReceitas(db, receitasMes, ajusteSpinner,spinnerMeses,ajusteListView,listViewTran, viewLista, db.getMonth());
 		 
 		 spinnerMeses.setOnItemSelectedListener(new OnItemSelectedListener() {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-		    		gerarReceitas(db, despesasMes, ajusteSpinner,spinnerMeses,ajusteListView,listViewTran, viewLista, position);
+		    		gerarReceitas(db, receitasMes, ajusteSpinner,spinnerMeses,ajusteListView,listViewTran, viewLista, position);
 		    }
 
 		    @Override
@@ -53,12 +53,17 @@ public class Receitas extends Fragment{
 		return(viewLista);
 	}
 	
-	public void gerarReceitas(CrudDatabase db, TextView despesasMes, AjusteSpinner ajusteSpinner,Spinner spinnerMeses,AjusteListView ajusteListView,ListView listViewTran, View viewLista, int MesReferencia)
+	public void gerarReceitas(CrudDatabase db, TextView receitasMes, AjusteSpinner ajusteSpinner,Spinner spinnerMeses,AjusteListView ajusteListView,ListView listViewTran, View viewLista, int MesReferencia)
 	{
-		String sDesp;
-		sDesp = db.ReceitaDespesaMes("1", null);
-
-		 despesasMes.setText("Receita Total:   R$ " + sDesp);	
+		String sRec;
+		sRec = db.ReceitaDespesaMes("1", null);
+		 
+			if(sRec.length() >= 4)
+			{
+				receitasMes.setText("Receita Total: R$ " + sRec.replace(sRec, sRec.substring(0, 1)+"."+sRec.substring(1, sRec.length())));
+			}
+			else
+				receitasMes.setText("Receita Total: R$ " + sRec) ;
 		 
 		 arrayReceitas = new ArrayList<com.br.i9.Class.Transacoes>();
 		 List<MovimentosGastos> aMovimentos = db.SelecionarTodosMovimentos("cRecDesp = '1'","_IDMov DESC");

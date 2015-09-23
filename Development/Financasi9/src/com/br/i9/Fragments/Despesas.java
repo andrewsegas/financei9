@@ -2,6 +2,7 @@ package com.br.i9.Fragments;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.br.i9.R;
 import com.br.i9.Class.AjusteListView;
 import com.br.i9.Class.AjusteSpinner;
@@ -9,8 +10,10 @@ import com.br.i9.Class.ListTransacoesAdapter;
 import com.br.i9.Class.MovimentosGastos;
 import com.br.i9.Class.Transacoes;
 import com.br.i9.Database.CrudDatabase;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,10 +57,23 @@ public class Despesas extends Fragment {
 	
 	private void gerarDespesas(CrudDatabase db, TextView despesasMes, AjusteSpinner ajusteSpinner,Spinner spinnerMeses,AjusteListView ajusteListView,ListView listViewTran, View viewLista, int MesReferencia)
 	{
-		String sRec;
-		sRec = db.ReceitaDespesaMes("2", null);
+		String sDesp;
+		sDesp = db.ReceitaDespesaMes("2", null);
 		
-		despesasMes.setText("Despesa total: R$ " + sRec) ;
+		if(sDesp.contains("-") && sDesp.length() >= 4)
+		{
+			despesasMes.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sDesp.replace(sDesp, sDesp.substring(0, 2)+"."+sDesp.substring(2, sDesp.length()))+
+ 					"</font>"
+ 					));
+		}
+		else
+			if(sDesp.length() >= 4)
+		{
+			despesasMes.setText("Despesa total: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 1)+"."+sDesp.substring(1, sDesp.length())));
+		}
+		else
+			despesasMes.setText("Despesa total: R$ " + sDesp) ;
+			
 		
 		arrayDespesas = new ArrayList<Transacoes>();
 		
