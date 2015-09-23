@@ -77,7 +77,7 @@ public class Geral extends Fragment {
 			despesasMes.setText("Despesas: R$ " + sDesp) ;
 		
 		
-		if(sRec.length() == 4)
+		if(sRec.length() == 4 && !sRec.contains("-"))
 		{
 			receitasMes.setText("Despesas: R$ " + sRec.replace(sRec, sRec.substring(0, 1)+"."+sRec.substring(1, sRec.length())));
 		}
@@ -93,12 +93,19 @@ public class Geral extends Fragment {
 		
 		sTotal = String.valueOf(Math.round(ndTotal));
 		
-		if(sTotal.contains("-") && sTotal.length() == 4)
+		if(sTotal.contains("-") && sTotal.replace("-", "").length() == 4)
 		{
 			situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(sTotal, sTotal.substring(0, 2)+"."+sTotal.substring(2, sTotal.length()))+
  					"</font>"
  					));
 		}
+		else
+			if(sTotal.contains("-") && sTotal.replace("-", "").length() == 3)
+			{
+				situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(".",",")+
+	 					"</font>"
+	 					));
+			}
 		else
 			if(sTotal.contains("-") && sTotal.length() == 5)
 			{
@@ -106,19 +113,20 @@ public class Geral extends Fragment {
 	 					"</font>"
 	 					));
 			}
-		if(sTotal.contains("-") && sTotal.length() < 4)
-		{
+		else
+			if(sTotal.contains("-") && sTotal.length() < 4)
+			{
 			situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(".",",")+
  					"</font>"
  					));
-		}
+			}
 		else
-			if(sTotal.length() == 4)
+			if(sTotal.length() == 4 && !sTotal.contains("-"))
 			{
 				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(sTotal, sTotal.substring(0, 1)+"."+sTotal.substring(1, sTotal.length())));
 			}
 		else
-			if(sTotal.length() == 5)
+			if(sTotal.length() == 5 && !sTotal.contains("-"))
 			{
 				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(sTotal, sTotal.substring(0, 2)+"."+sTotal.substring(2, sTotal.length())));
 			}
