@@ -63,17 +63,27 @@ public class Geral extends Fragment {
 		sRec = db.ReceitaDespesaMes("1", null);
 		sDesp = db.ReceitaDespesaMes("2", null);
 		
-		if(sDesp.length() >= 4)
+		if(sDesp.length() == 4)
 		{
 			despesasMes.setText("Despesas: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 1)+"."+sDesp.substring(1, sDesp.length())));
 		}
 		else
-			despesasMes.setText("Despesas:   R$ " + sDesp) ;
+			if(sDesp.length() == 5)
+			{
+				despesasMes.setText("Despesas: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 2)+"."+sDesp.substring(2, sDesp.length())));
+			}
+			
+		else
+			despesasMes.setText("Despesas: R$ " + sDesp) ;
 		
 		
-		if(sRec.length() >= 4)
+		if(sRec.length() == 4)
 		{
 			receitasMes.setText("Despesas: R$ " + sRec.replace(sRec, sRec.substring(0, 1)+"."+sRec.substring(1, sRec.length())));
+		}
+		else if(sRec.length() == 5)
+		{
+			receitasMes.setText("Despesas: R$ " + sRec.replace(sRec, sRec.substring(0, 2)+"."+sRec.substring(2, sRec.length())));
 		}
 		else
 			receitasMes.setText("Receitas:   R$ " + sRec) ;
@@ -83,12 +93,19 @@ public class Geral extends Fragment {
 		
 		sTotal = String.valueOf(Math.round(ndTotal));
 		
-		if(sTotal.contains("-") && sTotal.length() >= 4)
+		if(sTotal.contains("-") && sTotal.length() == 4)
 		{
 			situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(sTotal, sTotal.substring(0, 2)+"."+sTotal.substring(2, sTotal.length()))+
  					"</font>"
  					));
 		}
+		else
+			if(sTotal.contains("-") && sTotal.length() == 5)
+			{
+				situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(sTotal, sTotal.substring(0, 3)+"."+sTotal.substring(3, sTotal.length()))+
+	 					"</font>"
+	 					));
+			}
 		if(sTotal.contains("-") && sTotal.length() < 4)
 		{
 			situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(".",",")+
@@ -96,9 +113,14 @@ public class Geral extends Fragment {
  					));
 		}
 		else
-			if(sTotal.length() >= 4)
+			if(sTotal.length() == 4)
 			{
 				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(sTotal, sTotal.substring(0, 1)+"."+sTotal.substring(1, sTotal.length())));
+			}
+		else
+			if(sTotal.length() == 5)
+			{
+				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(sTotal, sTotal.substring(0, 2)+"."+sTotal.substring(2, sTotal.length())));
 			}
 		else
 			situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(".",","));

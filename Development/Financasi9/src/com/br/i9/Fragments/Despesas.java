@@ -60,17 +60,22 @@ public class Despesas extends Fragment {
 		String sDesp;
 		sDesp = db.ReceitaDespesaMes("2", null);
 		
-		if(sDesp.contains("-") && sDesp.length() >= 4)
+		if(sDesp.contains("-") && sDesp.length() == 4)
 		{
 			despesasMes.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sDesp.replace(sDesp, sDesp.substring(0, 2)+"."+sDesp.substring(2, sDesp.length()))+
  					"</font>"
  					));
 		}
 		else
-			if(sDesp.length() >= 4)
+			if(sDesp.length() == 4)
 		{
 			despesasMes.setText("Despesa total: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 1)+"."+sDesp.substring(1, sDesp.length())));
 		}
+		else
+			if(sDesp.length() == 5)
+			{
+				despesasMes.setText("Despesa total: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 2)+"."+sDesp.substring(2, sDesp.length())));
+			}
 		else
 			despesasMes.setText("Despesa total: R$ " + sDesp) ;
 			
