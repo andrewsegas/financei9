@@ -89,13 +89,19 @@ public class Geral extends Fragment {
  					"</font>"
  					));
 		}
+		if(sTotal.contains("-") && sTotal.length() < 4)
+		{
+			situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(".",",")+
+ 					"</font>"
+ 					));
+		}
 		else
 			if(sTotal.length() >= 4)
 			{
 				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(sTotal, sTotal.substring(0, 1)+"."+sTotal.substring(1, sTotal.length())));
 			}
 		else
-				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(".",","));
+			situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(".",","));
 		
 		
         float[] yData = { Float.valueOf(sDesp.replace(",", ".")), Float.valueOf(sRec.replace(",", ".")) };
