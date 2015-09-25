@@ -66,7 +66,7 @@ public class CrudDatabase {
 		cursor.close();
 		ContentValues valores = new ContentValues();
 		valores.put("CFG_NOTIFI",  "1");
-		valores.put("CFG_VARRESMS",  "0");
+		valores.put("CFG_VARRESMS",  "0"); // 0 significa que ainda nao varreu os sms
 		valores.put("CFG_USUID",  TheFirstPage.UsuID);
 		valores.put("CFG_USULOGIN",  TheFirstPage.UsuName);
 		bd.insert("CONFIG", null, valores);
@@ -490,13 +490,13 @@ public class CrudDatabase {
 		
 		Cursor cursor = bd.query("CONFIG", colunas , "CFG_USUID = '" + TheFirstPage.UsuID + "' AND CFG_VARRESMS = '1' ", null, null, null, null);
 		
-		if(cursor.getCount() == 0){
+		if(cursor.getCount() > 0){ //encontrou o registro com VARRESMS = 1 ? (1 significa que ja varreu)
 			cursor.close();
 			return false;
 		}
 		
 		ContentValues valores = new ContentValues();
-		valores.put("CFG_VARRESMS",  0);
+		valores.put("CFG_VARRESMS",  1); //se não, varre e coloca 1 (JA VARREU)
 		bd.update("CONFIG", valores, "CFG_USUID = " + TheFirstPage.UsuID, null);
 		cursor.close();
 		return true;
