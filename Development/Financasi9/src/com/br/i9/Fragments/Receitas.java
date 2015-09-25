@@ -58,9 +58,13 @@ public class Receitas extends Fragment{
 		String sRec;
 		sRec = db.ReceitaDespesaMes("1", null);
 		 
-			if(sRec.length() >= 4)
+			if(sRec.length() == 4 && !sRec.contains("-"))
 			{
 				receitasMes.setText("Receita Total: R$ " + sRec.replace(sRec, sRec.substring(0, 1)+"."+sRec.substring(1, sRec.length())));
+			}
+			else if(sRec.length() == 5)
+			{
+				receitasMes.setText("Receita Total: R$ " + sRec.replace(sRec, sRec.substring(0, 2)+"."+sRec.substring(2, sRec.length())));
 			}
 			else
 				receitasMes.setText("Receita Total: R$ " + sRec) ;

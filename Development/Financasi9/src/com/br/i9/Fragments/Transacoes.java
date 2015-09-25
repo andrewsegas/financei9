@@ -97,7 +97,6 @@ public class Transacoes extends Fragment {
 		
     	 if(item.getTitle().toString().contains("Excluir")){
     		 	Excluir(arrayReceitas.get(info.position).getIdMov());
-    		 	GerarTransacoes(bd, viewLista, listViewTran, spinnerMeses, ajusteListView, bd.getMonth());
            }
     	 else
     		 if(item.getTitle().toString().contains("Detalhes"))
@@ -165,6 +164,7 @@ public class Transacoes extends Fragment {
 		}
 		else
 		{
+			listViewTran.setAdapter(null);			
 			TextView textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
 			ajusteListView.validarExistenciaDados(textView);
 		}
