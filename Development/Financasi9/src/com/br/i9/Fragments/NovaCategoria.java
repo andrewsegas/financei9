@@ -2,6 +2,9 @@ package com.br.i9.Fragments;
 
 import java.util.List;
 
+import yuku.ambilwarna.AmbilWarnaDialog;
+import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
+
 import com.br.i9.R;
 import com.br.i9.Class.PopUp;
 import com.br.i9.Class.ValidacaoDeCampos;
@@ -22,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
 
 public class NovaCategoria extends Fragment {
 	
@@ -30,6 +34,8 @@ public class NovaCategoria extends Fragment {
 	Builder Popup;
 	String label;
 	View viewLista;
+	Boolean corSelecionada = false;
+	int CorGrafica;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -39,6 +45,7 @@ public class NovaCategoria extends Fragment {
 		bd = new CrudDatabase(getActivity());
 		nmNovaCategoria = (EditText) viewLista.findViewById(R.id.txtNomeCategoria);
 		Button btnCadastar = (Button)viewLista.findViewById(R.id.btnCadastar);
+		View escolherCor = viewLista.findViewById(R.id.escolherCor);
 			
 		popularSpinnerTipoCategoria(spinnerTipo);
 		
@@ -49,6 +56,34 @@ public class NovaCategoria extends Fragment {
 					CadastrarCategoria("1");
 				else
 					CadastrarCategoria("2");
+			}
+		});
+		
+		escolherCor.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(!corSelecionada)
+					colorpicker();
+				else
+				{
+					Popup = PopUp.Popup(viewLista.getContext());
+					 Popup.setCancelable(false);
+					 Popup.setTitle("Finançasi9")
+					 .setMessage("Já existe uma cor selecionada, deseja alterar?")
+				     .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+				         public void onClick(DialogInterface dialog, int which) {
+				        	 corSelecionada = false;
+				        	 colorpicker();
+				         }
+				      })
+				      .setNegativeButton("Não",new DialogInterface.OnClickListener() {
+					         public void onClick(DialogInterface dialog, int which) {
+					        	 dialog.dismiss();
+					         }
+					    })
+				      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+				}
 			}
 		});
 		
@@ -105,19 +140,35 @@ public class NovaCategoria extends Fragment {
 			 }
 			 else
 			 {
-				 bd.RegistrarNovaCategoria(nmNovaCategoria.getText().toString(), tipoGrupo);
-				 
-				Popup = PopUp.Popup(viewLista.getContext());
-				 Popup.setCancelable(false);
-				 Popup.setTitle("Finançasi9")
-				 .setMessage("Categoria cadastrada com sucesso.")
-			     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-			         public void onClick(DialogInterface dialog, int which) {
-			        	 nmNovaCategoria.setText("");
-			        	 dialog.dismiss();
-			         }
-			      })
-			      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+				 if(!corSelecionada)
+				 {
+					 Popup = PopUp.Popup(viewLista.getContext());
+					 Popup.setCancelable(false);
+					 Popup.setTitle("Finançasi9")
+					 .setMessage("Por favor, selecione uma cor gráfica.")
+				      .setNegativeButton("Ok",new DialogInterface.OnClickListener() {
+					         public void onClick(DialogInterface dialog, int which) {
+					        	 dialog.dismiss();
+					         }
+					    })
+				      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+				 }
+				 else
+				 {
+					 bd.RegistrarNovaCategoria(nmNovaCategoria.getText().toString(), tipoGrupo);
+					 
+					Popup = PopUp.Popup(viewLista.getContext());
+					 Popup.setCancelable(false);
+					 Popup.setTitle("Finançasi9")
+					 .setMessage("Categoria cadastrada com sucesso.")
+				     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+				         public void onClick(DialogInterface dialog, int which) {
+				        	 nmNovaCategoria.setText("");
+				        	 dialog.dismiss();
+				         }
+				      })
+				      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+				 }
 			 }
 		}
 		else
@@ -127,5 +178,27 @@ public class NovaCategoria extends Fragment {
 			nmNovaCategoria.requestFocus();
 		}
 	}
+	
+	public void colorpicker()
+    {        
+        AmbilWarnaDialog dialog = new AmbilWarnaDialog(viewLista.getContext(), 0xff0000ff, new OnAmbilWarnaListener() 
+    	{
+    		@Override
+    		public void onCancel(AmbilWarnaDialog dialog){
+    			corSelecionada = false;
+    		}
+    		@Override
+    		public void onOk(AmbilWarnaDialog dialog, int color) {
+    			if(color != 0)
+    			{
+    				corSelecionada = true;
+    				CorGrafica = color;
+    			}
+    			
+    			Toast.makeText(getActivity().getApplicationContext(), "Cor selecionada com sucesso", Toast.LENGTH_LONG).show();    			
+    		}
+    	});
+        dialog.show();
+    }
 
 }
