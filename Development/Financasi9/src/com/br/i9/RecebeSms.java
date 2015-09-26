@@ -42,7 +42,7 @@ public class RecebeSms extends BroadcastReceiver {
         Boolean SMSBancario;
         String sMsg ;
 
-        if (bundle != null)
+        if (bundle != null && !(db.ultimoUsuarioLogado(true,1).isEmpty()))
         {
             Object[] pdus = (Object[]) bundle.get("pdus");
             msgs = new SmsMessage[pdus.length];
