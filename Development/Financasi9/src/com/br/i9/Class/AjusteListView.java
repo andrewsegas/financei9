@@ -43,9 +43,14 @@ public class AjusteListView {
 		view.measure(widthMeasureSpec, heightMeasureSpec);
 	}
 	
-	public void validarExistenciaDados(TextView textView)
+	public void validarExistenciaDados(TextView textView, Boolean lVisible)
 	{
-		textView.setVisibility(View.VISIBLE);
+		if (lVisible){
+			textView.setVisibility(View.VISIBLE);
+		}else{
+			textView.setVisibility(View.INVISIBLE);
+		}
+		
 	}
 
 }

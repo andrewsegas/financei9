@@ -33,15 +33,7 @@ public class Notificacao {
 	
 	public static void showNotification(Context context, String sTitle, String sText, Class<?> classe) {
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-				new Intent(context,  com.br.i9.Fragments.Transacoes.class), 0);
-		
-		Intent resultIntent = new Intent(context, TheFirstPage.class); 
-		
-		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-		stackBuilder.addNextIntent(resultIntent);
-		stackBuilder.addParentStack(TheFirstPage.class);
-		PendingIntent resultPendingIntent =
-		         stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+				new Intent(context,  TheFirstPage.class), 0);
 		
 		NotificationCompat.Builder mBuilder =
 				new NotificationCompat.Builder(context)
@@ -50,7 +42,7 @@ public class Notificacao {
 				.setStyle(new NotificationCompat.BigTextStyle().bigText(sText))
 				.setContentText(sText);
 
-		mBuilder.setContentIntent(resultPendingIntent);
+		mBuilder.setContentIntent(contentIntent);
 		mBuilder.setDefaults(Notification.DEFAULT_SOUND);
 		mBuilder.setAutoCancel(true);
 		NotificationManager mNotificationManager =

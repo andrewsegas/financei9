@@ -135,7 +135,7 @@ public class Categorias extends Fragment {
             	
             	if(categoriaSistema != 1)
             	{
-            		List<MovimentosGastos> aMovimentos = bd.SelecionarTodosMovimentos("CATEGORIA = '"+ nmcategoriaOld +"'", "_IDMov DESC");
+            		List<MovimentosGastos> aMovimentos = bd.SelecionarTodosMovimentos("CATEGORIA = '"+ nmcategoriaOld +"'", "_IDMov DESC", -1);
             		
             		if(aMovimentos.size() != 0)
             		{
