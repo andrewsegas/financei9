@@ -66,7 +66,7 @@ public class CrudDatabase {
 		cursor.close();
 		ContentValues valores = new ContentValues();
 		valores.put("CFG_NOTIFI",  "1");
-		valores.put("CFG_VARRESMS",  "0");
+		valores.put("CFG_VARRESMS",  "0"); // 0 significa que ainda nao varreu os sms
 		valores.put("CFG_USUID",  TheFirstPage.UsuID);
 		valores.put("CFG_USULOGIN",  TheFirstPage.UsuName);
 		bd.insert("CONFIG", null, valores);
@@ -336,15 +336,32 @@ public class CrudDatabase {
 	 * Params
 	 * cWhere = Clausula Where
 	 * cOrder = clausula Orderby "_IDMov ASC"
+	 * nMes = Mes do Spinner, se for enviado -1 pegará todos os meses
 	------------------------------*/	
-	public List<MovimentosGastos> SelecionarTodosMovimentos(String cWhere, String cOrder )
+	public List<MovimentosGastos> SelecionarTodosMovimentos(String cWhere, String cOrder, int nMes )
 	{
 		 //cOrder = "_IDMov ASC";
 		List<MovimentosGastos> GastosMov = new ArrayList<MovimentosGastos>();
 		String[] colunas = new String[]{"_IDMov", "VALOR", "TELEFONE", "CATEGORIA", "nmBANCO", "nmESTABELECIMENTO",
 				"dtMOVIMENTO, nrCARTAO, cSMSALL, cRecDesp"};
+		String sMes, sWhereQry;
+		if (!cWhere.isEmpty()){ // Se o where estiver preenchido, adiciona o 'AND'
+			cWhere += " AND ";
+		}
+		sMes = String.valueOf(nMes + 1) ;
+		if (sMes.length() == 1 ){
+			sMes = "0" + sMes; // coloca zero na frente dos meses de 1 a 9
+		}
 		
-		Cursor cursor = bd.query("MOVIMENTOS", colunas, cWhere, null, null, null, cOrder);
+		sWhereQry = cWhere + " MOV_USUID = '" + TheFirstPage.UsuID + "'";
+		
+		if(sMes != "00"){ //se o mes veio 00 é porque o parametro foi enviado -1 (pega todos os meses)
+			sWhereQry += " AND dtMOVIMENTO LIKE '%/" + sMes + "/%'";
+		}
+		
+		
+		
+		Cursor cursor = bd.query("MOVIMENTOS", colunas, sWhereQry, null, null, null, cOrder);
 		
 		
 		if(cursor.getCount() > 0){
@@ -370,17 +387,26 @@ public class CrudDatabase {
 	}
 	
 	/*------------------------------
+	 * Usado para retornar o valor total de receitas e despesas daquele mes
 	 * Params
 	 * cRecDesp = "1" receita - "2" despesa 
 	 * cMes = mes para consulta
 	------------------------------*/	
-	public String ReceitaDespesaMes(String cRecDesp, String cMes){
+	public String ReceitaDespesaMes(String cRecDesp, int nMes){
 		String[] colunas = new String[]{"(SUM(VALOR))", "cRecDesp"};
 		Cursor cursor = null;
-		String cWhere = "cRecDesp ='" + cRecDesp + "'";
-		String sReturn;
+		String sMes, sWhere, sReturn;
 		
-		cursor = bd.query("MOVIMENTOS", colunas, cWhere ,  null, "cRecDesp" , null, "_IDMov DESC");
+		sMes = String.valueOf(nMes + 1) ;
+		if (sMes.length() == 1 ){
+			sMes = "0" + sMes; // coloca zero na frente dos meses de 1 a 9
+		}
+		
+		sWhere = "MOV_USUID = '" + TheFirstPage.UsuID + "'"
+				+ "AND cRecDesp ='" + cRecDesp + ""
+				+ "' AND dtMOVIMENTO LIKE '%/" + sMes + "/%'";
+		
+		cursor = bd.query("MOVIMENTOS", colunas, sWhere ,  null, "cRecDesp" , null, "_IDMov DESC");
 		
 		if(cursor.getCount() > 0){
 			cursor.moveToFirst();
@@ -398,6 +424,7 @@ public class CrudDatabase {
 	}
 	
 	/*------------------------------
+	 * Usado para fazer o grafico das categorias de receitas e despesas do mes
 	 * Params
 	 * cRecDesp = "1" receita - "2" despesa 
 	 * cMes = mes para consulta
@@ -493,13 +520,13 @@ public class CrudDatabase {
 		
 		Cursor cursor = bd.query("CONFIG", colunas , "CFG_USUID = '" + TheFirstPage.UsuID + "' AND CFG_VARRESMS = '1' ", null, null, null, null);
 		
-		if(cursor.getCount() == 0){
+		if(cursor.getCount() > 0){ //encontrou o registro com VARRESMS = 1 ? (1 significa que ja varreu)
 			cursor.close();
 			return false;
 		}
 		
 		ContentValues valores = new ContentValues();
-		valores.put("CFG_VARRESMS",  0);
+		valores.put("CFG_VARRESMS",  1); //se não, varre e coloca 1 (JA VARREU)
 		bd.update("CONFIG", valores, "CFG_USUID = " + TheFirstPage.UsuID, null);
 		cursor.close();
 		return true;

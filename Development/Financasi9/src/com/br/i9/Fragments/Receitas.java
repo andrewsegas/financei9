@@ -56,7 +56,8 @@ public class Receitas extends Fragment{
 	public void gerarReceitas(CrudDatabase db, TextView receitasMes, AjusteSpinner ajusteSpinner,Spinner spinnerMeses,AjusteListView ajusteListView,ListView listViewTran, View viewLista, int MesReferencia)
 	{
 		String sRec;
-		sRec = db.ReceitaDespesaMes("1", null);
+		Boolean lVisibleTxt = true;
+		sRec = db.ReceitaDespesaMes("1", MesReferencia);
 		 
 			if(sRec.length() == 4 && !sRec.contains("-"))
 			{
@@ -70,10 +71,11 @@ public class Receitas extends Fragment{
 				receitasMes.setText("Receita Total: R$ " + sRec) ;
 		 
 		 arrayReceitas = new ArrayList<com.br.i9.Class.Transacoes>();
-		 List<MovimentosGastos> aMovimentos = db.SelecionarTodosMovimentos("cRecDesp = '1'","_IDMov DESC");
+		 List<MovimentosGastos> aMovimentos = db.SelecionarTodosMovimentos("cRecDesp = '1'","_IDMov DESC", MesReferencia);
 		
 			if(aMovimentos.size() != 0)
 			{
+				lVisibleTxt = false ;
 				for (int i = 0; i < aMovimentos.size(); i++) {
 					arrayReceitas.add(new com.br.i9.Class.Transacoes(
 							 aMovimentos.get(i).getEstabelecimeno(), 
@@ -94,9 +96,11 @@ public class Receitas extends Fragment{
 				ajusteListView.ajustarListViewInScrollView(listViewTran);
 			}
 			else{
-				TextView textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
-				ajusteListView.validarExistenciaDados(textView);
+				listViewTran.setAdapter(null);
 			}
+			
+			TextView textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
+			ajusteListView.validarExistenciaDados(textView, lVisibleTxt );
 	}	
 }
 

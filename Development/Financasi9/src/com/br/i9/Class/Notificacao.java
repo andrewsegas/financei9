@@ -1,11 +1,14 @@
 package com.br.i9.Class;
 
 import com.br.i9.R;
+import com.br.i9.ActivityPrincipais.MainActivity;
+import com.br.i9.ActivityPrincipais.TheFirstPage;
 import com.br.i9.Database.CrudDatabase;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
@@ -30,7 +33,7 @@ public class Notificacao {
 	
 	public static void showNotification(Context context, String sTitle, String sText, Class<?> classe) {
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-				new Intent(context,  com.br.i9.Fragments.Transacoes.class), 0);
+				new Intent(context,  TheFirstPage.class), 0);
 		
 		NotificationCompat.Builder mBuilder =
 				new NotificationCompat.Builder(context)

@@ -60,8 +60,8 @@ public class Geral extends Fragment {
 		String sRec, sDesp, sTotal;
 		Double ndTotal;
 		
-		sRec = db.ReceitaDespesaMes("1", null);
-		sDesp = db.ReceitaDespesaMes("2", null);
+		sRec = db.ReceitaDespesaMes("1", MesReferencia);
+		sDesp = db.ReceitaDespesaMes("2", MesReferencia );
 		
 		if(sDesp.length() == 4)
 		{
@@ -138,7 +138,6 @@ public class Geral extends Fragment {
         String[] xData = { "Despesas", "Receitas"};
         int[] cores = { Color.rgb(255,99,71), Color.rgb(50,205,50) };
         
-        if(sRec != "0" || sDesp != "0")
         	GerarGrafico.GerarGraficoPie(mChart, yData, xData, cores); 	
 	}
 }
