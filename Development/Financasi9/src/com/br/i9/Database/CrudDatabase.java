@@ -355,12 +355,9 @@ public class CrudDatabase {
 		
 		sWhereQry = cWhere + " MOV_USUID = '" + TheFirstPage.UsuID + "'";
 		
-		if(sMes != "00"){ //se o mes veio 00 é porque o parametro foi enviado -1 (pega todos os meses)
+		if(!sMes.contains("00")){ //se o mes veio 00 é porque o parametro foi enviado -1 (pega todos os meses)
 			sWhereQry += " AND dtMOVIMENTO LIKE '%/" + sMes + "/%'";
 		}
-		
-		
-		
 		Cursor cursor = bd.query("MOVIMENTOS", colunas, sWhereQry, null, null, null, cOrder);
 		
 		
@@ -431,7 +428,7 @@ public class CrudDatabase {
 	 * Return array com 2 dimensões [x][0] = valor ; [x][1] = categoria
 	------------------------------*/	
 	public String[][] CategoriaRecDespMes(String cRecDesp, String cMes){
-		String[] colunas = new String[]{"(SUM(VALOR))", "CATEGORIA", "cRecDesp", "CAT_CORGRAFICA"};
+		String[] colunas = new String[]{"(SUM(VALOR))", "CATEGORIA", "cRecDesp"};
 		Cursor cursor = null;
 		String cWhere = "cRecDesp ='" + cRecDesp + "'";
 		String[][] aCategorias ;
@@ -450,7 +447,6 @@ public class CrudDatabase {
 			
 			cursor.close();
 			return aCategorias;
-
 		}
 		else{
 			cursor.close();

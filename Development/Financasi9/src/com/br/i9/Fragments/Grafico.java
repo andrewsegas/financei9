@@ -93,6 +93,6 @@ public class Grafico extends Fragment{
 	    super.onCreateOptionsMenu(menu, inflater);
 	    
 	    menu.findItem(R.id.action_check_updates).setVisible(false);
-	    menu.findItem(R.id.action_search).setVisible(true);
+	    menu.findItem(R.id.action_search).setVisible(false);
 	}
 }
