@@ -431,7 +431,7 @@ public class CrudDatabase {
 	 * Return array com 2 dimensões [x][0] = valor ; [x][1] = categoria
 	------------------------------*/	
 	public String[][] CategoriaRecDespMes(String cRecDesp, String cMes){
-		String[] colunas = new String[]{"(SUM(VALOR))", "CATEGORIA", "cRecDesp"};
+		String[] colunas = new String[]{"(SUM(VALOR))", "CATEGORIA", "cRecDesp", "CAT_CORGRAFICA"};
 		Cursor cursor = null;
 		String cWhere = "cRecDesp ='" + cRecDesp + "'";
 		String[][] aCategorias ;
