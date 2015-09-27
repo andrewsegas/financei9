@@ -5,13 +5,15 @@ public class Categorias {
 	private String grCategoria;
 	private String catSistema;
 	private Integer nId;
+	private Integer corGrafica;
 
-	public Categorias(String nmCategoria, String grCategoria, int nId, String catSistema) {
+	public Categorias(String nmCategoria, String grCategoria, int nId, String catSistema, int _corGrafica) {
 			super();
 			this.nmCategoria = nmCategoria;
 			this.grCategoria = grCategoria;
 			this.nId = nId;
 			this.catSistema = catSistema;
+			this.corGrafica = _corGrafica;
 			
 	}
 
@@ -30,7 +32,16 @@ public class Categorias {
 	public void setnId(Integer _nId) {
 		this.nId = _nId;
 	}
-
+	
+	public void setCorGrafica(Integer _corGrafica) {
+		this.corGrafica = _corGrafica;
+	}
+	
+	public Integer getCorGrafica()
+	{
+		return corGrafica; 
+	}
+	
 	public String getnmCategoria() {
 		return nmCategoria;
 	}

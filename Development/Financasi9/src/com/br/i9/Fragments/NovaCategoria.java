@@ -155,7 +155,7 @@ public class NovaCategoria extends Fragment {
 				 }
 				 else
 				 {
-					 bd.RegistrarNovaCategoria(nmNovaCategoria.getText().toString(), tipoGrupo);
+					 bd.RegistrarNovaCategoria(nmNovaCategoria.getText().toString(), tipoGrupo, CorGrafica);
 					 
 					Popup = PopUp.Popup(viewLista.getContext());
 					 Popup.setCancelable(false);

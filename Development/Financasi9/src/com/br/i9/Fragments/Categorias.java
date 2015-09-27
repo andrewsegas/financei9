@@ -238,7 +238,8 @@ public class Categorias extends Fragment {
 					listCat.get(i).getnmCategoria(),
 					listCat.get(i).getgrCategoria(),
 					listCat.get(i).getnId(),
-					listCat.get(i).getcatSistema()
+					listCat.get(i).getcatSistema(),
+					listCat.get(i).getCorGrafica()
 					));
 		}
 		

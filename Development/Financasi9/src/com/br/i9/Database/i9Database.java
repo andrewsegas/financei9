@@ -54,7 +54,8 @@ public class i9Database extends SQLiteOpenHelper {
 		bd.execSQL("CREATE TABLE IF NOT EXISTS CATEGORIAS (_IDCAT INTEGER Primary key AUTOINCREMENT,"
 				+ "CAT_NOME VARCHAR2(30) NOT NULL collate nocase,"		//Nome da categoria
 				+ "CAT_GRUPO CHAR(1) NOT NULL,"	//Grupo de categoria pertencente
-				+ "CAT_USUID INTEGER ,"					//id do usuario
+				+ "CAT_CORGRAFICA INTEGER(20) NOT NULL,"
+				+ "CAT_USUID INTEGER,"					//id do usuario
 				+ "CAT_USULOGIN CHAR(20) ,"				//usuario da categoria
 				+ "CAT_SISTEMA VARCHAR2(1)" 			//categoria cadastrada automaticamente pelo sistema
 				+ ");");
