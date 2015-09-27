@@ -11,15 +11,11 @@ import com.br.i9.Class.TratamentoMensagens;
 import com.br.i9.Database.CrudDatabase;
 
 import android.app.AlertDialog.Builder;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsMessage;
 
 public class RecebeSms extends BroadcastReceiver {
