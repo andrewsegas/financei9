@@ -136,7 +136,6 @@ public class Transacoes extends Fragment {
 	{ 
 		AjusteSpinner ajustaSpinner = new AjusteSpinner();
 		String cWhere = "" ; 
-		Boolean lVisibleTxt = true;
 
 		cWhere = ajustaSpinner.whereMes(cWhere, spinnerMeses);
 		
@@ -144,7 +143,6 @@ public class Transacoes extends Fragment {
 		List<MovimentosGastos> aMovimentos = bd.SelecionarTodosMovimentos("","_IDMov DESC", MesReferencia);
 		if(aMovimentos.size() != 0)
 		{
-			lVisibleTxt = false;
 			for (int i = 0; i < aMovimentos.size(); i++) {
 				arrayReceitas.add(new com.br.i9.Class.Transacoes(
 						aMovimentos.get(i).getEstabelecimeno(), 
@@ -160,16 +158,15 @@ public class Transacoes extends Fragment {
 			}
 			TransacoesAdapter adapter = new TransacoesAdapter(getActivity(), arrayReceitas, "red");
 			listViewTran.setAdapter(adapter);
+
+			ajusteListView.ajustarListViewInScrollView(listViewTran);
 		}
 		else
 		{
 			listViewTran.setAdapter(null);
+			TextView textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
+			listViewTran.setEmptyView(textView);
 		}
-		
-		ajusteListView.ajustarListViewInScrollView(listViewTran);
-		
-		TextView textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
-		ajusteListView.validarExistenciaDados(textView, lVisibleTxt);
 	}
 
 	public void DividirValor()
