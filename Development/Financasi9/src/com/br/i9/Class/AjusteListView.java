@@ -50,7 +50,6 @@ public class AjusteListView {
 		}else{
 			textView.setVisibility(View.INVISIBLE);
 		}
-		
 	}
 
 }

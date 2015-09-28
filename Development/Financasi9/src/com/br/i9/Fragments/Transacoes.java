@@ -158,17 +158,16 @@ public class Transacoes extends Fragment {
 						aMovimentos.get(i).getCodigo()		
 						));
 			}
-			
 			TransacoesAdapter adapter = new TransacoesAdapter(getActivity(), arrayReceitas, "red");
 			listViewTran.setAdapter(adapter);
-			
-			ajusteListView.ajustarListViewInScrollView(listViewTran);
 		}
 		else
 		{
-			listViewTran.setAdapter(null);			
-			
+			listViewTran.setAdapter(null);
 		}
+		
+		ajusteListView.ajustarListViewInScrollView(listViewTran);
+		
 		TextView textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
 		ajusteListView.validarExistenciaDados(textView, lVisibleTxt);
 	}

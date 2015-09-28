@@ -14,6 +14,7 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -120,57 +121,79 @@ public class NovaCategoria extends Fragment {
 	
 	public void CadastrarCategoria(String tipoGrupo)
 	{
-		if(!ValidacaoDeCampos.ValidaCampos(nmNovaCategoria.getText().toString()))
-		{
-			 List<String> categoriaExiste = bd.lerCategorias("CAT_NOME = RTRIM('"+ nmNovaCategoria.getText().toString() +"')");
-			 
-			 if(categoriaExiste.size() > 0)
-			 {
-				Popup = PopUp.Popup(viewLista.getContext());
-				 Popup.setCancelable(false);
-				 Popup.setTitle("Finançasi9")
-				 .setMessage("Ops! Já existe uma categoria para esta descrição.")
-			     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-			         public void onClick(DialogInterface dialog, int which) {
-			        	 nmNovaCategoria.setText("");
-			        	 dialog.dismiss();
-			         }
-			      })
-			      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
-			 }
-			 else
-			 {
-				 if(!corSelecionada)
-				 {
-					 Popup = PopUp.Popup(viewLista.getContext());
-					 Popup.setCancelable(false);
-					 Popup.setTitle("Finançasi9")
-					 .setMessage("Por favor, selecione uma cor gráfica.")
-				      .setNegativeButton("Ok",new DialogInterface.OnClickListener() {
-					         public void onClick(DialogInterface dialog, int which) {
-					        	 dialog.dismiss();
-					         }
-					    })
-				      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
-				 }
-				 else
-				 {
-					 bd.RegistrarNovaCategoria(nmNovaCategoria.getText().toString(), tipoGrupo, CorGrafica);
-					 
+			if(!ValidacaoDeCampos.ValidaCampos(nmNovaCategoria.getText().toString()))
+			{				
+				if(nmNovaCategoria.getText().toString().equalsIgnoreCase("Receitas") || nmNovaCategoria.getText().toString().equalsIgnoreCase("Despesas"))
+				{
 					Popup = PopUp.Popup(viewLista.getContext());
 					 Popup.setCancelable(false);
 					 Popup.setTitle("Finançasi9")
-					 .setMessage("Categoria cadastrada com sucesso.")
+					 .setMessage(Html.fromHtml("<font size='1' align='justify'>" + 
+							 "Não é possível cadastrar uma categoria com o mesmo nome de um grupo do sistema." +
+			 					"</font>" + "\n\n" + "<br><br><font size='1'>" +
+			 					"<b>" + "Grupo: " +"</b>" + nmNovaCategoria.getText().toString().toUpperCase() + 
+			 					"</font>"
+			 					))
 				     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
 				         public void onClick(DialogInterface dialog, int which) {
 				        	 nmNovaCategoria.setText("");
 				        	 dialog.dismiss();
 				         }
 				      })
-				      .setIcon(android.R.drawable.ic_dialog_info).show().create();
-				 }
-			 }
-		}
+				      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+				}
+				else
+				{
+					 List<String> categoriaExiste = bd.lerCategorias("CAT_NOME = RTRIM('"+ nmNovaCategoria.getText().toString() +"')");
+					 
+					 if(categoriaExiste.size() > 0)
+					 {
+						Popup = PopUp.Popup(viewLista.getContext());
+						 Popup.setCancelable(false);
+						 Popup.setTitle("Finançasi9")
+						 .setMessage("Ops! Já existe uma categoria para esta descrição.")
+					     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+					         public void onClick(DialogInterface dialog, int which) {
+					        	 nmNovaCategoria.setText("");
+					        	 dialog.dismiss();
+					         }
+					      })
+					      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+					 }
+					 else
+					 {
+						 if(!corSelecionada)
+						 {
+							 Popup = PopUp.Popup(viewLista.getContext());
+							 Popup.setCancelable(false);
+							 Popup.setTitle("Finançasi9")
+							 .setMessage("Por favor, selecione uma cor gráfica.")
+						      .setNegativeButton("Ok",new DialogInterface.OnClickListener() {
+							         public void onClick(DialogInterface dialog, int which) {
+							        	 dialog.dismiss();
+							         }
+							    })
+						      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+						 }
+						 else
+						 {
+							 bd.RegistrarNovaCategoria(nmNovaCategoria.getText().toString(), tipoGrupo, CorGrafica);
+							 
+							Popup = PopUp.Popup(viewLista.getContext());
+							 Popup.setCancelable(false);
+							 Popup.setTitle("Finançasi9")
+							 .setMessage("Categoria cadastrada com sucesso.")
+						     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+						         public void onClick(DialogInterface dialog, int which) {
+						        	 nmNovaCategoria.setText("");
+						        	 dialog.dismiss();
+						         }
+						      })
+						      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+						 }
+					 }
+				}
+			}
 		else
 		{
 			nmNovaCategoria.setError("Informe a categoria");
