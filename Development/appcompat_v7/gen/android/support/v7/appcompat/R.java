@@ -1571,14 +1571,14 @@ containing a value of this type.
         public static int windowNoTitle=0x7f010004;
     }
     public static final class bool {
-        public static int abc_action_bar_embed_tabs=0x7f060000;
-        public static int abc_action_bar_embed_tabs_pre_jb=0x7f060001;
-        public static int abc_action_bar_expanded_action_views_exclusive=0x7f060002;
+        public static int abc_action_bar_embed_tabs=0x7f050000;
+        public static int abc_action_bar_embed_tabs_pre_jb=0x7f050001;
+        public static int abc_action_bar_expanded_action_views_exclusive=0x7f050002;
         /**  Whether action menu items should be displayed in ALLCAPS or not.
          Defaults to true. If this is not appropriate for specific locales
          it should be disabled in that locale's resources. 
          */
-        public static int abc_config_actionMenuItemAllCaps=0x7f060005;
+        public static int abc_config_actionMenuItemAllCaps=0x7f050005;
         /**  Whether action menu items should obey the "withText" showAsAction
     flag. This may be set to false for situations where space is
     extremely limited. 
@@ -1586,236 +1586,232 @@ containing a value of this type.
          This may be set to false for situations where space is
          extremely limited. 
          */
-        public static int abc_config_allowActionMenuItemTextWithIcon=0x7f060004;
-        public static int abc_config_closeDialogWhenTouchOutside=0x7f060006;
-        public static int abc_config_showMenuShortcutsWhenKeyboardPresent=0x7f060003;
+        public static int abc_config_allowActionMenuItemTextWithIcon=0x7f050004;
+        public static int abc_config_closeDialogWhenTouchOutside=0x7f050006;
+        public static int abc_config_showMenuShortcutsWhenKeyboardPresent=0x7f050003;
     }
     public static final class color {
-        public static int abc_background_cache_hint_selector_material_dark=0x7f070033;
-        public static int abc_background_cache_hint_selector_material_light=0x7f070034;
-        public static int abc_input_method_navigation_guard=0x7f070003;
-        public static int abc_primary_text_disable_only_material_dark=0x7f070035;
-        public static int abc_primary_text_disable_only_material_light=0x7f070036;
-        public static int abc_primary_text_material_dark=0x7f070037;
-        public static int abc_primary_text_material_light=0x7f070038;
-        public static int abc_search_url_text=0x7f070039;
-        public static int abc_search_url_text_normal=0x7f070000;
-        public static int abc_search_url_text_pressed=0x7f070002;
-        public static int abc_search_url_text_selected=0x7f070001;
-        public static int abc_secondary_text_material_dark=0x7f07003a;
-        public static int abc_secondary_text_material_light=0x7f07003b;
-        public static int accent_material_dark=0x7f07000f;
-        public static int accent_material_light=0x7f07000e;
-        public static int background_floating_material_dark=0x7f070006;
-        public static int background_floating_material_light=0x7f070007;
-        public static int background_material_dark=0x7f070004;
-        public static int background_material_light=0x7f070005;
+        public static int abc_background_cache_hint_selector_material_dark=0x7f060033;
+        public static int abc_background_cache_hint_selector_material_light=0x7f060034;
+        public static int abc_input_method_navigation_guard=0x7f060003;
+        public static int abc_primary_text_disable_only_material_dark=0x7f060035;
+        public static int abc_primary_text_disable_only_material_light=0x7f060036;
+        public static int abc_primary_text_material_dark=0x7f060037;
+        public static int abc_primary_text_material_light=0x7f060038;
+        public static int abc_search_url_text=0x7f060039;
+        public static int abc_search_url_text_normal=0x7f060000;
+        public static int abc_search_url_text_pressed=0x7f060002;
+        public static int abc_search_url_text_selected=0x7f060001;
+        public static int abc_secondary_text_material_dark=0x7f06003a;
+        public static int abc_secondary_text_material_light=0x7f06003b;
+        public static int accent_material_dark=0x7f06000f;
+        public static int accent_material_light=0x7f06000e;
+        public static int background_floating_material_dark=0x7f060006;
+        public static int background_floating_material_light=0x7f060007;
+        public static int background_material_dark=0x7f060004;
+        public static int background_material_light=0x7f060005;
         /**  White 50% 
          */
-        public static int bright_foreground_disabled_material_dark=0x7f070018;
+        public static int bright_foreground_disabled_material_dark=0x7f060018;
         /**  Black 50% 
          */
-        public static int bright_foreground_disabled_material_light=0x7f070019;
-        public static int bright_foreground_inverse_material_dark=0x7f07001a;
-        public static int bright_foreground_inverse_material_light=0x7f07001b;
-        public static int bright_foreground_material_dark=0x7f070016;
-        public static int bright_foreground_material_light=0x7f070017;
-        public static int button_material_dark=0x7f070010;
-        public static int button_material_light=0x7f070011;
-        public static int dim_foreground_disabled_material_dark=0x7f07001e;
-        public static int dim_foreground_disabled_material_light=0x7f07001f;
-        public static int dim_foreground_material_dark=0x7f07001c;
-        public static int dim_foreground_material_light=0x7f07001d;
+        public static int bright_foreground_disabled_material_light=0x7f060019;
+        public static int bright_foreground_inverse_material_dark=0x7f06001a;
+        public static int bright_foreground_inverse_material_light=0x7f06001b;
+        public static int bright_foreground_material_dark=0x7f060016;
+        public static int bright_foreground_material_light=0x7f060017;
+        public static int button_material_dark=0x7f060010;
+        public static int button_material_light=0x7f060011;
+        public static int dim_foreground_disabled_material_dark=0x7f06001e;
+        public static int dim_foreground_disabled_material_light=0x7f06001f;
+        public static int dim_foreground_material_dark=0x7f06001c;
+        public static int dim_foreground_material_light=0x7f06001d;
         /**  TODO: This is 40% alpha on the default accent color. 
          */
-        public static int highlighted_text_material_dark=0x7f070022;
+        public static int highlighted_text_material_dark=0x7f060022;
         /**  TODO: This is 40% alpha on the default accent color. 
          */
-        public static int highlighted_text_material_light=0x7f070023;
-        public static int hint_foreground_material_dark=0x7f070020;
-        public static int hint_foreground_material_light=0x7f070021;
-        public static int link_text_material_dark=0x7f070024;
-        public static int link_text_material_light=0x7f070025;
-        public static int material_blue_grey_800=0x7f070030;
-        public static int material_blue_grey_900=0x7f070031;
-        public static int material_blue_grey_950=0x7f070032;
-        public static int material_deep_teal_200=0x7f07002e;
-        public static int material_deep_teal_500=0x7f07002f;
-        public static int primary_dark_material_dark=0x7f07000a;
-        public static int primary_dark_material_light=0x7f07000b;
-        public static int primary_material_dark=0x7f070008;
-        public static int primary_material_light=0x7f070009;
-        public static int primary_text_default_material_dark=0x7f070028;
-        public static int primary_text_default_material_light=0x7f070026;
+        public static int highlighted_text_material_light=0x7f060023;
+        public static int hint_foreground_material_dark=0x7f060020;
+        public static int hint_foreground_material_light=0x7f060021;
+        public static int link_text_material_dark=0x7f060024;
+        public static int link_text_material_light=0x7f060025;
+        public static int material_blue_grey_800=0x7f060030;
+        public static int material_blue_grey_900=0x7f060031;
+        public static int material_blue_grey_950=0x7f060032;
+        public static int material_deep_teal_200=0x7f06002e;
+        public static int material_deep_teal_500=0x7f06002f;
+        public static int primary_dark_material_dark=0x7f06000a;
+        public static int primary_dark_material_light=0x7f06000b;
+        public static int primary_material_dark=0x7f060008;
+        public static int primary_material_light=0x7f060009;
+        public static int primary_text_default_material_dark=0x7f060028;
+        public static int primary_text_default_material_light=0x7f060026;
         /**  30% of default values 
          */
-        public static int primary_text_disabled_material_dark=0x7f07002c;
+        public static int primary_text_disabled_material_dark=0x7f06002c;
         /**  26% of default values 
          */
-        public static int primary_text_disabled_material_light=0x7f07002a;
-        public static int ripple_material_dark=0x7f07000c;
-        public static int ripple_material_light=0x7f07000d;
-        public static int secondary_text_default_material_dark=0x7f070029;
-        public static int secondary_text_default_material_light=0x7f070027;
-        public static int secondary_text_disabled_material_dark=0x7f07002d;
-        public static int secondary_text_disabled_material_light=0x7f07002b;
-        public static int switch_thumb_disabled_material_dark=0x7f070014;
-        public static int switch_thumb_disabled_material_light=0x7f070015;
-        public static int switch_thumb_material_dark=0x7f07003c;
-        public static int switch_thumb_material_light=0x7f07003d;
-        public static int switch_thumb_normal_material_dark=0x7f070012;
-        public static int switch_thumb_normal_material_light=0x7f070013;
+        public static int primary_text_disabled_material_light=0x7f06002a;
+        public static int ripple_material_dark=0x7f06000c;
+        public static int ripple_material_light=0x7f06000d;
+        public static int secondary_text_default_material_dark=0x7f060029;
+        public static int secondary_text_default_material_light=0x7f060027;
+        public static int secondary_text_disabled_material_dark=0x7f06002d;
+        public static int secondary_text_disabled_material_light=0x7f06002b;
+        public static int switch_thumb_disabled_material_dark=0x7f060014;
+        public static int switch_thumb_disabled_material_light=0x7f060015;
+        public static int switch_thumb_material_dark=0x7f06003c;
+        public static int switch_thumb_material_light=0x7f06003d;
+        public static int switch_thumb_normal_material_dark=0x7f060012;
+        public static int switch_thumb_normal_material_light=0x7f060013;
     }
     public static final class dimen {
         /**  Default content inset of an action bar. 
  Default content inset of an action bar. 
          */
-        public static int abc_action_bar_content_inset_material=0x7f05002c;
+        public static int abc_action_bar_content_inset_material=0x7f070028;
         /**  Default height of an action bar. 
  Default height of an action bar. 
  Default height of an action bar. 
          */
-        public static int abc_action_bar_default_height_material=0x7f05002a;
+        public static int abc_action_bar_default_height_material=0x7f070026;
         /**  Default padding of an action bar. 
  Default padding of an action bar. 
  Default padding of an action bar. 
          */
-        public static int abc_action_bar_default_padding_material=0x7f05002b;
+        public static int abc_action_bar_default_padding_material=0x7f070027;
         /**  Vertical padding around action bar icons. 
          */
-        public static int abc_action_bar_icon_vertical_padding_material=0x7f05002f;
+        public static int abc_action_bar_icon_vertical_padding_material=0x7f07002b;
         /**  Padding to add to the start of the overflow action button. 
  Padding to add to the start of the overflow action button. 
          */
-        public static int abc_action_bar_navigation_padding_start_material=0x7f05002d;
+        public static int abc_action_bar_navigation_padding_start_material=0x7f070029;
         /**  Padding to add to the end of the overflow action button. 
  Padding to add to the end of the overflow action button. 
          */
-        public static int abc_action_bar_overflow_padding_end_material=0x7f05002e;
+        public static int abc_action_bar_overflow_padding_end_material=0x7f07002a;
         /**  Padding to add to the start of the overflow action button. 
          */
-        public static int abc_action_bar_overflow_padding_start_material=0x7f050033;
+        public static int abc_action_bar_overflow_padding_start_material=0x7f07002f;
         /**  Size of the indeterminate Progress Bar 
  Size of the indeterminate Progress Bar 
          */
-        public static int abc_action_bar_progress_bar_size=0x7f050009;
+        public static int abc_action_bar_progress_bar_size=0x7f070005;
         /**  Maximum height for a stacked tab bar as part of an action bar 
          */
-        public static int abc_action_bar_stacked_max_height=0x7f050008;
+        public static int abc_action_bar_stacked_max_height=0x7f070004;
         /**  Maximum width for a stacked action bar tab. This prevents
          action bar tabs from becoming too wide on a wide screen when only
          a few are present. 
          */
-        public static int abc_action_bar_stacked_tab_max_width=0x7f050007;
+        public static int abc_action_bar_stacked_tab_max_width=0x7f070003;
         /**  Bottom margin for action bar subtitles 
          */
-        public static int abc_action_bar_subtitle_bottom_margin_material=0x7f050031;
+        public static int abc_action_bar_subtitle_bottom_margin_material=0x7f07002d;
         /**  Top margin for action bar subtitles 
          */
-        public static int abc_action_bar_subtitle_top_margin_material=0x7f050030;
-        public static int abc_action_button_min_height_material=0x7f050036;
-        public static int abc_action_button_min_width_material=0x7f050035;
-        public static int abc_action_button_min_width_overflow_material=0x7f050034;
+        public static int abc_action_bar_subtitle_top_margin_material=0x7f07002c;
+        public static int abc_action_button_min_height_material=0x7f070032;
+        public static int abc_action_button_min_width_material=0x7f070031;
+        public static int abc_action_button_min_width_overflow_material=0x7f070030;
         /**  Dialog button bar height 
  Dialog button bar height 
          */
-        public static int abc_alert_dialog_button_bar_height=0x7f050021;
-        public static int abc_button_inset_horizontal_material=0x7f050015;
-        public static int abc_button_inset_vertical_material=0x7f050014;
-        public static int abc_button_padding_horizontal_material=0x7f050017;
+        public static int abc_alert_dialog_button_bar_height=0x7f07001d;
+        public static int abc_button_inset_horizontal_material=0x7f070011;
+        public static int abc_button_inset_vertical_material=0x7f070010;
+        public static int abc_button_padding_horizontal_material=0x7f070013;
         /**  Default inner padding within buttons 
          */
-        public static int abc_button_padding_vertical_material=0x7f050016;
+        public static int abc_button_padding_vertical_material=0x7f070012;
         /**  The maximum width we would prefer dialogs to be.  0 if there is no
     maximum (let them grow as large as the screen).  Actual values are
     specified for -large and -xlarge configurations. 
  see comment in values/config.xml 
  see comment in values/config.xml 
          */
-        public static int abc_config_prefDialogWidth=0x7f050006;
+        public static int abc_config_prefDialogWidth=0x7f070002;
         /**  Default rounded corner for controls 
          */
-        public static int abc_control_corner_material=0x7f05001a;
+        public static int abc_control_corner_material=0x7f070016;
         /**  Default insets (outer padding) around controls 
          */
-        public static int abc_control_inset_material=0x7f050018;
+        public static int abc_control_inset_material=0x7f070014;
         /**  Default inner padding within controls 
          */
-        public static int abc_control_padding_material=0x7f050019;
+        public static int abc_control_padding_material=0x7f070015;
         /**  Padding above and below selection dialog lists. 
          */
-        public static int abc_dialog_list_padding_vertical_material=0x7f050022;
+        public static int abc_dialog_list_padding_vertical_material=0x7f07001e;
         /**  The platform's desired minimum size for a dialog's width when it
          is along the major axis (that is the screen is landscape).  This may
          be either a fraction or a dimension. 
          */
-        public static int abc_dialog_min_width_major=0x7f050023;
+        public static int abc_dialog_min_width_major=0x7f07001f;
         /**  The platform's desired minimum size for a dialog's width when it
          is along the minor axis (that is the screen is portrait).  This may
          be either a fraction or a dimension. 
          */
-        public static int abc_dialog_min_width_minor=0x7f050024;
-        public static int abc_dialog_padding_material=0x7f05001f;
-        public static int abc_dialog_padding_top_material=0x7f050020;
-        public static int abc_disabled_alpha_material_dark=0x7f050048;
-        public static int abc_disabled_alpha_material_light=0x7f050047;
+        public static int abc_dialog_min_width_minor=0x7f070020;
+        public static int abc_dialog_padding_material=0x7f07001b;
+        public static int abc_dialog_padding_top_material=0x7f07001c;
+        public static int abc_disabled_alpha_material_dark=0x7f070044;
+        public static int abc_disabled_alpha_material_light=0x7f070043;
         /**  Width of the icon in a dropdown list 
          */
-        public static int abc_dropdownitem_icon_width=0x7f05000f;
+        public static int abc_dropdownitem_icon_width=0x7f07000b;
         /**  Text padding for dropdown items 
          */
-        public static int abc_dropdownitem_text_padding_left=0x7f05000d;
-        public static int abc_dropdownitem_text_padding_right=0x7f05000e;
-        public static int abc_edit_text_inset_bottom_material=0x7f05001d;
-        public static int abc_edit_text_inset_horizontal_material=0x7f05001b;
-        public static int abc_edit_text_inset_top_material=0x7f05001c;
-        public static int abc_floating_window_z=0x7f050046;
+        public static int abc_dropdownitem_text_padding_left=0x7f070009;
+        public static int abc_dropdownitem_text_padding_right=0x7f07000a;
+        public static int abc_edit_text_inset_bottom_material=0x7f070019;
+        public static int abc_edit_text_inset_horizontal_material=0x7f070017;
+        public static int abc_edit_text_inset_top_material=0x7f070018;
+        public static int abc_floating_window_z=0x7f070042;
         /**  Default padding for list items. This should match the action bar
          content inset so that ListActivity items line up correctly. 
          */
-        public static int abc_list_item_padding_horizontal_material=0x7f050032;
-        public static int abc_panel_menu_list_width=0x7f05000a;
+        public static int abc_list_item_padding_horizontal_material=0x7f07002e;
+        public static int abc_panel_menu_list_width=0x7f070006;
         /**  Preferred width of the search view. 
          */
-        public static int abc_search_view_preferred_width=0x7f05000c;
+        public static int abc_search_view_preferred_width=0x7f070008;
         /**  Minimum width of the search view text entry area. 
  Minimum width of the search view text entry area. 
  Minimum width of the search view text entry area. 
  Minimum width of the search view text entry area. 
  Minimum width of the search view text entry area. 
          */
-        public static int abc_search_view_text_min_width=0x7f05000b;
+        public static int abc_search_view_text_min_width=0x7f070007;
         /**  Since optical insets are not available pre-v18, we add a small amount of padding 
  Since SwitchCompat can use optical insets on v18+, reset the manual padding 
          */
-        public static int abc_switch_padding=0x7f05001e;
-        public static int abc_text_size_body_1_material=0x7f050040;
-        public static int abc_text_size_body_2_material=0x7f05003f;
-        public static int abc_text_size_button_material=0x7f050042;
-        public static int abc_text_size_caption_material=0x7f050041;
-        public static int abc_text_size_display_1_material=0x7f05003a;
-        public static int abc_text_size_display_2_material=0x7f050039;
-        public static int abc_text_size_display_3_material=0x7f050038;
-        public static int abc_text_size_display_4_material=0x7f050037;
-        public static int abc_text_size_headline_material=0x7f05003b;
-        public static int abc_text_size_large_material=0x7f050043;
-        public static int abc_text_size_medium_material=0x7f050044;
-        public static int abc_text_size_menu_material=0x7f05003e;
-        public static int abc_text_size_small_material=0x7f050045;
-        public static int abc_text_size_subhead_material=0x7f05003d;
+        public static int abc_switch_padding=0x7f07001a;
+        public static int abc_text_size_body_1_material=0x7f07003c;
+        public static int abc_text_size_body_2_material=0x7f07003b;
+        public static int abc_text_size_button_material=0x7f07003e;
+        public static int abc_text_size_caption_material=0x7f07003d;
+        public static int abc_text_size_display_1_material=0x7f070036;
+        public static int abc_text_size_display_2_material=0x7f070035;
+        public static int abc_text_size_display_3_material=0x7f070034;
+        public static int abc_text_size_display_4_material=0x7f070033;
+        public static int abc_text_size_headline_material=0x7f070037;
+        public static int abc_text_size_large_material=0x7f07003f;
+        public static int abc_text_size_medium_material=0x7f070040;
+        public static int abc_text_size_menu_material=0x7f07003a;
+        public static int abc_text_size_small_material=0x7f070041;
+        public static int abc_text_size_subhead_material=0x7f070039;
         /**  Use the default subtitle sizes on tablets. 
  Default text size for action bar subtitle.
          */
-        public static int abc_text_size_subtitle_material_toolbar=0x7f050029;
-        public static int abc_text_size_title_material=0x7f05003c;
+        public static int abc_text_size_subtitle_material_toolbar=0x7f070025;
+        public static int abc_text_size_title_material=0x7f070038;
         /**  Use the default title sizes on tablets. 
  Default text size for action bar title.
          */
-        public static int abc_text_size_title_material_toolbar=0x7f050028;
-        public static int ambilwarna_hsvHeight=0x7f050000;
-        public static int ambilwarna_hsvWidth=0x7f050001;
-        public static int ambilwarna_hueWidth=0x7f050002;
-        public static int ambilwarna_spacer=0x7f050003;
+        public static int abc_text_size_title_material_toolbar=0x7f070024;
         /**  The platform's desired fixed height for a dialog along the major axis
          (the screen is in portrait). This may be either a fraction or a dimension.
  The platform's desired fixed height for a dialog along the major axis
@@ -1823,7 +1819,7 @@ containing a value of this type.
  The platform's desired fixed height for a dialog along the major axis
          (the screen is in portrait). This may be either a fraction or a dimension.
          */
-        public static int dialog_fixed_height_major=0x7f050012;
+        public static int dialog_fixed_height_major=0x7f07000e;
         /**  The platform's desired fixed height for a dialog along the minor axis
          (the screen is in landscape). This may be either a fraction or a dimension.
  The platform's desired fixed height for a dialog along the minor axis
@@ -1831,7 +1827,7 @@ containing a value of this type.
  The platform's desired fixed height for a dialog along the minor axis
          (the screen is in landscape). This may be either a fraction or a dimension.
          */
-        public static int dialog_fixed_height_minor=0x7f050013;
+        public static int dialog_fixed_height_minor=0x7f07000f;
         /**  The platform's desired fixed width for a dialog along the major axis
          (the screen is in landscape). This may be either a fraction or a dimension.
  The platform's desired fixed width for a dialog along the major axis
@@ -1839,7 +1835,7 @@ containing a value of this type.
  The platform's desired fixed width for a dialog along the major axis
          (the screen is in landscape). This may be either a fraction or a dimension.
          */
-        public static int dialog_fixed_width_major=0x7f050010;
+        public static int dialog_fixed_width_major=0x7f07000c;
         /**  The platform's desired fixed width for a dialog along the minor axis
          (the screen is in portrait). This may be either a fraction or a dimension.
  The platform's desired fixed width for a dialog along the minor axis
@@ -1847,19 +1843,19 @@ containing a value of this type.
  The platform's desired fixed width for a dialog along the minor axis
          (the screen is in portrait). This may be either a fraction or a dimension.
          */
-        public static int dialog_fixed_width_minor=0x7f050011;
-        public static int disabled_alpha_material_dark=0x7f050005;
-        public static int disabled_alpha_material_light=0x7f050004;
+        public static int dialog_fixed_width_minor=0x7f07000d;
+        public static int disabled_alpha_material_dark=0x7f070001;
+        public static int disabled_alpha_material_light=0x7f070000;
         /**  The width of the big icons in notifications. 
          */
-        public static int notification_large_icon_height=0x7f050026;
+        public static int notification_large_icon_height=0x7f070022;
         /**  The width of the big icons in notifications. 
          */
-        public static int notification_large_icon_width=0x7f050025;
+        public static int notification_large_icon_width=0x7f070021;
         /**  Size of smaller notification text (see TextAppearance.StatusBar.EventContent.Line2, Info,
          Time) 
          */
-        public static int notification_subtext_size=0x7f050027;
+        public static int notification_subtext_size=0x7f070023;
     }
     public static final class drawable {
         public static int abc_ab_share_pack_mtrl_alpha=0x7f020000;
@@ -1921,15 +1917,10 @@ containing a value of this type.
         public static int abc_textfield_search_activated_mtrl_alpha=0x7f020038;
         public static int abc_textfield_search_default_mtrl_alpha=0x7f020039;
         public static int abc_textfield_search_material=0x7f02003a;
-        public static int ambilwarna_arrow_down=0x7f02003b;
-        public static int ambilwarna_arrow_right=0x7f02003c;
-        public static int ambilwarna_cursor=0x7f02003d;
-        public static int ambilwarna_hue=0x7f02003e;
-        public static int ambilwarna_target=0x7f02003f;
-        public static int notification_template_icon_bg=0x7f020040;
+        public static int notification_template_icon_bg=0x7f02003b;
     }
     public static final class id {
-        public static int action0=0x7f090057;
+        public static int action0=0x7f09004f;
         public static int action_bar=0x7f090040;
         public static int action_bar_activity_content=0x7f090003;
         public static int action_bar_container=0x7f09003f;
@@ -1938,7 +1929,7 @@ containing a value of this type.
         public static int action_bar_subtitle=0x7f090024;
         public static int action_bar_title=0x7f090023;
         public static int action_context_bar=0x7f090041;
-        public static int action_divider=0x7f09005b;
+        public static int action_divider=0x7f090053;
         public static int action_menu_divider=0x7f090005;
         public static int action_menu_presenter=0x7f090006;
         public static int action_mode_bar=0x7f09003d;
@@ -1947,19 +1938,11 @@ containing a value of this type.
         public static int activity_chooser_view_content=0x7f090026;
         public static int alertTitle=0x7f090030;
         public static int always=0x7f090019;
-        public static int ambilwarna_cursor=0x7f090052;
-        public static int ambilwarna_state=0x7f090054;
-        public static int ambilwarna_target=0x7f090053;
-        public static int ambilwarna_viewContainer=0x7f09004f;
-        public static int ambilwarna_viewHue=0x7f090051;
-        public static int ambilwarna_viewSatBri=0x7f090050;
-        public static int ambilwarna_warnaBaru=0x7f090056;
-        public static int ambilwarna_warnaLama=0x7f090055;
         public static int beginning=0x7f090020;
         public static int buttonPanel=0x7f090036;
-        public static int cancel_action=0x7f090058;
+        public static int cancel_action=0x7f090050;
         public static int checkbox=0x7f090038;
-        public static int chronometer=0x7f09005e;
+        public static int chronometer=0x7f090056;
         public static int collapseActionView=0x7f09001a;
         public static int contentPanel=0x7f090031;
         public static int custom=0x7f090035;
@@ -1971,7 +1954,7 @@ containing a value of this type.
         public static int dropdown=0x7f09001f;
         public static int edit_query=0x7f090042;
         public static int end=0x7f090021;
-        public static int end_padder=0x7f090063;
+        public static int end_padder=0x7f09005b;
         public static int expand_activities_button=0x7f090027;
         public static int expanded_menu=0x7f090037;
         public static int home=0x7f090000;
@@ -1979,12 +1962,12 @@ containing a value of this type.
         public static int icon=0x7f09002b;
         public static int ifRoom=0x7f09001b;
         public static int image=0x7f090028;
-        public static int info=0x7f090062;
-        public static int line1=0x7f09005c;
-        public static int line3=0x7f090060;
+        public static int info=0x7f09005a;
+        public static int line1=0x7f090054;
+        public static int line3=0x7f090058;
         public static int listMode=0x7f09000a;
         public static int list_item=0x7f09002a;
-        public static int media_actions=0x7f09005a;
+        public static int media_actions=0x7f090052;
         public static int middle=0x7f090022;
         public static int multiply=0x7f090014;
         public static int never=0x7f09001c;
@@ -2015,13 +1998,13 @@ containing a value of this type.
         public static int src_atop=0x7f090016;
         public static int src_in=0x7f090017;
         public static int src_over=0x7f090018;
-        public static int status_bar_latest_event_content=0x7f090059;
+        public static int status_bar_latest_event_content=0x7f090051;
         public static int submit_area=0x7f09004b;
         public static int tabMode=0x7f09000c;
-        public static int text=0x7f090061;
-        public static int text2=0x7f09005f;
+        public static int text=0x7f090059;
+        public static int text2=0x7f090057;
         public static int textSpacerNoButtons=0x7f090033;
-        public static int time=0x7f09005d;
+        public static int time=0x7f090055;
         public static int title=0x7f09002c;
         public static int title_template=0x7f09002f;
         public static int topPanel=0x7f09002e;
@@ -2092,19 +2075,18 @@ containing a value of this type.
         public static int abc_search_view=0x7f030016;
         public static int abc_select_dialog_material=0x7f030017;
         public static int abc_simple_dropdown_hint=0x7f030018;
-        public static int ambilwarna_dialog=0x7f030019;
-        public static int notification_media_action=0x7f03001a;
-        public static int notification_media_cancel_action=0x7f03001b;
-        public static int notification_template_big_media=0x7f03001c;
-        public static int notification_template_big_media_narrow=0x7f03001d;
-        public static int notification_template_lines=0x7f03001e;
-        public static int notification_template_media=0x7f03001f;
-        public static int notification_template_part_chronometer=0x7f030020;
-        public static int notification_template_part_time=0x7f030021;
-        public static int select_dialog_item_material=0x7f030022;
-        public static int select_dialog_multichoice_material=0x7f030023;
-        public static int select_dialog_singlechoice_material=0x7f030024;
-        public static int support_simple_spinner_dropdown_item=0x7f030025;
+        public static int notification_media_action=0x7f030019;
+        public static int notification_media_cancel_action=0x7f03001a;
+        public static int notification_template_big_media=0x7f03001b;
+        public static int notification_template_big_media_narrow=0x7f03001c;
+        public static int notification_template_lines=0x7f03001d;
+        public static int notification_template_media=0x7f03001e;
+        public static int notification_template_part_chronometer=0x7f03001f;
+        public static int notification_template_part_time=0x7f030020;
+        public static int select_dialog_item_material=0x7f030021;
+        public static int select_dialog_multichoice_material=0x7f030022;
+        public static int select_dialog_singlechoice_material=0x7f030023;
+        public static int support_simple_spinner_dropdown_item=0x7f030024;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
