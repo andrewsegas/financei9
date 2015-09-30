@@ -23,6 +23,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Binder;
 
 
 public class CrudDatabase {
@@ -427,20 +428,31 @@ public class CrudDatabase {
 	 * cMes = mes para consulta
 	 * Return array com 2 dimensões [x][0] = valor ; [x][1] = categoria
 	------------------------------*/	
-	public String[][] CategoriaRecDespMes(String cRecDesp, String cMes){
-		String[] colunas = new String[]{"(SUM(VALOR))", "CATEGORIA", "CAT_CORGRAFICA", "cRecDesp"};
-		Cursor cursor = null;
-		String cWhere = "cRecDesp ='" + cRecDesp + "'";
-		String[][] aCategorias ;
+	public String[][] CategoriaRecDespMes(String cRecDesp, int nMes){
+		Cursor cursor ;
+		String cWhere, sMes;
 		
-		cursor = bd.query("MOVIMENTOS", colunas, cWhere , null, "MOV_IDCAT" , null, "_IDMov DESC");
+		sMes = String.valueOf(nMes + 1) ;
+		if (sMes.length() == 1 ){
+			sMes = "0" + sMes; // coloca zero na frente dos meses de 1 a 9
+		}
+		cWhere = "MOV_USUID = '" + TheFirstPage.UsuID + "'"
+				+ "AND cRecDesp ='" + cRecDesp + ""
+				+ "' AND dtMOVIMENTO LIKE '%/" + sMes + "/%'";
+				
+		String[][] aCategorias ;
+
+		cursor = bd.rawQuery("SELECT SUM(cast(REPLACE(VALOR,',','.') as float))"
+				+ ", CATEGORIA, CATEGORIAS.CAT_CORGRAFICA , CRECDESP "
+				+ "FROM MOVIMENTOS LEFT JOIN CATEGORIAS on MOV_IDCAT = CATEGORIAS._IDCAT "
+				+ "WHERE " + cWhere + " GROUP BY MOV_IDCAT ", null);
 		
 		if(cursor.getCount() > 0){
 			aCategorias = new String[cursor.getCount()][3];
 			cursor.moveToFirst();
 			
-			for (int i = 0; i < cursor.getCount() -1 ; i++) {
-				aCategorias[i][0] = cursor.getString(0) ; //soma dos valores
+			for (int i = 0; i < cursor.getCount() ; i++) {
+				aCategorias[i][0] = String.valueOf(cursor.getFloat(0)) ; //soma dos valores
 				aCategorias[i][1] = cursor.getString(1) ; //campo categoria
 				aCategorias[i][2] = String.valueOf(cursor.getInt(2)) ; //campo cor da categoria
 				cursor.moveToNext();

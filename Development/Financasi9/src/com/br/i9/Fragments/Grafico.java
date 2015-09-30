@@ -7,7 +7,6 @@ import com.br.i9.Class.GerarGrafico;
 import com.br.i9.Database.CrudDatabase;
 import com.github.mikephil.charting.charts.PieChart;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,7 +33,7 @@ public class Grafico extends Fragment{
 		final AjusteSpinner ajusteSpinner = new AjusteSpinner();
 		
 		ajusteSpinner.ajusteSpinnerMes(bd, spinnerMeses);
-		GerarGraficos(mChart, mChartDepesas, bd.getMonth());
+		//GerarGraficos(mChart, mChartDepesas, bd.getMonth());
 
 		spinnerMeses.setOnItemSelectedListener(new OnItemSelectedListener() {
 		    @Override
@@ -52,33 +51,33 @@ public class Grafico extends Fragment{
 	
 	private void GerarGraficos(PieChart mChart, PieChart mChartDepesas, int MesReferencia)
 	{
-		GerarGraficoReceitas(mChart, MesReferencia);
-		GerarGraficoDespesas(mChartDepesas, MesReferencia);
+		GerarGraficoRecDesp(mChart, "1" ,MesReferencia); //receita
+		GerarGraficoRecDesp(mChartDepesas, "2" ,MesReferencia); //despesas
 	}
 	
-	private void GerarGraficoReceitas(PieChart mChart, int MesReferencia)
+	private void GerarGraficoRecDesp(PieChart mChart, String sMes, int MesReferencia)
 	{
 		CrudDatabase db = new CrudDatabase(getActivity());
-		@SuppressWarnings("unused")
 		String[][] aCategorias ;
+		float[] afVal ;
+		String[] asData ;
+		int[] anCores ;
 		
-		aCategorias = db.CategoriaRecDespMes("1", null);
+		aCategorias = db.CategoriaRecDespMes(sMes, MesReferencia);
 		
-		float[] yData = { (float) 47.3, (float) 52.7, (float) 33.6, (float) 33.4 };
-		String[] xData = { "Salário", "Depositos", "Acordos", "Freelancer"};
-		int[] cores = { Color.rgb(153,255,000), Color.rgb(255,204,000), Color.rgb(153,204,153), Color.rgb(255,051,051) };
-
-		GerarGrafico.GerarGraficoPie(mChart, yData, xData, cores);
-	}
-	
-	private void GerarGraficoDespesas(PieChart mChartDepesas, int MesReferencia)
-	{
-		float[] yData = { (float) 47.3, (float) 52.7, (float) 33.6 , (float) 33.9 , (float) 23.6 , (float) 13.6 };
-		String[] xData = { "Refeição", "Lazer", "Estudos", "Contas", "Carro", "Gasolina"};
-		int[] cores = { Color.rgb(153,255,000), Color.rgb(255,204,000), Color.rgb(153,204,153), Color.rgb(255,051,051),
-    		 		Color.rgb(255,051,051), Color.rgb(000,000,000)};
-        
-		GerarGrafico.GerarGraficoPie(mChartDepesas, yData, xData, cores);
+		if(aCategorias.length > 0){
+			afVal = new float[aCategorias.length] ;
+			asData = new String[aCategorias.length] ;
+			anCores = new int[aCategorias.length] ;
+			
+			for (int i = 0; i < aCategorias.length ; i++) {
+				afVal[i] = Float.parseFloat(	aCategorias[i][0]) ; //soma dos valores
+				asData[i] = 					aCategorias[i][1] ; //Nome da categoria
+				anCores[i] = Integer.parseInt(	aCategorias[i][2]) ; //Cor da categoria
+			}
+			
+			GerarGrafico.GerarGraficoPie(mChart, afVal, asData, anCores);
+		}
 	}
 	
 	@Override

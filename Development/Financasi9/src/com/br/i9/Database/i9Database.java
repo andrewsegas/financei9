@@ -105,7 +105,7 @@ public class i9Database extends SQLiteOpenHelper {
 	private void PreencherCategoriasSistema(SQLiteDatabase bd){
 		int nUsuId = 0 ;
 		String sUsuLogin = "SISTEMA";
-		int[] cores = { Color.rgb(153,255,000), Color.rgb(255,204,000), Color.rgb(153,204,153), Color.rgb(255,051,051),	
+		int[] cores = { Color.rgb(50,205,50), Color.rgb(255,99,71), Color.rgb(153,204,153), Color.rgb(255,051,051),	
 						Color.rgb(255,051,051), Color.rgb(000,000,066), Color.rgb(158,244,254), Color.rgb(243,204,254),
 						Color.rgb(176,166,253), Color.rgb(199,254,153)};
 		
