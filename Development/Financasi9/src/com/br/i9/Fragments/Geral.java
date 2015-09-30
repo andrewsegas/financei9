@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -55,6 +57,15 @@ public class Geral extends Fragment {
 		return(viewLista);
 	}
 	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	    // TODO Add your menu entries here
+	    super.onCreateOptionsMenu(menu, inflater);
+	    
+	    menu.findItem(R.id.action_check_updates).setVisible(false);
+	    menu.findItem(R.id.action_search).setVisible(true);
+	}
+	
 	private void gerarGraficoGeral(CrudDatabase db, TextView receitasMes, TextView despesasMes, TextView situacaoAtual, PieChart mChart, int MesReferencia)
 	{
 		String sRec, sDesp, sTotal;
@@ -72,21 +83,29 @@ public class Geral extends Fragment {
 			{
 				despesasMes.setText("Despesas: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 2)+"."+sDesp.substring(2, sDesp.length())));
 			}
-			
+		else
+			if(sDesp.length() == 6)
+			{
+				despesasMes.setText("Despesas: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 3)+"."+sDesp.substring(3, sDesp.length())));
+			}
 		else
 			despesasMes.setText("Despesas: R$ " + sDesp) ;
 		
 		
 		if(sRec.length() == 4 && !sRec.contains("-"))
 		{
-			receitasMes.setText("Despesas: R$ " + sRec.replace(sRec, sRec.substring(0, 1)+"."+sRec.substring(1, sRec.length())));
+			receitasMes.setText("Receitas: R$ " + sRec.replace(sRec, sRec.substring(0, 1)+"."+sRec.substring(1, sRec.length())));
 		}
-		else if(sRec.length() == 5)
+		else if(sRec.length() == 5 && !sRec.contains("-"))
 		{
-			receitasMes.setText("Despesas: R$ " + sRec.replace(sRec, sRec.substring(0, 2)+"."+sRec.substring(2, sRec.length())));
+			receitasMes.setText("Receitas: R$ " + sRec.replace(sRec, sRec.substring(0, 2)+"."+sRec.substring(2, sRec.length())));
+		}
+		else if(sRec.length() == 6 && !sRec.contains("-"))
+		{
+			receitasMes.setText("Receitas: R$ " + sRec.replace(sRec, sRec.substring(0, 3)+"."+sRec.substring(3, sRec.length())));
 		}
 		else
-			receitasMes.setText("Receitas:   R$ " + sRec) ;
+			receitasMes.setText("Receitas: R$ " + sRec) ;
 		
 		ndTotal = (Double.valueOf(sRec.replace(",", ".")))
 					- (Double.valueOf(sDesp.replace(",", ".")));
@@ -114,6 +133,13 @@ public class Geral extends Fragment {
 	 					));
 			}
 		else
+			if(sTotal.contains("-") && sTotal.length() == 7)
+			{
+				situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(sTotal, sTotal.substring(0, 4)+"."+sTotal.substring(4, sTotal.length()))+
+	 					"</font>"
+	 					));
+			}
+		else
 			if(sTotal.contains("-") && sTotal.length() < 4)
 			{
 			situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(".",",")+
@@ -131,6 +157,11 @@ public class Geral extends Fragment {
 				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(sTotal, sTotal.substring(0, 2)+"."+sTotal.substring(2, sTotal.length())));
 			}
 		else
+			if(sTotal.length() == 6 && !sTotal.contains("-"))
+			{
+				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(sTotal, sTotal.substring(0, 3)+"."+sTotal.substring(3, sTotal.length())));
+			}
+		else
 			situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(".",","));
 		
 		
@@ -138,7 +169,28 @@ public class Geral extends Fragment {
         String[] xData = { "Despesas", "Receitas"};
         int[] cores = { Color.rgb(255,99,71), Color.rgb(50,205,50) };
         
-        	GerarGrafico.GerarGraficoPie(mChart, yData, xData, cores); 	
+        if(sRec != "0" || sDesp != "0")
+        {
+        	mChart.setVisibility(View.VISIBLE);
+        	
+        	TextView textView = (TextView) viewLista.findViewById(R.id.acompanhemtoGraficoId);
+	        ajusteListView.validarExistenciaDados(textView, true);
+	        
+	        textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
+	        ajusteListView.validarExistenciaDados(textView, false);
+	        
+        	GerarGrafico.GerarGraficoPie(mChart, yData, xData, cores);
+        }
+        else
+        {
+        	mChart.setVisibility(View.INVISIBLE);
+        
+	        TextView textView = (TextView) viewLista.findViewById(R.id.acompanhemtoGraficoId);
+	        ajusteListView.validarExistenciaDados(textView, false);
+	        
+	        textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
+	        ajusteListView.validarExistenciaDados(textView, true);
+        }
 	}
 }
 

@@ -6,11 +6,11 @@ package com.br.i9.Database;
 //**************************************************************/
 
  import android.app.AlertDialog.Builder;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
 
 public class i9Database extends SQLiteOpenHelper {
 
@@ -54,7 +54,8 @@ public class i9Database extends SQLiteOpenHelper {
 		bd.execSQL("CREATE TABLE IF NOT EXISTS CATEGORIAS (_IDCAT INTEGER Primary key AUTOINCREMENT,"
 				+ "CAT_NOME VARCHAR2(30) NOT NULL collate nocase,"		//Nome da categoria
 				+ "CAT_GRUPO CHAR(1) NOT NULL,"	//Grupo de categoria pertencente
-				+ "CAT_USUID INTEGER ,"					//id do usuario
+				+ "CAT_CORGRAFICA INTEGER NOT NULL,"
+				+ "CAT_USUID INTEGER,"					//id do usuario
 				+ "CAT_USULOGIN CHAR(20) ,"				//usuario da categoria
 				+ "CAT_SISTEMA VARCHAR2(1)" 			//categoria cadastrada automaticamente pelo sistema
 				+ ");");
@@ -73,12 +74,7 @@ public class i9Database extends SQLiteOpenHelper {
 				+ "CFG_USUID INTEGER NOT NULL,"
 				+ "CFG_USULOGIN CHAR(20)"
 				+ ");");
-		
-		bd.execSQL("CREATE TABLE IF NOT EXISTS GRUPOCATEGORIA(idGrupo INTEGER Primary key "
-						+ "AUTOINCREMENT, nmGrupo VARCHAR2(40) NOT NULL);");
-		
-		
-		PreencherGrupoDeCategorias(bd);
+
 		PreencherCategoriasSistema(bd);
 		
 		}
@@ -94,27 +90,26 @@ public class i9Database extends SQLiteOpenHelper {
 		      }).setIcon(android.R.drawable.ic_dialog_info).show();
 		}
 	}
-	
-	private void PreencherGrupoDeCategorias(SQLiteDatabase bd)
-	{
-		ContentValues valores = new ContentValues();
-		valores.put("nmGrupo",  "Receitas");
-		bd.insert("GRUPOCATEGORIA", null, valores);
-		
-		ContentValues valor = new ContentValues();
-		valor.put("nmGrupo",  "Despesas");
-		bd.insert("GRUPOCATEGORIA", null, valor);
-	}
-	
+
 	@Override
 	public void onUpgrade(SQLiteDatabase bd, int arg1, int arg2) {
 		bd.execSQL("DROP TABLE Usuarios;");
+		bd.execSQL("DROP TABLE CATEGORIAS;");
+		bd.execSQL("DROP TABLE CONFIG;");
+		bd.execSQL("DROP TABLE CATXEST;");
+		bd.execSQL("DROP TABLE MOVIMENTOS;");
+		
 		onCreate(bd);
 	}
+	
 	private void PreencherCategoriasSistema(SQLiteDatabase bd){
 		int nUsuId = 0 ;
 		String sUsuLogin = "SISTEMA";
-		String[][] aCategorias = {	{"Outras Receitas", "1"}, //Nome da categoria , 1-1 2-2
+		int[] cores = { Color.rgb(153,255,000), Color.rgb(255,204,000), Color.rgb(153,204,153), Color.rgb(255,051,051),	
+						Color.rgb(255,051,051), Color.rgb(000,000,066), Color.rgb(158,244,254), Color.rgb(243,204,254),
+						Color.rgb(176,166,253), Color.rgb(199,254,153)};
+		
+		String[][] aCategorias = {	{"Outras Receitas", "1", ""}, //Nome da categoria , 1-1 2-2
 									{"Outras Despesas", "2"},
 									{"Contas", "2"},
 									{"Educação", "2"},
@@ -128,8 +123,8 @@ public class i9Database extends SQLiteOpenHelper {
 		
 		for (int i = 0; i < aCategorias.length; i++) {
 		
-			bd.execSQL("INSERT INTO CATEGORIAS ([_IDCAT], [CAT_NOME], [CAT_GRUPO], [CAT_USUID], [CAT_USULOGIN], [CAT_SISTEMA]) "
-				+ "SELECT " + (i + 1) + ", '" + aCategorias[i][0] +"', '"+ aCategorias[i][1] + "', " + nUsuId + ",'" + sUsuLogin + "', '1' WHERE NOT EXISTS (SELECT 1 FROM CATEGORIAS WHERE [_IDCAT] = " +(i + 1) + ");");
+			bd.execSQL("INSERT INTO CATEGORIAS ([_IDCAT], [CAT_NOME], [CAT_GRUPO], [CAT_CORGRAFICA], [CAT_USUID], [CAT_USULOGIN], [CAT_SISTEMA]) "
+				+ "SELECT " + (i + 1) + ", '" + aCategorias[i][0] +"', '"+ aCategorias[i][1] + "', '"+ cores[i] + "', " + nUsuId + ",'" + sUsuLogin + "', '1' WHERE NOT EXISTS (SELECT 1 FROM CATEGORIAS WHERE [_IDCAT] = " +(i + 1) + ");");
 		}
 	}
 }

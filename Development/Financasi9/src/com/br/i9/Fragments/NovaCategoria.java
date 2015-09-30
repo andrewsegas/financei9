@@ -2,6 +2,9 @@ package com.br.i9.Fragments;
 
 import java.util.List;
 
+import yuku.ambilwarna.AmbilWarnaDialog;
+import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
+
 import com.br.i9.R;
 import com.br.i9.Class.PopUp;
 import com.br.i9.Class.ValidacaoDeCampos;
@@ -11,6 +14,7 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
 
 public class NovaCategoria extends Fragment {
 	
@@ -30,6 +35,8 @@ public class NovaCategoria extends Fragment {
 	Builder Popup;
 	String label;
 	View viewLista;
+	Boolean corSelecionada = false;
+	int CorGrafica;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -39,6 +46,7 @@ public class NovaCategoria extends Fragment {
 		bd = new CrudDatabase(getActivity());
 		nmNovaCategoria = (EditText) viewLista.findViewById(R.id.txtNomeCategoria);
 		Button btnCadastar = (Button)viewLista.findViewById(R.id.btnCadastar);
+		View escolherCor = viewLista.findViewById(R.id.escolherCor);
 			
 		popularSpinnerTipoCategoria(spinnerTipo);
 		
@@ -49,6 +57,34 @@ public class NovaCategoria extends Fragment {
 					CadastrarCategoria("1");
 				else
 					CadastrarCategoria("2");
+			}
+		});
+		
+		escolherCor.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(!corSelecionada)
+					colorpicker();
+				else
+				{
+					Popup = PopUp.Popup(viewLista.getContext());
+					 Popup.setCancelable(false);
+					 Popup.setTitle("Finançasi9")
+					 .setMessage("Já existe uma cor selecionada, deseja alterar?")
+				     .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+				         public void onClick(DialogInterface dialog, int which) {
+				        	 corSelecionada = false;
+				        	 colorpicker();
+				         }
+				      })
+				      .setNegativeButton("Não",new DialogInterface.OnClickListener() {
+					         public void onClick(DialogInterface dialog, int which) {
+					        	 dialog.dismiss();
+					         }
+					    })
+				      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+				}
 			}
 		});
 		
@@ -85,41 +121,79 @@ public class NovaCategoria extends Fragment {
 	
 	public void CadastrarCategoria(String tipoGrupo)
 	{
-		if(!ValidacaoDeCampos.ValidaCampos(nmNovaCategoria.getText().toString()))
-		{
-			 List<String> categoriaExiste = bd.lerCategorias("CAT_NOME = RTRIM('"+ nmNovaCategoria.getText().toString() +"')");
-			 
-			 if(categoriaExiste.size() > 0)
-			 {
-				Popup = PopUp.Popup(viewLista.getContext());
-				 Popup.setCancelable(false);
-				 Popup.setTitle("Finançasi9")
-				 .setMessage("Ops! Já existe uma categoria para esta descrição.")
-			     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-			         public void onClick(DialogInterface dialog, int which) {
-			        	 nmNovaCategoria.setText("");
-			        	 dialog.dismiss();
-			         }
-			      })
-			      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
-			 }
-			 else
-			 {
-				 bd.RegistrarNovaCategoria(nmNovaCategoria.getText().toString(), tipoGrupo);
-				 
-				Popup = PopUp.Popup(viewLista.getContext());
-				 Popup.setCancelable(false);
-				 Popup.setTitle("Finançasi9")
-				 .setMessage("Categoria cadastrada com sucesso.")
-			     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-			         public void onClick(DialogInterface dialog, int which) {
-			        	 nmNovaCategoria.setText("");
-			        	 dialog.dismiss();
-			         }
-			      })
-			      .setIcon(android.R.drawable.ic_dialog_info).show().create();
-			 }
-		}
+			if(!ValidacaoDeCampos.ValidaCampos(nmNovaCategoria.getText().toString()))
+			{				
+				if(nmNovaCategoria.getText().toString().equalsIgnoreCase("Receitas") || nmNovaCategoria.getText().toString().equalsIgnoreCase("Despesas"))
+				{
+					Popup = PopUp.Popup(viewLista.getContext());
+					 Popup.setCancelable(false);
+					 Popup.setTitle("Finançasi9")
+					 .setMessage(Html.fromHtml("<font size='1' align='justify'>" + 
+							 "Não é possível cadastrar uma categoria com o mesmo nome de um grupo do sistema." +
+			 					"</font>" + "\n\n" + "<br><br><font size='1'>" +
+			 					"<b>" + "Grupo: " +"</b>" + nmNovaCategoria.getText().toString().toUpperCase() + 
+			 					"</font>"
+			 					))
+				     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+				         public void onClick(DialogInterface dialog, int which) {
+				        	 nmNovaCategoria.setText("");
+				        	 dialog.dismiss();
+				         }
+				      })
+				      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+				}
+				else
+				{
+					 List<String> categoriaExiste = bd.lerCategorias("CAT_NOME = RTRIM('"+ nmNovaCategoria.getText().toString() +"')");
+					 
+					 if(categoriaExiste.size() > 0)
+					 {
+						Popup = PopUp.Popup(viewLista.getContext());
+						 Popup.setCancelable(false);
+						 Popup.setTitle("Finançasi9")
+						 .setMessage("Ops! Já existe uma categoria para esta descrição.")
+					     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+					         public void onClick(DialogInterface dialog, int which) {
+					        	 nmNovaCategoria.setText("");
+					        	 dialog.dismiss();
+					         }
+					      })
+					      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+					 }
+					 else
+					 {
+						 if(!corSelecionada)
+						 {
+							 Popup = PopUp.Popup(viewLista.getContext());
+							 Popup.setCancelable(false);
+							 Popup.setTitle("Finançasi9")
+							 .setMessage("Por favor, selecione uma cor gráfica.")
+						      .setNegativeButton("Ok",new DialogInterface.OnClickListener() {
+							         public void onClick(DialogInterface dialog, int which) {
+							        	 dialog.dismiss();
+							         }
+							    })
+						      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+						 }
+						 else
+						 {
+							 bd.RegistrarNovaCategoria(nmNovaCategoria.getText().toString(), tipoGrupo, CorGrafica);
+							 
+							Popup = PopUp.Popup(viewLista.getContext());
+							 Popup.setCancelable(false);
+							 Popup.setTitle("Finançasi9")
+							 .setMessage("Categoria cadastrada com sucesso.")
+						     .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+						         public void onClick(DialogInterface dialog, int which) {
+						        	 nmNovaCategoria.setText("");
+						        	 dialog.dismiss();
+						         }
+						      })
+						      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+						 }
+					 }
+				}
+			}
 		else
 		{
 			nmNovaCategoria.setError("Informe a categoria");
@@ -127,5 +201,27 @@ public class NovaCategoria extends Fragment {
 			nmNovaCategoria.requestFocus();
 		}
 	}
+	
+	public void colorpicker()
+    {        
+        AmbilWarnaDialog dialog = new AmbilWarnaDialog(viewLista.getContext(), 0xff0000ff, new OnAmbilWarnaListener() 
+    	{
+    		@Override
+    		public void onCancel(AmbilWarnaDialog dialog){
+    			corSelecionada = false;
+    		}
+    		@Override
+    		public void onOk(AmbilWarnaDialog dialog, int color) {
+    			if(color != 0)
+    			{
+    				corSelecionada = true;
+    				CorGrafica = color;
+    			}
+    			
+    			Toast.makeText(getActivity().getApplicationContext(), "Cor selecionada com sucesso", Toast.LENGTH_LONG).show();    			
+    		}
+    	});
+        dialog.show();
+    }
 
 }

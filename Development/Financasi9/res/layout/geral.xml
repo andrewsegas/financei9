@@ -96,6 +96,17 @@
 	        android:textColor="@android:color/holo_orange_dark"
 	        android:textSize="17dip"
 	        android:id="@+id/acompanhemtoGraficoId" />
+	    
+	    <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:gravity="center"
+	        android:text="Não há transações para o mês escolhido"
+	        android:textAlignment="center"
+	        android:textColor="@android:color/holo_orange_dark"
+	        android:textSize="16dip"
+	        android:visibility="invisible"
+	        android:id="@+id/validacaoExisteTransacao" />
         	
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart1"
@@ -104,7 +115,6 @@
         android:layout_marginLeft="13dp"
        	android:layout_marginRight="13dp"
        	android:layout_marginBottom="15dp"
-        android:layout_height="250dp" />	        
-	
+        android:layout_height="250dp" />	
 	</LinearLayout>
 </ScrollView>

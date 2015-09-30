@@ -79,7 +79,7 @@ public class CrudDatabase {
 		bd.update("Usuarios", valores, "USULogin = '"+ usuario.getLogin() + "'", null);
 	}
 
-	public void RegistrarNovaCategoria(String nmNovaCategoria, String tipoGrupoCategoria)
+	public void RegistrarNovaCategoria(String nmNovaCategoria, String tipoGrupoCategoria, int corGrafica)
 	{
 		ContentValues valores = new ContentValues();
 		
@@ -88,6 +88,7 @@ public class CrudDatabase {
 		valores.put("CAT_USUID", this.usuarioLogado().getId());
 		valores.put("CAT_USULOGIN", this.usuarioLogado().getLogin());
 		valores.put("CAT_SISTEMA", "0");
+		valores.put("CAT_CORGRAFICA", corGrafica);
 		
 		bd.insert("CATEGORIAS", null, valores);
 	}
@@ -354,12 +355,9 @@ public class CrudDatabase {
 		
 		sWhereQry = cWhere + " MOV_USUID = '" + TheFirstPage.UsuID + "'";
 		
-		if(sMes != "00"){ //se o mes veio 00 é porque o parametro foi enviado -1 (pega todos os meses)
+		if(!sMes.contains("00")){ //se o mes veio 00 é porque o parametro foi enviado -1 (pega todos os meses)
 			sWhereQry += " AND dtMOVIMENTO LIKE '%/" + sMes + "/%'";
 		}
-		
-		
-		
 		Cursor cursor = bd.query("MOVIMENTOS", colunas, sWhereQry, null, null, null, cOrder);
 		
 		
@@ -449,7 +447,6 @@ public class CrudDatabase {
 			
 			cursor.close();
 			return aCategorias;
-
 		}
 		else{
 			cursor.close();
@@ -488,7 +485,7 @@ public class CrudDatabase {
 
 		List<Categorias> Categorias = new ArrayList<Categorias>();
 		
-		String[] colunas = new String[]{"_IDCAT", "CAT_NOME", "CAT_GRUPO", "CAT_SISTEMA"};
+		String[] colunas = new String[]{"_IDCAT", "CAT_NOME", "CAT_GRUPO", "CAT_SISTEMA", "CAT_CORGRAFICA"};
 		
 		Cursor cursor = bd.query("CATEGORIAS", colunas, sWhere, null, null, null, "CAT_SISTEMA ASC");
 		
@@ -500,7 +497,9 @@ public class CrudDatabase {
 						cursor.getString(1),
 						cursor.getString(2),
 						cursor.getInt(0),
-						cursor.getString(3));
+						cursor.getString(3),
+						cursor.getInt(4)
+						);
 				
 				Categorias.add(cat);
 			}while(cursor.moveToNext());

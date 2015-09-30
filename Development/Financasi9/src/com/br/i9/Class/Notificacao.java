@@ -1,14 +1,12 @@
 package com.br.i9.Class;
 
 import com.br.i9.R;
-import com.br.i9.ActivityPrincipais.MainActivity;
 import com.br.i9.ActivityPrincipais.TheFirstPage;
 import com.br.i9.Database.CrudDatabase;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;

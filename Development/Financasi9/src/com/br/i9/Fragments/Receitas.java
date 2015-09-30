@@ -10,9 +10,12 @@ import com.br.i9.Class.ListTransacoesAdapter;
 import com.br.i9.Class.MovimentosGastos;
 import com.br.i9.Class.Transacoes;
 import com.br.i9.Database.CrudDatabase;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -53,10 +56,18 @@ public class Receitas extends Fragment{
 		return(viewLista);
 	}
 	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	    // TODO Add your menu entries here
+	    super.onCreateOptionsMenu(menu, inflater);
+	    
+	    menu.findItem(R.id.action_check_updates).setVisible(false);
+	    menu.findItem(R.id.action_search).setVisible(true);
+	}
+	
 	public void gerarReceitas(CrudDatabase db, TextView receitasMes, AjusteSpinner ajusteSpinner,Spinner spinnerMeses,AjusteListView ajusteListView,ListView listViewTran, View viewLista, int MesReferencia)
 	{
 		String sRec;
-		Boolean lVisibleTxt = true;
 		sRec = db.ReceitaDespesaMes("1", MesReferencia);
 		 
 			if(sRec.length() == 4 && !sRec.contains("-"))
@@ -66,6 +77,9 @@ public class Receitas extends Fragment{
 			else if(sRec.length() == 5)
 			{
 				receitasMes.setText("Receita Total: R$ " + sRec.replace(sRec, sRec.substring(0, 2)+"."+sRec.substring(2, sRec.length())));
+			}else if(sRec.length() == 6)
+			{
+				receitasMes.setText("Receita Total: R$ " + sRec.replace(sRec, sRec.substring(0, 3)+"."+sRec.substring(3, sRec.length())));
 			}
 			else
 				receitasMes.setText("Receita Total: R$ " + sRec) ;
@@ -75,7 +89,6 @@ public class Receitas extends Fragment{
 		
 			if(aMovimentos.size() != 0)
 			{
-				lVisibleTxt = false ;
 				for (int i = 0; i < aMovimentos.size(); i++) {
 					arrayReceitas.add(new com.br.i9.Class.Transacoes(
 							 aMovimentos.get(i).getEstabelecimeno(), 
@@ -97,10 +110,9 @@ public class Receitas extends Fragment{
 			}
 			else{
 				listViewTran.setAdapter(null);
+				TextView textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
+				listViewTran.setEmptyView(textView);
 			}
-			
-			TextView textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
-			ajusteListView.validarExistenciaDados(textView, lVisibleTxt );
 	}	
 }
 

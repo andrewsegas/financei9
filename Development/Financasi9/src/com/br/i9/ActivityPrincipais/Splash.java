@@ -30,7 +30,6 @@ public class Splash extends Activity{
 			@Override
 			public void run() {
 
-				
 				CrudDatabase bd = new CrudDatabase(Splash.this);
 				Login usuario = new Login();
 				

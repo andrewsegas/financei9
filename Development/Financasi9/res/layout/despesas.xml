@@ -85,6 +85,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:gravity="center"
+	        android:layout_marginTop="60dp"
 	        android:text="Não há transações para o mês escolhido"
 	        android:textAlignment="center"
 	        android:textColor="@android:color/holo_orange_dark"

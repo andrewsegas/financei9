@@ -40,6 +40,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -195,9 +196,11 @@ public class TheFirstPage extends ActionBarActivity {
 		  super.onCreateOptionsMenu(menu);
 		  getMenuInflater().inflate(R.menu.menu, menu);
 		  currentMenu = menu;
+		  menu.findItem(R.id.action_check_updates).setVisible(false);
+		  menu.findItem(R.id.action_search).setVisible(true);
 		  return (true);
 	  }
-	  
+
 	  public boolean MenuItemSelected(MenuItem item)
 	  {
 			switch(item.getItemId()){

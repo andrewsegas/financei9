@@ -34,9 +34,42 @@
         android:maxLength="30"
         android:inputType="textPersonName"
         android:singleLine="true"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/black"
         android:textColorHint="@android:color/darker_gray"
         android:textSize="15sp" />
+    
+   
+      <TextView android:text="Cor Gráfica"
+	  			android:textSize="17dip"
+	  			android:id="@+id/nmCorGrafica"
+	  			android:layout_width="fill_parent"
+	  			android:layout_below="@+id/txtNomeCategoria"
+	        	android:layout_height="fill_parent"
+	        	android:gravity="left"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginTop="10dp"
+	  			android:layout_marginLeft="18dp"
+	  			android:layout_marginRight="20dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/holo_orange_dark"/>
+      
+      
+    <TextView
+        android:id="@+id/escolherCor"
+        android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+        android:gravity="left|top"
+	  	android:layout_marginBottom="2dp"
+		android:layout_marginTop="135dp"
+		android:layout_marginLeft="26dp"
+		android:layout_marginRight="20dp"
+		android:textAlignment="gravity"
+        android:onClick="colorpicker"
+        android:text="Escolha a cor que deseja aplicar no gráfico para esta categoria."
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="normal" />
+    
     
      <TextView android:text="Grupo da Categoria"
 	  			android:textSize="17dip"
@@ -45,8 +78,7 @@
 	        	android:layout_height="wrap_content"
 	        	android:gravity="left"
 	  			android:layout_marginBottom="2dp"
-	  			android:layout_marginTop="20dp"
-	  			android:layout_below="@+id/txtNomeCategoria"
+	  			android:layout_marginTop="200dp"
 	  			android:layout_marginLeft="18dp"
 	  			android:textAlignment="gravity"
 	  			android:textColor="@android:color/holo_orange_dark"/>
@@ -55,7 +87,7 @@
 	        	android:id="@+id/spinnerTipo"
 	        	android:layout_width="fill_parent"
 	  			android:layout_height="wrap_content"
-	  			android:layout_marginTop="160dp"	  			
+	  			android:layout_marginTop="240dp"	  			
 	  			android:layout_below="@+id/tipoCategorias"
 	  			android:layout_marginLeft="20dp"
 	  			android:layout_marginRight="20dp"
@@ -68,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/NomeNewUser"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="233dp"
+        android:layout_marginTop="290dp"
         android:onClick="CadastrarCategoria"
         android:background="@drawable/btngray"
         android:text="@string/Cadastrar"
