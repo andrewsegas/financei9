@@ -166,7 +166,7 @@ public class TratamentoMensagens {
 					
 					
 					if(TipoMensagem.getmsg().contains("APROVAD")){
-						TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("APROVAD") + 9, TipoMensagem.getmsg().indexOf("APROVAD") + 14));
+						TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("APROVAD") + 9, TipoMensagem.getmsg().indexOf("APROVAD") + 14) + "/" + db.getDateTime("yyyy"));
 					}else if(TipoMensagem.getmsg().contains("TED")){
 						TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("em ") + 3, TipoMensagem.getmsg().indexOf("em ")+8));
 					}else{

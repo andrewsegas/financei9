@@ -428,7 +428,7 @@ public class CrudDatabase {
 	 * Return array com 2 dimensões [x][0] = valor ; [x][1] = categoria
 	------------------------------*/	
 	public String[][] CategoriaRecDespMes(String cRecDesp, String cMes){
-		String[] colunas = new String[]{"(SUM(VALOR))", "CATEGORIA", "cRecDesp"};
+		String[] colunas = new String[]{"(SUM(VALOR))", "CATEGORIA", "CAT_CORGRAFICA", "cRecDesp"};
 		Cursor cursor = null;
 		String cWhere = "cRecDesp ='" + cRecDesp + "'";
 		String[][] aCategorias ;
@@ -436,12 +436,13 @@ public class CrudDatabase {
 		cursor = bd.query("MOVIMENTOS", colunas, cWhere , null, "MOV_IDCAT" , null, "_IDMov DESC");
 		
 		if(cursor.getCount() > 0){
-			aCategorias = new String[cursor.getCount()][2];
+			aCategorias = new String[cursor.getCount()][3];
 			cursor.moveToFirst();
 			
 			for (int i = 0; i < cursor.getCount() -1 ; i++) {
 				aCategorias[i][0] = cursor.getString(0) ; //soma dos valores
 				aCategorias[i][1] = cursor.getString(1) ; //campo categoria
+				aCategorias[i][2] = String.valueOf(cursor.getInt(2)) ; //campo cor da categoria
 				cursor.moveToNext();
 			}
 			
