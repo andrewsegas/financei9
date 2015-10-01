@@ -15,7 +15,6 @@ import com.br.i9.Database.CrudDatabase;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,13 +28,14 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 public class Despesas extends Fragment {
 	ArrayList<Transacoes> arrayDespesas;
+	Spinner spinnerMeses ;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		
 		final View viewLista = inflater.inflate(R.layout.despesas, null);
 		final TextView despesasMes = (TextView) viewLista.findViewById(R.id.receitasId);               
 		final ListView listViewTran = (ListView) viewLista.findViewById(R.id.listViewId);
-		final Spinner spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
+		spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
 		final CrudDatabase db = new CrudDatabase(getActivity());	
 		final AjusteSpinner ajusteSpinner = new AjusteSpinner();
 		final AjusteListView ajusteListView = new AjusteListView();
@@ -59,6 +59,15 @@ public class Despesas extends Fragment {
 			
 		return(viewLista);
 	}
+	
+	@Override
+	public void onResume (){
+      super.onResume();
+      CrudDatabase db = new CrudDatabase(getActivity());
+      AjusteSpinner ajusteSpinner = new AjusteSpinner();
+      
+      ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);
+   	}
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

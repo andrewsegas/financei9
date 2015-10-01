@@ -29,7 +29,7 @@ public class Geral extends Fragment {
 	
 	AjusteListView ajusteListView;
 	View viewLista;
-	
+	Spinner spinnerMeses ; 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){	
 		
@@ -39,12 +39,13 @@ public class Geral extends Fragment {
 		final TextView receitasMes = (TextView) viewLista.findViewById(R.id.receitasId);
 		final TextView despesasMes = (TextView) viewLista.findViewById(R.id.despesasId);
 		final TextView situacaoAtual = (TextView) viewLista.findViewById(R.id.situacaoAtualid);
-		final Spinner spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
+		spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
 		ajusteListView = new AjusteListView();
 		final AjusteSpinner ajusteSpinner = new AjusteSpinner();
 		
 		ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);
-
+		gerarGraficoGeral(db, receitasMes, despesasMes, situacaoAtual, mChart, db.getMonth());
+		
 		spinnerMeses.setOnItemSelectedListener(new OnItemSelectedListener() {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -59,6 +60,14 @@ public class Geral extends Fragment {
 
 		return(viewLista);
 	}
+	
+	@Override
+	public void onResume (){
+      super.onResume();
+      AjusteSpinner ajusteSpinner = new AjusteSpinner();
+      CrudDatabase db = new CrudDatabase(getActivity());
+      ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);
+   	}
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

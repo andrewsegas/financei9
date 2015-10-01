@@ -29,13 +29,13 @@ import android.widget.TextView;
 public class Receitas extends Fragment{
 	
 	ArrayList<Transacoes> arrayReceitas;
-	
-	@Override
+	Spinner spinnerMeses ;
+	@Override	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
 		 final View viewLista = inflater.inflate(R.layout.receitas, null);
 		 final TextView receitasMes = (TextView) viewLista.findViewById(R.id.receitasId);
-		 final Spinner spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
+		 spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
 		 final ListView listViewTran =(ListView) viewLista.findViewById(R.id.listViewId);
 		 final AjusteListView ajusteListView = new AjusteListView();
 		 final AjusteSpinner ajusteSpinner = new AjusteSpinner();
@@ -56,8 +56,20 @@ public class Receitas extends Fragment{
 		    }
 		});
 		 
+		 	
 		return(viewLista);
 	}
+	
+	@Override
+	public void onResume (){
+      super.onResume();
+      CrudDatabase db = new CrudDatabase(getActivity());
+      AjusteSpinner ajusteSpinner = new AjusteSpinner();
+      
+      ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);
+   	}
+ 
+	
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

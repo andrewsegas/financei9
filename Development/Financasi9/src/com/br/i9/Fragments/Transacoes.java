@@ -61,8 +61,8 @@ public class Transacoes extends Fragment {
 		ajusteListView = new AjusteListView();
 		
 		ajusteSpinner.ajusteSpinnerMes(bd, spinnerMeses);
-		//mesCorrent = bd.getMonth();
-		//GerarTransacoes(bd, viewLista, listViewTran, ajusteListView, mesCorrent);
+		mesCorrent = bd.getMonth();
+		GerarTransacoes(bd, viewLista, listViewTran, ajusteListView, mesCorrent);
 		
 		popularSpinnerTipoCategoria(spinnerTipoCategoria);
 		
@@ -82,6 +82,15 @@ public class Transacoes extends Fragment {
 		
 		return(viewLista);
 	}
+	
+	@Override
+	public void onResume (){
+      super.onResume();
+      AjusteSpinner ajusteSpinner = new AjusteSpinner();
+      
+      ajusteSpinner.ajusteSpinnerMes(bd, spinnerMeses);
+   	}
+	
 	
   @Override   
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)  
