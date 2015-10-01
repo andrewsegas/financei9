@@ -96,20 +96,20 @@ public class Geral extends Fragment {
 				format(Double.parseDouble(sDesp));
 		
 		
-		despesasMes.setText("Despesas: " + sDespReal) ;
+		despesasMes.setText("Despesas: " + sDespReal.replace("R$", "R$ ")) ;
 		
 		
-		receitasMes.setText("Receitas: " + sRecReal) ;
+		receitasMes.setText("Receitas: " + sRecReal.replace("R$", "R$ ")) ;
 		
 		
 		sTotal = String.valueOf(ndTotal);
 				
 		sTotal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Double.parseDouble(sTotal));
 		
-		if (sTotal.contains("(")){   //negativo deve colocar o RED
-			situacaoAtual.setText(Html.fromHtml("<font color='red'> Situação Atual: -" + sTotal.replace("(","").replace(")","") + "</font>" ));
+		if (sTotal.contains("-")){   //negativo deve colocar o RED
+			situacaoAtual.setText(Html.fromHtml(" Situação Atual: "+"<font color='red'>" + sTotal.replace("-R$", "R$ -") + "</font>" ));
 		}else{
-			situacaoAtual.setText("Situação Atual: " + sTotal);
+			situacaoAtual.setText("Situação Atual: " + sTotal.replace("R$", "R$ "));
 		}
 		
 		

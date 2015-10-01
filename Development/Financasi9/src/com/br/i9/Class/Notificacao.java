@@ -1,11 +1,10 @@
 package com.br.i9.Class;
 
 import com.br.i9.R;
-import com.br.i9.ActivityPrincipais.MainActivity;
 import com.br.i9.ActivityPrincipais.Splash;
-import com.br.i9.ActivityPrincipais.TheFirstPage;
 import com.br.i9.Database.CrudDatabase;
-
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -25,15 +24,12 @@ public class Notificacao {
 		}else{
 			sText = sText + "Você gastou R$ "  + sMoney + System.getProperty("line.separator") + "em " + sEstabelecimento;
 		}
-		
 		showNotification(context, sTitle, sText);
 	}
-	
-
-	
+		
 	public static void showNotification(Context context, String sTitle, String sText) {
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-				new Intent(context,  Splash.class), 0);
+				new Intent(context,  Splash.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 0);
 		
 		NotificationCompat.Builder mBuilder =
 				new NotificationCompat.Builder(context)
@@ -50,6 +46,14 @@ public class Notificacao {
 		mNotificationManager.notify(1, mBuilder.build());
 
 	}
+
 	
+	private static boolean verifyApplicationRunning(Context context) {
+		ActivityManager am = (ActivityManager) context
+                .getSystemService(Activity.ACTIVITY_SERVICE);
+        String packageName = am.getRunningTasks(1).get(0).topActivity
+                .getPackageName();
+		return false;
+    }
 	
 }
