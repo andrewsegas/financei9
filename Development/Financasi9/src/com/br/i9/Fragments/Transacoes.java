@@ -61,8 +61,8 @@ public class Transacoes extends Fragment {
 		ajusteListView = new AjusteListView();
 		
 		ajusteSpinner.ajusteSpinnerMes(bd, spinnerMeses);
-		mesCorrent = bd.getMonth();
-		GerarTransacoes(bd, viewLista, listViewTran, spinnerMeses, ajusteListView, mesCorrent);
+		//mesCorrent = bd.getMonth();
+		//GerarTransacoes(bd, viewLista, listViewTran, ajusteListView, mesCorrent);
 		
 		popularSpinnerTipoCategoria(spinnerTipoCategoria);
 		
@@ -72,7 +72,8 @@ public class Transacoes extends Fragment {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 		    	mesCorrent = position;
-		    	GerarTransacoes(bd, viewLista, listViewTran, spinnerMeses, ajusteListView, mesCorrent);
+		    	GerarTransacoes(bd, viewLista, listViewTran, ajusteListView, mesCorrent);
+		    	AjusteSpinner.nMesDoSpinner = mesCorrent;
 		    }
 		    @Override
 		    public void onNothingSelected(AdapterView<?> parentView) {
@@ -132,12 +133,8 @@ public class Transacoes extends Fragment {
 	    menu.findItem(R.id.action_search).setVisible(true);
 	}
 
-	public void GerarTransacoes(CrudDatabase bd, View viewLista, ListView listViewTran, Spinner spinnerMeses, AjusteListView ajusteListView, int MesReferencia)
+	public void GerarTransacoes(CrudDatabase bd, View viewLista, ListView listViewTran, AjusteListView ajusteListView, int MesReferencia)
 	{ 
-		AjusteSpinner ajustaSpinner = new AjusteSpinner();
-		String cWhere = "" ; 
-
-		cWhere = ajustaSpinner.whereMes(cWhere, spinnerMeses);
 		
 		arrayReceitas = new ArrayList<com.br.i9.Class.Transacoes>();
 		List<MovimentosGastos> aMovimentos = bd.SelecionarTodosMovimentos("","_IDMov DESC", MesReferencia);
@@ -196,7 +193,7 @@ public class Transacoes extends Fragment {
 		 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
 	         public void onClick(DialogInterface dialog, int which) { 
 	        	 bd.AtualizarCategoriaMovimentos(nmNovaCategoria, idMovAlterarCategoria);
-	        	 GerarTransacoes(bd, viewLista, listViewTran, spinnerMeses, ajusteListView, mesCorrent);
+	        	 GerarTransacoes(bd, viewLista, listViewTran, ajusteListView, mesCorrent);
 	        	 Toast.makeText(getActivity().getApplicationContext(), "Categoria atualizada com sucesso",
                          Toast.LENGTH_SHORT).show();
 	        	 ((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
@@ -238,7 +235,7 @@ public class Transacoes extends Fragment {
 		     .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 		         public void onClick(DialogInterface dialog, int which) { 
 		        	 bd.ApagarMovimento(idMov);
-		        	 GerarTransacoes(bd, viewLista, listViewTran, spinnerMeses, ajusteListView, mesCorrent);
+		        	 GerarTransacoes(bd, viewLista, listViewTran, ajusteListView, mesCorrent);
 		        	 Toast.makeText(getActivity().getApplicationContext(), "Transação excluída com sucesso",
 	                            Toast.LENGTH_SHORT).show();
 		         }

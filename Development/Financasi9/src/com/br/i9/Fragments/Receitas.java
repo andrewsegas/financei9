@@ -1,7 +1,9 @@
 package com.br.i9.Fragments;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.br.i9.R;
 import com.br.i9.Class.AjusteListView;
@@ -46,6 +48,7 @@ public class Receitas extends Fragment{
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 		    		gerarReceitas(db, receitasMes, ajusteSpinner,spinnerMeses,ajusteListView,listViewTran, viewLista, position);
+		    		AjusteSpinner.nMesDoSpinner = position;
 		    }
 
 		    @Override
@@ -67,22 +70,11 @@ public class Receitas extends Fragment{
 	
 	public void gerarReceitas(CrudDatabase db, TextView receitasMes, AjusteSpinner ajusteSpinner,Spinner spinnerMeses,AjusteListView ajusteListView,ListView listViewTran, View viewLista, int MesReferencia)
 	{
-		String sRec;
+		String sRec, sRecReal;
 		sRec = db.ReceitaDespesaMes("1", MesReferencia);
-		 
-			if(sRec.length() == 4 && !sRec.contains("-"))
-			{
-				receitasMes.setText("Receita Total: R$ " + sRec.replace(sRec, sRec.substring(0, 1)+"."+sRec.substring(1, sRec.length())));
-			}
-			else if(sRec.length() == 5)
-			{
-				receitasMes.setText("Receita Total: R$ " + sRec.replace(sRec, sRec.substring(0, 2)+"."+sRec.substring(2, sRec.length())));
-			}else if(sRec.length() == 6)
-			{
-				receitasMes.setText("Receita Total: R$ " + sRec.replace(sRec, sRec.substring(0, 3)+"."+sRec.substring(3, sRec.length())));
-			}
-			else
-				receitasMes.setText("Receita Total: R$ " + sRec) ;
+		
+		sRecReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Long.parseLong(sRec));
+		receitasMes.setText("Receita Total: " + sRecReal) ;
 		 
 		 arrayReceitas = new ArrayList<com.br.i9.Class.Transacoes>();
 		 List<MovimentosGastos> aMovimentos = db.SelecionarTodosMovimentos("cRecDesp = '1'","_IDMov DESC", MesReferencia);

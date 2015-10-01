@@ -33,12 +33,12 @@ public class Grafico extends Fragment{
 		final AjusteSpinner ajusteSpinner = new AjusteSpinner();
 		
 		ajusteSpinner.ajusteSpinnerMes(bd, spinnerMeses);
-		//GerarGraficos(mChart, mChartDepesas, bd.getMonth());
 
 		spinnerMeses.setOnItemSelectedListener(new OnItemSelectedListener() {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 		    	GerarGraficos(mChart, mChartDepesas, position);
+		    	AjusteSpinner.nMesDoSpinner = position;
 		    }
 
 		    @Override

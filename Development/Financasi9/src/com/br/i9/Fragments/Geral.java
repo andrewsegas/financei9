@@ -1,5 +1,8 @@
 package com.br.i9.Fragments;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import com.br.i9.R;
 import com.br.i9.Class.AjusteListView;
 import com.br.i9.Class.AjusteSpinner;
@@ -17,9 +20,9 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 
 public class Geral extends Fragment {
@@ -41,12 +44,12 @@ public class Geral extends Fragment {
 		final AjusteSpinner ajusteSpinner = new AjusteSpinner();
 		
 		ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);
-		gerarGraficoGeral(db, receitasMes, despesasMes, situacaoAtual, mChart, db.getMonth());
 
 		spinnerMeses.setOnItemSelectedListener(new OnItemSelectedListener() {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 		    	gerarGraficoGeral(db, receitasMes, despesasMes, situacaoAtual, mChart, position);
+		    	AjusteSpinner.nMesDoSpinner = position;
 		    }
 
 		    @Override
@@ -68,101 +71,33 @@ public class Geral extends Fragment {
 	
 	private void gerarGraficoGeral(CrudDatabase db, TextView receitasMes, TextView despesasMes, TextView situacaoAtual, PieChart mChart, int MesReferencia)
 	{
-		String sRec, sDesp, sTotal;
+		String sRec, sDesp, sTotal, sDespReal, sRecReal;
 		Double ndTotal;
 		
 		sRec = db.ReceitaDespesaMes("1", MesReferencia);
 		sDesp = db.ReceitaDespesaMes("2", MesReferencia );
 		
-		if(sDesp.length() == 4)
-		{
-			despesasMes.setText("Despesas: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 1)+"."+sDesp.substring(1, sDesp.length())));
-		}
-		else
-			if(sDesp.length() == 5)
-			{
-				despesasMes.setText("Despesas: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 2)+"."+sDesp.substring(2, sDesp.length())));
-			}
-		else
-			if(sDesp.length() == 6)
-			{
-				despesasMes.setText("Despesas: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 3)+"."+sDesp.substring(3, sDesp.length())));
-			}
-		else
-			despesasMes.setText("Despesas: R$ " + sDesp) ;
-		
-		
-		if(sRec.length() == 4 && !sRec.contains("-"))
-		{
-			receitasMes.setText("Receitas: R$ " + sRec.replace(sRec, sRec.substring(0, 1)+"."+sRec.substring(1, sRec.length())));
-		}
-		else if(sRec.length() == 5 && !sRec.contains("-"))
-		{
-			receitasMes.setText("Receitas: R$ " + sRec.replace(sRec, sRec.substring(0, 2)+"."+sRec.substring(2, sRec.length())));
-		}
-		else if(sRec.length() == 6 && !sRec.contains("-"))
-		{
-			receitasMes.setText("Receitas: R$ " + sRec.replace(sRec, sRec.substring(0, 3)+"."+sRec.substring(3, sRec.length())));
-		}
-		else
-			receitasMes.setText("Receitas: R$ " + sRec) ;
-		
 		ndTotal = (Double.valueOf(sRec.replace(",", ".")))
-					- (Double.valueOf(sDesp.replace(",", ".")));
+				- (Double.valueOf(sDesp.replace(",", ".")));
+		
+		sRecReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Long.parseLong(sRec));
+		sDespReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Long.parseLong(sDesp));
+		
+		despesasMes.setText("Despesas: " + sDespReal) ;
+		
+		
+		receitasMes.setText("Receitas: " + sRecReal) ;
+		
 		
 		sTotal = String.valueOf(Math.round(ndTotal));
+				
+		sTotal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Long.parseLong(sTotal));
 		
-		if(sTotal.contains("-") && sTotal.replace("-", "").length() == 4)
-		{
-			situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(sTotal, sTotal.substring(0, 2)+"."+sTotal.substring(2, sTotal.length()))+
- 					"</font>"
- 					));
+		if (sTotal.contains("(")){   //negativo deve colocar o RED
+			situacaoAtual.setText(Html.fromHtml("<font color='red'> Situação Atual: -" + sTotal.replace("(","").replace(")","") + "</font>" ));
+		}else{
+			situacaoAtual.setText("Situação Atual: " + sTotal);
 		}
-		else
-			if(sTotal.contains("-") && sTotal.replace("-", "").length() == 3)
-			{
-				situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(".",",")+
-	 					"</font>"
-	 					));
-			}
-		else
-			if(sTotal.contains("-") && sTotal.length() == 5)
-			{
-				situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(sTotal, sTotal.substring(0, 3)+"."+sTotal.substring(3, sTotal.length()))+
-	 					"</font>"
-	 					));
-			}
-		else
-			if(sTotal.contains("-") && sTotal.length() == 7)
-			{
-				situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(sTotal, sTotal.substring(0, 4)+"."+sTotal.substring(4, sTotal.length()))+
-	 					"</font>"
-	 					));
-			}
-		else
-			if(sTotal.contains("-") && sTotal.length() < 4)
-			{
-			situacaoAtual.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sTotal.replace(".",",")+
- 					"</font>"
- 					));
-			}
-		else
-			if(sTotal.length() == 4 && !sTotal.contains("-"))
-			{
-				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(sTotal, sTotal.substring(0, 1)+"."+sTotal.substring(1, sTotal.length())));
-			}
-		else
-			if(sTotal.length() == 5 && !sTotal.contains("-"))
-			{
-				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(sTotal, sTotal.substring(0, 2)+"."+sTotal.substring(2, sTotal.length())));
-			}
-		else
-			if(sTotal.length() == 6 && !sTotal.contains("-"))
-			{
-				situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(sTotal, sTotal.substring(0, 3)+"."+sTotal.substring(3, sTotal.length())));
-			}
-		else
-			situacaoAtual.setText("Situação Atual: R$ " + sTotal.replace(".",","));
 		
 		
         float[] yData = { Float.valueOf(sDesp.replace(",", ".")), Float.valueOf(sRec.replace(",", ".")) };

@@ -1,7 +1,9 @@
 package com.br.i9.Fragments;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.br.i9.R;
 import com.br.i9.Class.AjusteListView;
@@ -46,6 +48,7 @@ public class Despesas extends Fragment {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 		    	gerarDespesas(db, despesasMes, ajusteSpinner,spinnerMeses,ajusteListView,listViewTran, viewLista, position);
+		    	AjusteSpinner.nMesDoSpinner = position;
 		    }
 
 		    @Override
@@ -68,32 +71,11 @@ public class Despesas extends Fragment {
 	
 	private void gerarDespesas(CrudDatabase db, TextView despesasMes, AjusteSpinner ajusteSpinner,Spinner spinnerMeses,AjusteListView ajusteListView,ListView listViewTran, View viewLista, int MesReferencia)
 	{
-		String sDesp;
+		String sDesp, sDespReal;
 		sDesp = db.ReceitaDespesaMes("2", MesReferencia);
 		
-		if(sDesp.contains("-") && sDesp.length() == 4)
-		{
-			despesasMes.setText(Html.fromHtml("Situação Atual:" + "<font color='red'>" + " R$ "+ sDesp.replace(sDesp, sDesp.substring(0, 2)+"."+sDesp.substring(2, sDesp.length()))+
- 					"</font>"
- 					));
-		}
-		else
-			if(sDesp.length() == 4)
-		{
-			despesasMes.setText("Despesa total: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 1)+"."+sDesp.substring(1, sDesp.length())));
-		}
-		else
-			if(sDesp.length() == 5)
-			{
-				despesasMes.setText("Despesa total: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 2)+"."+sDesp.substring(2, sDesp.length())));
-			}
-		else
-			if(sDesp.length() == 6)
-			{
-				despesasMes.setText("Despesa total: R$ " + sDesp.replace(sDesp, sDesp.substring(0, 3)+"."+sDesp.substring(3, sDesp.length())));
-			}
-		else
-			despesasMes.setText("Despesa total: R$ " + sDesp) ;
+		sDespReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Long.parseLong(sDesp));
+		despesasMes.setText("Despesa total: " + sDespReal) ;
 			
 		
 		arrayDespesas = new ArrayList<Transacoes>();
