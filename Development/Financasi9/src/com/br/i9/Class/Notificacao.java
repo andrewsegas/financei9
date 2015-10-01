@@ -1,6 +1,8 @@
 package com.br.i9.Class;
 
 import com.br.i9.R;
+import com.br.i9.ActivityPrincipais.MainActivity;
+import com.br.i9.ActivityPrincipais.Splash;
 import com.br.i9.ActivityPrincipais.TheFirstPage;
 import com.br.i9.Database.CrudDatabase;
 
@@ -24,14 +26,14 @@ public class Notificacao {
 			sText = sText + "Você gastou R$ "  + sMoney + System.getProperty("line.separator") + "em " + sEstabelecimento;
 		}
 		
-		showNotification(context, sTitle, sText, com.br.i9.Class.Transacoes.class);
+		showNotification(context, sTitle, sText);
 	}
 	
 
 	
-	public static void showNotification(Context context, String sTitle, String sText, Class<?> classe) {
+	public static void showNotification(Context context, String sTitle, String sText) {
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-				new Intent(context,  TheFirstPage.class), 0);
+				new Intent(context,  Splash.class), 0);
 		
 		NotificationCompat.Builder mBuilder =
 				new NotificationCompat.Builder(context)
