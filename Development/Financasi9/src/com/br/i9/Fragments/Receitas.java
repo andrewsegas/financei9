@@ -85,7 +85,7 @@ public class Receitas extends Fragment{
 		String sRec, sRecReal;
 		sRec = db.ReceitaDespesaMes("1", MesReferencia);
 		
-		sRecReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Long.parseLong(sRec));
+		sRecReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Double.parseDouble(sRec));
 		receitasMes.setText("Receita Total: " + sRecReal) ;
 		 
 		 arrayReceitas = new ArrayList<com.br.i9.Class.Transacoes>();

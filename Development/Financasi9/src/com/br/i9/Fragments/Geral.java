@@ -86,11 +86,15 @@ public class Geral extends Fragment {
 		sRec = db.ReceitaDespesaMes("1", MesReferencia);
 		sDesp = db.ReceitaDespesaMes("2", MesReferencia );
 		
-		ndTotal = (Double.valueOf(sRec.replace(",", ".")))
-				- (Double.valueOf(sDesp.replace(",", ".")));
+		ndTotal = (Double.valueOf(sRec))
+				- (Double.valueOf(sDesp));
 		
-		sRecReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Long.parseLong(sRec));
-		sDespReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Long.parseLong(sDesp));
+		sRecReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).
+				format(Double.parseDouble(sRec));
+		
+		sDespReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).
+				format(Double.parseDouble(sDesp));
+		
 		
 		despesasMes.setText("Despesas: " + sDespReal) ;
 		
@@ -98,9 +102,9 @@ public class Geral extends Fragment {
 		receitasMes.setText("Receitas: " + sRecReal) ;
 		
 		
-		sTotal = String.valueOf(Math.round(ndTotal));
+		sTotal = String.valueOf(ndTotal);
 				
-		sTotal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Long.parseLong(sTotal));
+		sTotal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Double.parseDouble(sTotal));
 		
 		if (sTotal.contains("(")){   //negativo deve colocar o RED
 			situacaoAtual.setText(Html.fromHtml("<font color='red'> Situação Atual: -" + sTotal.replace("(","").replace(")","") + "</font>" ));
@@ -109,7 +113,7 @@ public class Geral extends Fragment {
 		}
 		
 		
-        float[] yData = { Float.valueOf(sDesp.replace(",", ".")), Float.valueOf(sRec.replace(",", ".")) };
+        float[] yData = { Float.valueOf(sDesp), Float.valueOf(sRec) };
         String[] xData = { "Despesas", "Receitas"};
         int[] cores = { Color.rgb(255,99,71), Color.rgb(50,205,50) };
         

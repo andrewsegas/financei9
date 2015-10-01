@@ -391,7 +391,8 @@ public class CrudDatabase {
 	 * cMes = mes para consulta
 	------------------------------*/	
 	public String ReceitaDespesaMes(String cRecDesp, int nMes){
-		String[] colunas = new String[]{"(SUM(VALOR))", "cRecDesp"};
+		String[] colunas = new String[]{"SUM(cast(REPLACE(VALOR,',','.') as float))"
+				+ "", "cRecDesp"};
 		Cursor cursor = null;
 		String sMes, sWhere, sReturn;
 		
@@ -409,7 +410,7 @@ public class CrudDatabase {
 		if(cursor.getCount() > 0){
 			cursor.moveToFirst();
 
-			sReturn = cursor.getString(0);
+			sReturn = String.valueOf(cursor.getFloat(0));
 			cursor.close();
 			return sReturn;
 

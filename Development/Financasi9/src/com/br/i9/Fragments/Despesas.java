@@ -83,7 +83,7 @@ public class Despesas extends Fragment {
 		String sDesp, sDespReal;
 		sDesp = db.ReceitaDespesaMes("2", MesReferencia);
 		
-		sDespReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Long.parseLong(sDesp));
+		sDespReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Double.parseDouble(sDesp));
 		despesasMes.setText("Despesa total: " + sDespReal) ;
 			
 		
