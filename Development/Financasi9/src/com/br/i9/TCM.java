@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.text.format.DateFormat;
 
 public class TCM {	
 	CrudDatabase db ;
@@ -16,11 +17,10 @@ public class TCM {
 		db = new CrudDatabase(context);
 		//List<Sms> lstSms = new ArrayList<Sms>();
 		//Sms objSms = new Sms();
-		Uri message = Uri.parse("content://sms/");
+		Uri message = Uri.parse("content://sms/inbox");
 		ContentResolver cr = context.getContentResolver();
 		TipoBanco MensagemBanco = new TipoBanco();
-		String sMsg ; 
-		String sAdress;
+		String sMsg , sdata, sAdress ; 
 		
 		Cursor cursor = cr.query(message, null, null, null, null);
 		//context.startManagingCursor(c);
@@ -32,16 +32,16 @@ public class TCM {
 				try{
 					sMsg = cursor.getString(cursor.getColumnIndexOrThrow("body"));
 					sAdress = cursor.getString(cursor.getColumnIndexOrThrow("address"));
-
+					sdata = cursor.getString(cursor.getColumnIndexOrThrow("date")) ;
+					
+					
 					if(TratamentoMensagens.ValidarTipoMensagem(sMsg))
 					{
 						MensagemBanco = TratamentoMensagens.LerTipoMensagem(sMsg, db, true);
 						MensagemBanco.setnrBanco(sAdress);
 
 						if(MensagemBanco.getDataCompra() == null){
-							MensagemBanco.setDataCompra(db.getDateTime("dd-MM-yyyy").replace("-", "/"));
-							// rezalenda que é assim que pega a data : cursor.getLong(cursor.getColumnIndexOrThrow("date")) / 1000
-							//MensagemBanco.setDataCompra(cursor.getString(cursor.getColumnIndexOrThrow("date")));
+							MensagemBanco.setDataCompra(String.valueOf(DateFormat.format("dd/MM/yyyy", Long.parseLong(sdata))));
 						}
 						db.RegistrarMovimentos(MensagemBanco);
 					}
