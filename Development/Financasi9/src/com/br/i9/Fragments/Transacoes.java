@@ -191,7 +191,7 @@ public class Transacoes extends Fragment {
 	        	 dialog.dismiss();
 	         }
 	      })
-	      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+	      .setIcon(android.R.drawable.ic_dialog_info).show();
 	}
 
 	private void Alterarcategoria()
@@ -214,12 +214,12 @@ public class Transacoes extends Fragment {
 	        	 dialog.dismiss();
 	         }
 	      })
-	      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+	      .setIcon(android.R.drawable.ic_dialog_info).show();
 	}
 
 	private void Detalhes(String tipoDespesa, String SMS)
 	{
-        Popup = PopUp.Popup(viewLista.getContext());
+         Popup = PopUp.Popup(viewLista.getContext());
    		 Popup.setTitle("Finançasi9")
 		   		    .setCancelable(true)
 		   		     .setMessage(Html.fromHtml("<font size='1' align='justify'>" + 
