@@ -23,8 +23,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Binder;
-
 
 public class CrudDatabase {
 	private SQLiteDatabase bd;
