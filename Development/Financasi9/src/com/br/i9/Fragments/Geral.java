@@ -78,6 +78,8 @@ public class Geral extends Fragment {
 	    menu.findItem(R.id.action_search).setVisible(true);
 	}
 	
+	
+	
 	private void gerarGraficoGeral(CrudDatabase db, TextView receitasMes, TextView despesasMes, TextView situacaoAtual, PieChart mChart, int MesReferencia)
 	{
 		String sRec, sDesp, sTotal, sDespReal, sRecReal;
@@ -106,8 +108,12 @@ public class Geral extends Fragment {
 				
 		sTotal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Double.parseDouble(sTotal));
 		
-		if (sTotal.contains("-")){   //negativo deve colocar o RED
-			situacaoAtual.setText(Html.fromHtml(" Situação Atual: "+"<font color='red'>" + sTotal.replace("-R$", "R$ -") + "</font>" ));
+		if (sTotal.contains("(")){   //negativo deve colocar o RED "NAO MEXE CESAR VIADO"
+			situacaoAtual.setText(Html.fromHtml(" Situação Atual: "+"<font color='red'>" + sTotal
+					.replace("R$", "R$ -")
+					.replace("(", "") // negativo vem entre parenteses
+					.replace(")", "") 
+					+ "</font>" ));
 		}else{
 			situacaoAtual.setText("Situação Atual: " + sTotal.replace("R$", "R$ "));
 		}

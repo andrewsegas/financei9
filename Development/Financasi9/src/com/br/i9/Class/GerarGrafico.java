@@ -50,7 +50,7 @@ public class GerarGrafico {
         // instantiate pie data object now
         PieData data = new PieData(xVals, dataSet);
         data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(15f);
+        data.setValueTextSize(12f);
         data.setValueTextColor(Color.WHITE);
         
         mChart.setData(data);
