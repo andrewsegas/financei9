@@ -393,9 +393,8 @@ public class TheFirstPage extends ActionBarActivity {
 		  if(idx == 0)
 			  ft.replace(R.id.content_frame, new Geral());
 		  else
-		  {
 			  ft.replace(R.id.content_frame, cFragment);
-			  ft.addToBackStack("pilha").commit();
-		  }
+		  
+		  ft.addToBackStack("pilha").commit();
 	  }
  }
