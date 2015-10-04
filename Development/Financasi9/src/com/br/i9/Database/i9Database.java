@@ -93,13 +93,6 @@ public class i9Database extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase bd, int arg1, int arg2) {
-		bd.execSQL("DROP TABLE Usuarios;");
-		bd.execSQL("DROP TABLE CATEGORIAS;");
-		bd.execSQL("DROP TABLE CONFIG;");
-		bd.execSQL("DROP TABLE CATXEST;");
-		bd.execSQL("DROP TABLE MOVIMENTOS;");
-		
-		onCreate(bd);
 	}
 	
 	private void PreencherCategoriasSistema(SQLiteDatabase bd){

@@ -178,16 +178,7 @@ public class MainActivity extends Activity {
 	{
 		((EditText)findViewById(Campo)).setText("");
 	}
-	
-	private void abrirTelaFromNotify()
-	{
-			bd.RegistrarUltimoAcesso(listLogin.getLogin().toString());
 
-			Intent intent = new Intent(MainActivity.this, TheFirstPage.class);
-			intent.putExtra("listLogin", listLogin);
-			startActivity(intent);
-			MainActivity.this.finish();
-	}
 }
   
 

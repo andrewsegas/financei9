@@ -72,6 +72,7 @@ public class TheFirstPage extends ActionBarActivity {
   ActionBar ab;
   Boolean popularTabs;
   Boolean abrirResumo;
+  Boolean Notificacao;
   int index = -1;
   String mTitle = "";
   String[] itensMenu;
@@ -145,7 +146,7 @@ public class TheFirstPage extends ActionBarActivity {
 					  	mDrawerLayout.closeDrawer(mDrawer);
 				  }
 			});
-			
+			bd = new CrudDatabase(getApplicationContext());
 			popularTabs = true;
 			popularTabsResumo(savedInstanceState);
 			
@@ -154,7 +155,16 @@ public class TheFirstPage extends ActionBarActivity {
 		  
 		    mDrawerList.setAdapter(mAdapter);
 		    
-			recuperado = (Login) getIntent().getSerializableExtra("listLogin");
+		    Notificacao = (Boolean) getIntent().getBooleanExtra("Notificacao", false);
+		    
+		    if(!Notificacao.booleanValue())
+		    	recuperado = (Login) getIntent().getSerializableExtra("listLogin");
+		    else
+		    {
+		    	recuperado = bd.usuarioLogado();
+		    	getSupportActionBar().setTitle("Transações");
+		    	showFragment(2, Instance); //Transacoes
+		    }
 		    	
 			UsuName = recuperado.getNome(); //popula a variavel global
 			UsuID = Integer.parseInt(String.valueOf(recuperado.getId())) ; 
@@ -163,8 +173,6 @@ public class TheFirstPage extends ActionBarActivity {
 		    	    
 		    TextView ultimoAcesso = (TextView) findViewById(R.id.ultimoAcesso);
 		    ultimoAcesso.setText("Último acesso: " + recuperado.getUltimoAcesso().toUpperCase().toString());
-		    
-		    bd = new CrudDatabase(getApplicationContext());
 			bd.PreencherTabelaConfig();
 			
 			if(bd.VarrerTodosSMS()){
@@ -385,8 +393,9 @@ public class TheFirstPage extends ActionBarActivity {
 		  if(idx == 0)
 			  ft.replace(R.id.content_frame, new Geral());
 		  else
+		  {
 			  ft.replace(R.id.content_frame, cFragment);
-		  
-		  ft.addToBackStack("pilha").commit();
+			  ft.addToBackStack("pilha").commit();
+		  }
 	  }
  }

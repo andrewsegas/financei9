@@ -30,10 +30,11 @@ public class Geral extends Fragment {
 	AjusteListView ajusteListView;
 	View viewLista;
 	Spinner spinnerMeses ; 
+	CrudDatabase db;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){	
 		
-		final CrudDatabase db = new CrudDatabase(getActivity());
+		db = new CrudDatabase(getActivity());
 		viewLista = inflater.inflate(R.layout.geral, null);
 		final PieChart mChart = (PieChart) viewLista.findViewById(R.id.pieChart1);
 		final TextView receitasMes = (TextView) viewLista.findViewById(R.id.receitasId);
@@ -50,7 +51,8 @@ public class Geral extends Fragment {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 		    	gerarGraficoGeral(db, receitasMes, despesasMes, situacaoAtual, mChart, position);
-		    	AjusteSpinner.nMesDoSpinner = position;
+		    	AjusteSpinner.nMesDoSpinner = position == 0 ? -1 : position;
+		    	onResume();
 		    }
 
 		    @Override
@@ -62,10 +64,9 @@ public class Geral extends Fragment {
 	}
 	
 	@Override
-	public void onResume (){
+	public void onResume(){
       super.onResume();
       AjusteSpinner ajusteSpinner = new AjusteSpinner();
-      CrudDatabase db = new CrudDatabase(getActivity());
       ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);
    	}
 	

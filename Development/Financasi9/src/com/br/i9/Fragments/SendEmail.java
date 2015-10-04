@@ -1,8 +1,11 @@
 package com.br.i9.Fragments;
 
 import com.br.i9.R;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,12 +18,16 @@ import android.widget.EditText;
 
 public class SendEmail extends Fragment {
 
+	public static String Subject;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		
 		View viewLista = inflater.inflate(R.layout.send_email, null);
 		Button enviarEmail = (Button)viewLista.findViewById(R.id.btnEnviarEmail);
 		final EditText emailtext = (EditText)viewLista.findViewById(R.id.emailtext);
+		
+		emailtext.setRawInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 		
 		enviarEmail.setOnClickListener(new OnClickListener() {
 			@Override
@@ -50,9 +57,28 @@ public class SendEmail extends Fragment {
 	{
 		if(TextUtils.isEmpty(emailtext.getText().toString()))
 		{
-			emailtext.setError("Deixe seu comentário...");
+			emailtext.setError("Deixe seu comentário.");
 			emailtext.setFocusable(true);
 			emailtext.requestFocus();
 		}
+		else
+		{
+		  EnviarEmail(Subject, emailtext.getText().toString());
+		}
+	}
+	
+	public void EnviarEmail(String Subject, String Message)
+	{
+		  String to = "educador.cesar@gmail.com";
+		  String subject = Subject;
+		  String message = Message;
+
+		  Intent email = new Intent(Intent.ACTION_SEND);
+		  email.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
+		  email.putExtra(Intent.EXTRA_SUBJECT, subject);
+		  email.putExtra(Intent.EXTRA_TEXT, message);
+		  email.setType("message/rfc822");
+		  
+		  startActivity(Intent.createChooser(email, "Escolhe o seu aplicativo de email"));
 	}
 }

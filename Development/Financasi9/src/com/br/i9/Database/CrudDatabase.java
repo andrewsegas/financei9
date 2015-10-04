@@ -163,17 +163,14 @@ public class CrudDatabase {
 	{
 		String[] colunas = new String[]{"CFG_NOTIFI"};
 		Cursor cursor = null;
-		String sReturn ;
+		String sReturn = null;
 
 		cursor = bd.query("CONFIG", colunas, null, null, null, null, null);
 
 		if(cursor.getCount() > 0){	
 			cursor.moveToFirst();
+			sReturn = cursor.getString(0);
 		}
-
-	
-		sReturn = cursor.getString(0);
-
 		cursor.close();
 		return sReturn;
 	}
@@ -278,7 +275,6 @@ public class CrudDatabase {
 			Usu.setSenha(cursor.getString(5));
 		}
 		
-
 			cursor.close();
 
 		return Usu;

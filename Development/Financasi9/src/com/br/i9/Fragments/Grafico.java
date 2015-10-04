@@ -21,15 +21,16 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class Grafico extends Fragment{
 
 	PieChart mChart, mChartDepesas;
-	
+	CrudDatabase bd;
+	Spinner spinnerMeses;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		
 		final View viewLista = inflater.inflate(R.layout.grafico, null);
 		mChart = (PieChart) viewLista.findViewById(R.id.pieChartReceitas);
 		mChartDepesas = (PieChart) viewLista.findViewById(R.id.pieChartDespesas);
-		final Spinner spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
-		final CrudDatabase bd = new CrudDatabase(getActivity());
+		spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
+		bd = new CrudDatabase(getActivity());
 		final AjusteSpinner ajusteSpinner = new AjusteSpinner();
 		
 		ajusteSpinner.ajusteSpinnerMes(bd, spinnerMeses);
@@ -38,7 +39,8 @@ public class Grafico extends Fragment{
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 		    	GerarGraficos(mChart, mChartDepesas, position);
-		    	AjusteSpinner.nMesDoSpinner = position;
+		    	AjusteSpinner.nMesDoSpinner = position == 0 ? -1 : position;
+		    	onResume();
 		    }
 
 		    @Override
@@ -48,6 +50,13 @@ public class Grafico extends Fragment{
 
 		return(viewLista);
 	}
+	
+	@Override
+	public void onResume(){
+      super.onResume();
+      AjusteSpinner ajusteSpinner = new AjusteSpinner();
+      ajusteSpinner.ajusteSpinnerMes(bd, spinnerMeses);
+   	}
 	
 	private void GerarGraficos(PieChart mChart, PieChart mChartDepesas, int MesReferencia)
 	{
