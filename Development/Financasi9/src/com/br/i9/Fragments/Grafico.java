@@ -64,7 +64,7 @@ public class Grafico extends Fragment{
 		GerarGraficoRecDesp(mChartDepesas, "2" ,MesReferencia); //despesas
 	}
 	
-	private void GerarGraficoRecDesp(PieChart mChart, String sMes, int MesReferencia)
+	private void GerarGraficoRecDesp(PieChart mChart, String sRecDesp, int MesReferencia)
 	{
 		CrudDatabase db = new CrudDatabase(getActivity());
 		String[][] aCategorias ;
@@ -72,7 +72,7 @@ public class Grafico extends Fragment{
 		String[] asData ;
 		int[] anCores ;
 		
-		aCategorias = db.CategoriaRecDespMes(sMes, MesReferencia);
+		aCategorias = db.CategoriaRecDespMes(sRecDesp, MesReferencia);
 		
 		if(aCategorias.length > 0){
 			afVal = new float[aCategorias.length] ;

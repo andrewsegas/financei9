@@ -36,7 +36,7 @@ public class TratamentoMensagens {
 					}
 				}else{
 					if (!lVarreSMS){
-						TipoMensagem.setDataCompra(db.getDateTime("dd-MM-yyyy").replace("-", "/")); //Ajustar isso aqui para a data de hoje	
+						TipoMensagem.setDataCompra(db.getDateTime("dd/MM/yyyy")); //Ajustar isso aqui para a data de hoje	
 					}
 					
 				}
@@ -89,7 +89,9 @@ public class TratamentoMensagens {
 						TipoMensagem.setDataCompra(cData);
 					}
 				}else{
-					TipoMensagem.setDataCompra(db.getDateTime("dd-MM-yyyy").replace("-", "/")); //Ajustar isso aqui para a data de hoje
+					if (!lVarreSMS){
+						TipoMensagem.setDataCompra(db.getDateTime("dd/MM/yyyy")); //Ajustar isso aqui para a data de hoje
+					}
 				}
 				
 				if(TipoMensagem.getmsg().contains(" a credito ")) {
@@ -170,7 +172,9 @@ public class TratamentoMensagens {
 					}else if(TipoMensagem.getmsg().contains("TED")){
 						TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("em ") + 3, TipoMensagem.getmsg().indexOf("em ")+8));
 					}else{
-						TipoMensagem.setDataCompra(db.getDateTime("dd-MM-yyyy").replace("-", "/")); //Ajustar isso aqui para a data de hoje
+						if (!lVarreSMS){
+							TipoMensagem.setDataCompra(db.getDateTime("dd/MM/yyyy")); //Ajustar isso aqui para a data de hoje
+						}
 					}
 			}
         }else if(TipoMensagem.getmsg().contains(" $ ")){ //Seguranca santander
@@ -182,7 +186,18 @@ public class TratamentoMensagens {
 			
 			TipoMensagem.setnmBanco("Santander");
 			
-			TipoMensagem.setDataCompra(db.getDateTime("dd-MM-yyyy").replace("-", "/")); //Pega a data de hoje por segurança
+			if (TipoMensagem.getmsg().contains("em ")){ //data
+				TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("em ") + 3, TipoMensagem.getmsg().indexOf("em ")+13));
+				if (TipoMensagem.getDataCompra().contains(" ")) { //pega a data quando o ano não vem completo, ex: 10/09/15
+					cData = (TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("em ") + 3, TipoMensagem.getmsg().indexOf("em ")+9)) + "20";
+					cData = cData + TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("em ")+9 , TipoMensagem.getmsg().indexOf("em ")+11);
+					TipoMensagem.setDataCompra(cData);
+				}
+			}else{
+				if (!lVarreSMS){
+					TipoMensagem.setDataCompra(db.getDateTime("dd/MM/yyyy")); //Pega a data de hoje por segurança
+				}
+			}
 			
 			TipoMensagem.setRecDesp("2"); //Despesas
 			

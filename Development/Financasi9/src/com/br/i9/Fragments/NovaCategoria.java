@@ -83,7 +83,7 @@ public class NovaCategoria extends Fragment {
 					        	 dialog.dismiss();
 					         }
 					    })
-				      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+				      .setIcon(android.R.drawable.ic_dialog_alert).show();
 				}
 			}
 		});
@@ -140,7 +140,7 @@ public class NovaCategoria extends Fragment {
 				        	 dialog.dismiss();
 				         }
 				      })
-				      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+				      .setIcon(android.R.drawable.ic_dialog_alert).show();
 				}
 				else
 				{
@@ -158,7 +158,7 @@ public class NovaCategoria extends Fragment {
 					        	 dialog.dismiss();
 					         }
 					      })
-					      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+					      .setIcon(android.R.drawable.ic_dialog_alert).show();
 					 }
 					 else
 					 {
@@ -173,7 +173,7 @@ public class NovaCategoria extends Fragment {
 							        	 dialog.dismiss();
 							         }
 							    })
-						      .setIcon(android.R.drawable.ic_dialog_alert).show().create();
+						      .setIcon(android.R.drawable.ic_dialog_alert).show();
 						 }
 						 else
 						 {
@@ -189,7 +189,7 @@ public class NovaCategoria extends Fragment {
 						        	 dialog.dismiss();
 						         }
 						      })
-						      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+						      .setIcon(android.R.drawable.ic_dialog_info).show();
 						 }
 					 }
 				}

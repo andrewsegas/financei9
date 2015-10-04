@@ -105,9 +105,23 @@ public class CrudDatabase {
 		bd.update("MOVIMENTOS", valores, "CATEGORIA = '"+ oldCat + "'", null);
 	}
 	
-	public void AtualizarCategoriaMovimentos(String nmNovaCategoria, int idMov)
+	public void AtualizarCategoriaMovimentos(String nmNovaCategoria, String nmTipoCategoria , int idMov)
 	{
 		ContentValues valores = new ContentValues();
+		String[] colunas = new String[]{"_IDCAT" };
+		String sWhere = "(CAT_USUID = '0' OR CAT_USUID = '" + TheFirstPage.UsuID + "') "
+				+ "AND CAT_NOME = '" + nmNovaCategoria + "'" ;
+		
+		Cursor cursor = bd.query("CATEGORIAS", colunas , sWhere, null, null, null, "_IDCAT ASC");
+
+		if(cursor.getCount() > 0){
+			cursor.moveToFirst();
+			
+			valores.put("MOV_IDCAT",  cursor.getString(0));
+				
+		}
+		
+		valores.put("cRecDesp",  nmTipoCategoria);
 		valores.put("CATEGORIA",  nmNovaCategoria);
 		
 		bd.update("MOVIMENTOS", valores, "_IDMov = '"+ idMov + "'", null);		

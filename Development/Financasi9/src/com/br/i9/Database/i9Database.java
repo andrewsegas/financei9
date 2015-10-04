@@ -93,6 +93,10 @@ public class i9Database extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase bd, int arg1, int arg2) {
+<<<<<<< HEAD
+=======
+		//quando o app é atualizado
+>>>>>>> origin/master
 	}
 	
 	private void PreencherCategoriasSistema(SQLiteDatabase bd){

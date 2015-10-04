@@ -162,7 +162,7 @@ public class Categorias extends Fragment {
 		           	        	 dialog.dismiss();
 		           	         }
 		           	      })
-		           	      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+		           	      .setIcon(android.R.drawable.ic_dialog_info).show();
             		}
             		else
             		{
@@ -184,7 +184,7 @@ public class Categorias extends Fragment {
 		           	        	 dialog.dismiss();
 		           	         }
 		           	      })
-		           	      .setIcon(android.R.drawable.ic_dialog_info).show().create();
+		           	      .setIcon(android.R.drawable.ic_dialog_info).show();
             		}
 	  			  }
             	else
