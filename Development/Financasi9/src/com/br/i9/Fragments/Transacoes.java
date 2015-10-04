@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.br.i9.R;
-import com.br.i9.ActivityPrincipais.TheFirstPage;
 import com.br.i9.Class.AjusteListView;
 import com.br.i9.Class.AjusteSpinner;
 import com.br.i9.Class.MovimentosGastos;
@@ -12,13 +11,10 @@ import com.br.i9.Class.Notificacao;
 import com.br.i9.Class.PopUp;
 import com.br.i9.Class.TransacoesAdapter;
 import com.br.i9.Database.CrudDatabase;
-
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -310,22 +306,5 @@ public class Transacoes extends Fragment {
 			    public void onNothingSelected(AdapterView<?> parentView) {
 			    }
 			});
-	}
-	
-	private void fragments(Fragment cfragment, String title)
-	{
-		Bundle data = new Bundle();
-		  
-		  data.putInt("position", 0);
-		  cfragment.setArguments(data);
-		  ((TheFirstPage)getActivity()).getSupportActionBar().setTitle(title);
-		  
-		  FragmentManager fragmentManager = getFragmentManager();
-		  
-		  FragmentTransaction ft = fragmentManager.beginTransaction();
-		 		  
-		  ft.replace(R.id.content_frame, cfragment);
-		  
-		  ft.addToBackStack("pilha").commit();
 	}
 }
