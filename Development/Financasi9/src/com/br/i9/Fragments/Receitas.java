@@ -29,7 +29,8 @@ import android.widget.TextView;
 public class Receitas extends Fragment{
 	
 	ArrayList<Transacoes> arrayReceitas;
-	Spinner spinnerMeses ;
+	Spinner spinnerMeses;
+	CrudDatabase db;
 	@Override	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -39,7 +40,7 @@ public class Receitas extends Fragment{
 		 final ListView listViewTran =(ListView) viewLista.findViewById(R.id.listViewId);
 		 final AjusteListView ajusteListView = new AjusteListView();
 		 final AjusteSpinner ajusteSpinner = new AjusteSpinner();
-		 final CrudDatabase db = new CrudDatabase(getActivity());		 
+		 db = new CrudDatabase(getActivity());		 
 		 
 		 ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);
 		 gerarReceitas(db, receitasMes, ajusteSpinner,spinnerMeses,ajusteListView,listViewTran, viewLista, db.getMonth());
@@ -48,7 +49,8 @@ public class Receitas extends Fragment{
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 		    		gerarReceitas(db, receitasMes, ajusteSpinner,spinnerMeses,ajusteListView,listViewTran, viewLista, position);
-		    		AjusteSpinner.nMesDoSpinner = position;
+		    		AjusteSpinner.nMesDoSpinner = position == 0 ? -1 : position;
+		    		onResume();
 		    }
 
 		    @Override
@@ -63,7 +65,6 @@ public class Receitas extends Fragment{
 	@Override
 	public void onResume (){
       super.onResume();
-      CrudDatabase db = new CrudDatabase(getActivity());
       AjusteSpinner ajusteSpinner = new AjusteSpinner();
       
       ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);

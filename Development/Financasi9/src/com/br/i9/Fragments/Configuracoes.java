@@ -46,8 +46,12 @@ public class Configuracoes extends Fragment {
 		View aindaTenhoDuvidas = viewLista.findViewById(R.id.lblAindaTenhoDuvidas);
 		Switch SWnotificacoes = (Switch) viewLista.findViewById(R.id.notificacoes);
 		usuario = new Login();
-		selectSwitch(SWnotificacoes, notificacoes, true);       
-        
+		
+		if(db.IdentificarConfiguracaoNotificao().contains("1"))
+			selectSwitch(SWnotificacoes, notificacoes, true);
+		else
+			selectSwitch(SWnotificacoes, notificacoes, false);
+		
         apagarConta.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -187,11 +191,13 @@ public class Configuracoes extends Fragment {
 	public void enviarFeedback(View v, String title)
 	{
 		SendEmail sendEmail = new SendEmail();
+		SendEmail.Subject = title;
 	    fragments(sendEmail, title);
 	}
 	
 	public void sobre(View v, LayoutInflater inflater)
 	{
+		Popup = PopUp.Popup(getActivity());
 		Popup.setTitle("Sobre")
 	    .setCancelable(true)
 	     .setMessage(Html.fromHtml("<font size='1' align='justify'>" + 

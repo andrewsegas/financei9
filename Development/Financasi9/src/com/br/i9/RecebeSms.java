@@ -21,6 +21,7 @@ import android.telephony.SmsMessage;
 public class RecebeSms extends BroadcastReceiver {
 	Builder Popup;
 	CrudDatabase db;
+	 
 	@Override
     public void onReceive(final Context context, Intent intent) {
 		
@@ -57,18 +58,18 @@ public class RecebeSms extends BroadcastReceiver {
             		{
 	            		MensagemBanco = TratamentoMensagens.LerTipoMensagem(sMsg, db, false);
 	            		MensagemBanco.setnrBanco(msgs[0].getDisplayOriginatingAddress());
+
 	            		if(MensagemBanco.getcMoney() != null){
 
 	            			db.RegistrarMovimentos(MensagemBanco);
 
-	            			//consultar se ta configurado pra receber notificação
-	            			//notificaTransacao
-
-	            			Notificacao.notificaTransacao(context, MensagemBanco.getcMoney(), MensagemBanco.getnmEstabelecimento(), MensagemBanco.getRecDesp(), db);
+	            			if(db.IdentificarConfiguracaoNotificao().contains("1"))
+		            		{
+		            			Notificacao.notificaTransacao(context, MensagemBanco.getcMoney(), MensagemBanco.getnmEstabelecimento(), MensagemBanco.getRecDesp(), MensagemBanco.getDataCompra(), db);
+		            		}
 	            		}
+
             		}
-      	
-            	
 			} 
 			catch (Exception e) 
 			{
@@ -82,8 +83,5 @@ public class RecebeSms extends BroadcastReceiver {
 			      }).setIcon(android.R.drawable.ic_dialog_info).show();
 			}
         }
-    
-        
-	}
-	
-}//class
+	}	
+}
