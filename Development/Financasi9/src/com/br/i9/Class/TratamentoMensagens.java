@@ -127,53 +127,57 @@ public class TratamentoMensagens {
 					TipoMensagem.setnmBanco("Itau");
 					
 					//Logica para Pegar o valor da transacao //no ITAU as vezes nao tem espaço
-					
-					 if (TipoMensagem.getmsg().contains("R$") && !TipoMensagem.getmsg().contains("R$ ")){
-						 TipoMensagem.setnIniMoney(TipoMensagem.getmsg().indexOf("R$") + 2);
-						 TipoMensagem.setnFimMoney(TipoMensagem.getmsg().indexOf(",",TipoMensagem.getnIniMoney()) + 3);
-						 TipoMensagem.setcMoney(TipoMensagem.getmsg().substring(TipoMensagem.getnIniMoney(),TipoMensagem.getnFimMoney()));
-							
-					 }else{
-						 TipoMensagem.setnIniMoney(TipoMensagem.getmsg().indexOf("R$ ") + 3);
-						 TipoMensagem.setnFimMoney(TipoMensagem.getmsg().indexOf(",",TipoMensagem.getnIniMoney()) + 3);
-						 TipoMensagem.setcMoney(TipoMensagem.getmsg().substring(TipoMensagem.getnIniMoney(),TipoMensagem.getnFimMoney()));
-					 }
-					
-					 if(TipoMensagem.getmsg().contains("CREDITO")) {
+					if(!TipoMensagem.getmsg().contains("Seu saldo Itau") && !TipoMensagem.getmsg().contains("SMS Itau") &&
+							!TipoMensagem.getmsg().contains("O saldo da sua Conta")){
+
+
+						if (TipoMensagem.getmsg().contains("R$") && !TipoMensagem.getmsg().contains("R$ ")){
+							TipoMensagem.setnIniMoney(TipoMensagem.getmsg().indexOf("R$") + 2);
+							TipoMensagem.setnFimMoney(TipoMensagem.getmsg().indexOf(",",TipoMensagem.getnIniMoney()) + 3);
+							TipoMensagem.setcMoney(TipoMensagem.getmsg().substring(TipoMensagem.getnIniMoney(),TipoMensagem.getnFimMoney()));
+
+						}else{
+							TipoMensagem.setnIniMoney(TipoMensagem.getmsg().indexOf("R$ ") + 3);
+							TipoMensagem.setnFimMoney(TipoMensagem.getmsg().indexOf(",",TipoMensagem.getnIniMoney()) + 3);
+							TipoMensagem.setcMoney(TipoMensagem.getmsg().substring(TipoMensagem.getnIniMoney(),TipoMensagem.getnFimMoney()));
+						}
+
+						if(TipoMensagem.getmsg().contains("CREDITO")) {
 							TipoMensagem.setRecDesp("1"); //Receitas
 						}else{
 							TipoMensagem.setRecDesp("2"); //Despesas
 						}
-					 
-					if(TipoMensagem.getmsg().contains(" final ")){
-						nFinal = TipoMensagem.getmsg().indexOf("final ") + 6;
-						if(nFinal <= TipoMensagem.getnIniMoney()){ //essa condição é para nao ter o problema de ter o "final" no nome do estabelecimento
-							TipoMensagem.setCartao(TipoMensagem.getmsg().substring(nFinal,nFinal + 4));
+
+						if(TipoMensagem.getmsg().contains(" final ")){
+							nFinal = TipoMensagem.getmsg().indexOf("final ") + 6;
+							if(nFinal <= TipoMensagem.getnIniMoney()){ //essa condição é para nao ter o problema de ter o "final" no nome do estabelecimento
+								TipoMensagem.setCartao(TipoMensagem.getmsg().substring(nFinal,nFinal + 4));
+							}
+						}else{
+							TipoMensagem.setCartao("SC");
 						}
-					}else{
-						TipoMensagem.setCartao("SC");
-					}
-					
-					if(TipoMensagem.getmsg().contains("SAQUE")){
-						TipoMensagem.setnmEstabelecimento("SAQUE");	
-					}else if(TipoMensagem.getmsg().contains("Local: ")){
-						TipoMensagem.setnmEstabelecimento(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("Local: "), TipoMensagem.getmsg().indexOf(". ")));	
-					}else if(TipoMensagem.getmsg().contains("DOC")){
-						TipoMensagem.setnmEstabelecimento("DOC");
-					}else if(TipoMensagem.getmsg().contains("TED")){
-						TipoMensagem.setnmEstabelecimento("TED");
-					}else if(TipoMensagem.getmsg().contains("Transferencia")){
-						TipoMensagem.setnmEstabelecimento("Transferencia");
-					}
-					
-					
-					if(TipoMensagem.getmsg().contains("APROVAD")){
-						TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("APROVAD") + 9, TipoMensagem.getmsg().indexOf("APROVAD") + 14) + "/" + db.getDateTime("yyyy"));
-					}else if(TipoMensagem.getmsg().contains("TED")){
-						TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("em ") + 3, TipoMensagem.getmsg().indexOf("em ")+8));
-					}else{
-						if (!lVarreSMS){
-							TipoMensagem.setDataCompra(db.getDateTime("dd/MM/yyyy")); //Ajustar isso aqui para a data de hoje
+
+						if(TipoMensagem.getmsg().contains("SAQUE")){
+							TipoMensagem.setnmEstabelecimento("SAQUE");	
+						}else if(TipoMensagem.getmsg().contains("Local: ")){
+							TipoMensagem.setnmEstabelecimento(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("Local: "), TipoMensagem.getmsg().indexOf(". ")));	
+						}else if(TipoMensagem.getmsg().contains("DOC")){
+							TipoMensagem.setnmEstabelecimento("DOC");
+						}else if(TipoMensagem.getmsg().contains("TED")){
+							TipoMensagem.setnmEstabelecimento("TED");
+						}else if(TipoMensagem.getmsg().contains("Transferencia")){
+							TipoMensagem.setnmEstabelecimento("Transferencia");
+						}
+
+
+						if(TipoMensagem.getmsg().contains("APROVAD")){
+							TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("APROVAD") + 9, TipoMensagem.getmsg().indexOf("APROVAD") + 14) + "/" + db.getDateTime("yyyy"));
+						}else if(TipoMensagem.getmsg().contains("TED")){
+							TipoMensagem.setDataCompra(TipoMensagem.getmsg().substring(TipoMensagem.getmsg().indexOf("em ") + 3, TipoMensagem.getmsg().indexOf("em ")+8) + "/" + db.getDateTime("yyyy"));
+						}else{
+							if (!lVarreSMS){
+								TipoMensagem.setDataCompra(db.getDateTime("dd/MM/yyyy")); //Ajustar isso aqui para a data de hoje
+							}
 						}
 					}
 			}
