@@ -43,7 +43,10 @@ public class TCM {
 						if(MensagemBanco.getDataCompra() == null){
 							MensagemBanco.setDataCompra(String.valueOf(DateFormat.format("dd/MM/yyyy", Long.parseLong(sdata))));
 						}
-						db.RegistrarMovimentos(MensagemBanco);
+						
+						if(MensagemBanco.getcMoney() != null){
+							db.RegistrarMovimentos(MensagemBanco);
+						}
 					}
 				}catch(Exception e){
 

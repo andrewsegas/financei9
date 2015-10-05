@@ -57,14 +57,15 @@ public class RecebeSms extends BroadcastReceiver {
             		{
 	            		MensagemBanco = TratamentoMensagens.LerTipoMensagem(sMsg, db, false);
 	            		MensagemBanco.setnrBanco(msgs[0].getDisplayOriginatingAddress());
-	            		
-	            		db.RegistrarMovimentos(MensagemBanco);
-	                	
-	                	//consultar se ta configurado pra receber notificação
-	            		//notificaTransacao
-	            		
-	            		Notificacao.notificaTransacao(context, MensagemBanco.getcMoney(), MensagemBanco.getnmEstabelecimento(), MensagemBanco.getRecDesp(), db);
-	            		
+	            		if(MensagemBanco.getcMoney() != null){
+
+	            			db.RegistrarMovimentos(MensagemBanco);
+
+	            			//consultar se ta configurado pra receber notificação
+	            			//notificaTransacao
+
+	            			Notificacao.notificaTransacao(context, MensagemBanco.getcMoney(), MensagemBanco.getnmEstabelecimento(), MensagemBanco.getRecDesp(), db);
+	            		}
             		}
       	
             	
