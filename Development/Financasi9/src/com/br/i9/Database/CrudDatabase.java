@@ -231,7 +231,7 @@ public class CrudDatabase {
 				Usu.setNome(cursor.getString(1));
 				Usu.setLogin(cursor.getString(2));
 				Usu.setEmail(cursor.getString(3));
-				Usu.setSenha(cursor.getString(4));
+				Usu.setSenha(cursor.getString(5));
 		}
 
 		cursor.close();

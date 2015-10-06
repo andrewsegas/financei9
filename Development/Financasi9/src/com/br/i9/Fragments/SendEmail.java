@@ -69,7 +69,7 @@ public class SendEmail extends Fragment {
 	
 	public void EnviarEmail(String Subject, String Message)
 	{
-		  String to = "educador.cesar@gmail.com";
+		  String to = "i9aplicativos@gmail.com";
 		  String subject = Subject;
 		  String message = Message;
 
