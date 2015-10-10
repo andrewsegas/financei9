@@ -94,15 +94,35 @@ public class Transacoes extends Fragment {
             public void onCheckedChanged(CompoundButton vw, boolean isChecked) {
             	if(isChecked)
             	{
-            		TransacoesAdapter adapter = new TransacoesAdapter(getActivity(), arrayReceitas, "red", checkbox.isChecked());
+            		/*int i9 = 0;
+            		
+            		
+            		for(int i = 0; i < arrayReceitas.size(); i++)
+            		{
+            			if(arrayReceitas.get(i).getCheck().booleanValue())
+            				i9++;
+            		}
+            		*/
+            		
+            		for(int i = 0; i < arrayReceitas.size(); i++)
+            		{
+            			arrayReceitas.get(i).setCheck(isChecked);
+            		}
+            		
+            		TransacoesAdapter adapter = new TransacoesAdapter(getActivity(), arrayReceitas, "red", isChecked);
         			listViewTran.setAdapter(adapter);
         			
-        			 Toast.makeText(getActivity().getApplicationContext(), "Transações selecionadas ainda não foi finalizaa.",
+        			 Toast.makeText(getActivity().getApplicationContext(), "Transações selecionadas ainda não foi finalizada.",
                              Toast.LENGTH_SHORT).show();
             	}
             	else
             	{
-            		TransacoesAdapter adapter = new TransacoesAdapter(getActivity(), arrayReceitas, "red", checkbox.isChecked());
+            		for(int i = 0; i < arrayReceitas.size(); i++)
+            		{
+            			arrayReceitas.get(i).setCheck(isChecked);
+            		}
+            		
+            		TransacoesAdapter adapter = new TransacoesAdapter(getActivity(), arrayReceitas, "red", isChecked);
         			listViewTran.setAdapter(adapter);
             	}
             }

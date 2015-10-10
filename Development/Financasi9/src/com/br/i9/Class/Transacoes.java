@@ -12,7 +12,7 @@ public class Transacoes {
 	private String SMSRecebido;
 	private String TipoDeDespesa;
 	private Long idMov;
-	private Boolean check;
+	private Boolean check = false;
 
 	public Transacoes(String estabelecimento, String dtHora, String stringValor, String tipo, String _RecDesp, String nrCartao, String _SMSRecebido, String _TipoDeDespesa, Long _idMov) {
 		super();

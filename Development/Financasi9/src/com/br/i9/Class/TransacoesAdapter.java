@@ -40,16 +40,6 @@ public class TransacoesAdapter extends BaseAdapter {
 		return listTransacoes.size();
 	}
 	
-	public int getReturnCountCheck()
-	{
-		for(int i = 0; i < listTransacoes.size(); i++)
-		{
-			listTransacoes.get(i).setCheck(this._selectAllCheckbox);
-		}
-		
-		return listTransacoes.size();
-	}
-
 	public Transacoes getItem(int position) {
 		return listTransacoes.get(position);
 	}
@@ -82,27 +72,13 @@ public class TransacoesAdapter extends BaseAdapter {
 		holder.txtEstabelecimento.setText(transacoes.getestabelecimento());
 		holder.txtTipo.setText(transacoes.getTipo());
 		holder.txt_dtHora.setText(transacoes.getdtHora());
+		holder.txt_card.setText(transacoes.getnrCartao());
+		holder.checkbox.setChecked(transacoes.getCheck());
 		
 		if(transacoes.getRecDesp().contains("1"))
 			holder.txt_valor.setText(CorValor.mudarCorValor("R$ " + transacoes.getvalor(), "gray"));
 		else
 			holder.txt_valor.setText(CorValor.mudarCorValor("R$ " + transacoes.getvalor(), this.cor));
-		
-		holder.txt_card.setText(transacoes.getnrCartao());
-		
-		if(_selectAllCheckbox)
-		{
-			listTransacoes.get(position).setCheck(true);
-			transacoes.setCheck(true);
-			holder.checkbox.setChecked(true);
-		}
-		else
-		{
-			listTransacoes.get(position).setCheck(false);
-			transacoes.setCheck(false);
-			holder.checkbox.setChecked(false);
-		}
-		
 		
 		return convertView;
 	}
