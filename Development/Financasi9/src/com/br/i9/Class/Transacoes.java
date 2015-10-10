@@ -12,6 +12,7 @@ public class Transacoes {
 	private String SMSRecebido;
 	private String TipoDeDespesa;
 	private Long idMov;
+	private Boolean check;
 
 	public Transacoes(String estabelecimento, String dtHora, String stringValor, String tipo, String _RecDesp, String nrCartao, String _SMSRecebido, String _TipoDeDespesa, Long _idMov) {
 		super();
@@ -30,10 +31,13 @@ public class Transacoes {
 		this.estabelecimento = estabelecimento;
 	}
 	
+	public void setCheck(Boolean _check) {
+		this.check = _check;
+	}
+	
 	public void setIdMov(Long _idMov) {
 		this.idMov = _idMov;
 	}
-	
 	public void setTipoDespesa(String _tipoDespesa) {
 		this.TipoDeDespesa = _tipoDespesa;
 	}
@@ -75,6 +79,10 @@ public class Transacoes {
 	
 	public String getSMSRecebido() {
 		return SMSRecebido;
+	}
+	
+	public Boolean getCheck() {
+		return check;
 	}
 	
 	public String getdtHora() {

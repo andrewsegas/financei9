@@ -103,33 +103,25 @@
     <string name="escolhaMesesDespesas">Escolha o mês abaixo para visualizar suas despesas</string>
     
     <!-- PAGINAS FAQ -->
-    <string name="perg1Faq"> O que é o finanças i9 ?</string>
-    <string name="respo1Faq"> Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
-        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
-        					  e os embaralhou para fazer um livro de modelos de tipos.
-        					  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
-        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
-        					  e os embaralhou para fazer um livro de modelos de tipos.
-        					  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
-        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
-        					  e os embaralhou para fazer um livro de modelos de tipos.</string>
+    <string name="perg1Faq"> O que é o Finançasi9 ?</string>
+    <string name="respo1Faq">  O Finanças i9 é um aplicativo de controle financeiro pessoal automatizado. 
+        						O principal diferencial do aplicativo é a atualização automática das movimentações que ocorre na 
+        						conta bancária do usuário. Fazemos tal atualização utilizando os SMS bancários que é enviado 
+        						para o usuário toda vez que alguma transação ocorre.
+        						O recebimento das movimentações por mensagem de texto necessita ser configurado pelo usuário 
+        						juntamente com o seu banco. Tal ação pode ser feita totalmente online pelo internet banking. 
+        						Alguns bancos têm restrições quanto ao envio de SMS, disponibilizando assim só alguns tipos de transações,
+        						como por exemplo compras acima de R$10,00, entre outras.
+        						</string>
     
     <string name="perg2Faq"> Como é identificado uma movimentação ?</string>
-    <string name="respo2Faq"> Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos
-        Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
-        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
-        					  e os embaralhou para fazer um livro de modelos de tipos.
-        					  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
-        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
-        					  e os embaralhou para fazer um livro de modelos de tipos.</string>
+    <string name="respo2Faq"> O aplicativo identifica uma movimentação pelo formato da mensagem de cada banco. Salvamos o modelo da mensagem em 
+        nossa base de dados e a cada recebimento de SMS o Finançasi9 lê o mesmo e verifica se a mensagem se enquadra com o formato de algum banco cadastrado. 
+        Por esse motivo no momento da instalação do aplicativo pedimos e permissão para leitura de SMS no celular.</string>
     
     <string name="perg3Faq"> Como é classificado os lançamentos ?</string>
-    <string name="respo3Faq"> Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
-        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
-        					  e os embaralhou para fazer um livro de modelos de tipos.
-        					  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
-        					  e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos 
-        					  e os embaralhou para fazer um livro de modelos de tipos.</string>
+    <string name="respo3Faq"> Por padrão os lançamentos novos não contém categorias mas disponibilizamos alguns modelos de categorias de entrada para receitas e despesas. 
+        Se preferir, o usuário pode criar categorias conforme a necessidade e atrelar ao controle financeiro.</string>
         					  
 	<string name="descricaoApp"> Aplicativo financeiro para disponilizar ao usuário o controle ágil e fácil dos gastos diários. </string>
 	<string name="versaoApp">Versão: 1.0.1</string>

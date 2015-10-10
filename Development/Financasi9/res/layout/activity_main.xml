@@ -50,7 +50,7 @@
         android:maxLength="30"
         android:background="@drawable/textfield_activated_theme_textfield_focused_holo_dark"
         android:layout_marginLeft="35dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="50dp"
         android:singleLine="true"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"
@@ -63,15 +63,15 @@
     <Button
         android:id="@+id/btnAcessar"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="170sp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/RegisterNewUser"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:layout_alignBaseline="@+id/txtLoginNewUser"
+        android:layout_marginBottom="10dp"
         android:onClick="ValidarLogin"
-        android:background="@drawable/btnback"
-        android:text="@string/lg"
-        android:textColor="@android:color/black" />
+        android:background="@drawable/ic_play_arrow"
+	/>
 
     <TextView
         android:id="@+id/RegisterNewUser"

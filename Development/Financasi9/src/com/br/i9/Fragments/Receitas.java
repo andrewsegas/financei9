@@ -10,44 +10,62 @@ import com.br.i9.Class.AjusteListView;
 import com.br.i9.Class.AjusteSpinner;
 import com.br.i9.Class.ListTransacoesAdapter;
 import com.br.i9.Class.MovimentosGastos;
+import com.br.i9.Class.PopUp;
 import com.br.i9.Class.Transacoes;
 import com.br.i9.Database.CrudDatabase;
 
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Receitas extends Fragment{
 	
 	ArrayList<Transacoes> arrayReceitas;
 	Spinner spinnerMeses;
 	CrudDatabase db;
+	Builder Popup;
+	View viewLista;
+	ListView listViewTran;
+	AjusteListView ajusteListView;
+	AjusteSpinner ajusteSpinner;
+	TextView receitasMes;
+	int MesCorrenteSelecionado;
+	
 	@Override	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-		 final View viewLista = inflater.inflate(R.layout.receitas, null);
-		 final TextView receitasMes = (TextView) viewLista.findViewById(R.id.receitasId);
+		 viewLista = inflater.inflate(R.layout.receitas, null);
+		 receitasMes = (TextView) viewLista.findViewById(R.id.receitasId);
 		 spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
-		 final ListView listViewTran =(ListView) viewLista.findViewById(R.id.listViewId);
-		 final AjusteListView ajusteListView = new AjusteListView();
-		 final AjusteSpinner ajusteSpinner = new AjusteSpinner();
+		 listViewTran =(ListView) viewLista.findViewById(R.id.listViewId);
+		 ajusteListView = new AjusteListView();
+		 ajusteSpinner = new AjusteSpinner();
 		 db = new CrudDatabase(getActivity());		 
 		 
 		 ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);
 		 gerarReceitas(db, receitasMes, ajusteSpinner,spinnerMeses,ajusteListView,listViewTran, viewLista, db.getMonth());
 		 
+		 registerForContextMenu(listViewTran);
+		 
 		 spinnerMeses.setOnItemSelectedListener(new OnItemSelectedListener() {
 		    @Override
 		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+		    		MesCorrenteSelecionado = position;
 		    		gerarReceitas(db, receitasMes, ajusteSpinner,spinnerMeses,ajusteListView,listViewTran, viewLista, position);
 		    		AjusteSpinner.nMesDoSpinner = position == 0 ? -1 : position;
 		    		onResume();
@@ -70,7 +88,22 @@ public class Receitas extends Fragment{
       ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);
    	}
  
+	@Override   
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)  
+    {  
+            super.onCreateContextMenu(menu, v, menuInfo);
+            MenuInflater m = getActivity().getMenuInflater();
+            m.inflate(R.menu.long_click_excluir, menu);
+    }  
 	
+	  @Override    
+    public boolean onContextItemSelected(MenuItem item){
+    	 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+    	 if(item.getTitle().toString().contains("Excluir")){
+    		 	Excluir(arrayReceitas.get(info.position).getIdMov());
+           }
+         return true;      
+      }  
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -108,7 +141,7 @@ public class Receitas extends Fragment{
 							 ));
 				}
 				
-				ListTransacoesAdapter adapter = new ListTransacoesAdapter(getActivity(), arrayReceitas, "gray");
+				ListTransacoesAdapter adapter = new ListTransacoesAdapter(getActivity(), arrayReceitas, "black");
 				listViewTran.setAdapter(adapter);
 				
 				ajusteListView.ajustarListViewInScrollView(listViewTran);
@@ -118,6 +151,28 @@ public class Receitas extends Fragment{
 				TextView textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
 				listViewTran.setEmptyView(textView);
 			}
-	}	
+	}
+	
+
+	private void Excluir(final Long idMov)
+	{
+		Popup = PopUp.Popup(viewLista.getContext());
+		  Popup.setTitle("Finançasi9")
+		    .setCancelable(true)
+		     .setMessage("Deseja excluir esta transação?")
+		     .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+		         public void onClick(DialogInterface dialog, int which) { 
+		        	 db.ApagarMovimento(idMov);
+		        	 gerarReceitas(db, receitasMes, ajusteSpinner,spinnerMeses,ajusteListView,listViewTran, viewLista, MesCorrenteSelecionado);
+		        	 Toast.makeText(getActivity().getApplicationContext(), "Transação excluída com sucesso",
+	                            Toast.LENGTH_SHORT).show();
+		         }
+		      })
+		     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+		         public void onClick(DialogInterface dialog, int which) { 
+		             dialog.cancel();
+		         }
+		      }).setIcon(android.R.drawable.ic_dialog_alert).show();
+	}
 }
 

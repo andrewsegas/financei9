@@ -52,14 +52,24 @@
 	        	android:layout_marginRight="28dp"
 	        	android:background="#C8C8C8" />
 	     
+	     <CheckBox 
+		      android:id="@+id/checkBoxTransacaoTodos"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:layout_marginTop="12dp"
+		      android:layout_marginLeft="34dp"
+		      android:layout_gravity="left|top"
+		      android:text="Selecionar todas as Transações"
+		  />
+	     
 	    <ListView
 		    android:id="@+id/listViewId"
 		    android:layout_width="match_parent"
 		    android:layout_height="fill_parent" 
-   	        android:layout_marginLeft="7dp"
+   	        android:layout_marginLeft="0dp"
    	        android:layout_marginBottom="20dp"
 	        android:layout_marginRight="7dp"
-	        android:layout_marginTop="11dp">
+	        android:layout_marginTop="8dp">
 		</ListView> 
 		
 	    	     
