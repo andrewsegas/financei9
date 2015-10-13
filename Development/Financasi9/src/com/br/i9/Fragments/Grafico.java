@@ -9,6 +9,7 @@ import com.github.mikephil.charting.charts.PieChart;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -60,32 +61,38 @@ public class Grafico extends Fragment{
 	
 	private void GerarGraficos(PieChart mChart, PieChart mChartDepesas, int MesReferencia)
 	{
-		GerarGraficoRecDesp(mChart, "1" ,MesReferencia); //receita
-		GerarGraficoRecDesp(mChartDepesas, "2" ,MesReferencia); //despesas
+		GerarGraficoRecDesp(mChart, "1", MesReferencia); //receita
+		GerarGraficoRecDesp(mChartDepesas, "2", MesReferencia); //despesas
 	}
 	
 	private void GerarGraficoRecDesp(PieChart mChart, String sRecDesp, int MesReferencia)
 	{
 		CrudDatabase db = new CrudDatabase(getActivity());
-		String[][] aCategorias ;
-		float[] afVal ;
-		String[] asData ;
-		int[] anCores ;
+		String[][] aCategorias = new String[0][0];
+		float[] afVal = new float[0];
+		String[] asData = new String[0];
+		int[] anCores = new int[0];
 		
 		aCategorias = db.CategoriaRecDespMes(sRecDesp, MesReferencia);
 		
 		if(aCategorias.length > 0){
-			afVal = new float[aCategorias.length] ;
-			asData = new String[aCategorias.length] ;
-			anCores = new int[aCategorias.length] ;
+			afVal = new float[aCategorias.length];
+			asData = new String[aCategorias.length];
+			anCores = new int[aCategorias.length];
 			
 			for (int i = 0; i < aCategorias.length ; i++) {
-				afVal[i] = Float.parseFloat(	aCategorias[i][0]) ; //soma dos valores
-				asData[i] = 					aCategorias[i][1] ; //Nome da categoria
-				anCores[i] = Integer.parseInt(	aCategorias[i][2]) ; //Cor da categoria
+				afVal[i] = Float.parseFloat(	aCategorias[i][0]); //soma dos valores
+				asData[i] = 					aCategorias[i][1]; //Nome da categoria
+				anCores[i] = Integer.parseInt(	aCategorias[i][2]); //Cor da categoria
 			}
 			
 			GerarGrafico.GerarGraficoPie(mChart, afVal, asData, anCores);
+		}
+		else
+		{
+			mChart.clear();
+			String TipoTransacao = sRecDesp == "1" ? "Receitas" : "Despesas";
+			mChart.setNoDataText(""+Html.fromHtml("<font size='1' align='justify'><b>Não existe transações de " +TipoTransacao+ ".</b></font>"));	
 		}
 	}
 	

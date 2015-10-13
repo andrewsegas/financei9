@@ -17,14 +17,13 @@ public class ListTransacoesAdapter extends BaseAdapter {
 	private String cor;
 	CorValor CorValor;
 
-	public ListTransacoesAdapter(Context context, List<Transacoes> listTransacoes, String corIngles) {
-		this.listTransacoes = listTransacoes;
+	public ListTransacoesAdapter(Context context, List<Transacoes> _listTransacoes, String corIngles) {
+		this.listTransacoes = _listTransacoes;
 		this.inflater = LayoutInflater.from(context);
 		this.context = context;
 		this.cor = corIngles;
 		
 		CorValor = new CorValor();
-		
 	}
 
 	public int getCount() {
@@ -49,7 +48,7 @@ public class ListTransacoesAdapter extends BaseAdapter {
 			holder.txtEstabelecimento = (TextView) convertView.findViewById(R.id.txt_estabelecimento);
 			holder.txtDthora = (TextView) convertView.findViewById(R.id.txt_dtHora);
 			holder.txtValor = (TextView) convertView.findViewById(R.id.txt_valor);
-
+			
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -68,5 +67,4 @@ public class ListTransacoesAdapter extends BaseAdapter {
 		TextView txtDthora;
 		TextView txtValor;
 	}
-
 }

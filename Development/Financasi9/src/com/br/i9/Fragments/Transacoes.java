@@ -11,6 +11,7 @@ import com.br.i9.Class.Notificacao;
 import com.br.i9.Class.PopUp;
 import com.br.i9.Class.TransacoesAdapter;
 import com.br.i9.Database.CrudDatabase;
+
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -29,6 +30,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -46,24 +50,26 @@ public class Transacoes extends Fragment {
 	int mesCorrent;
 	CrudDatabase bd = null;
 	AjusteListView ajusteListView;
+	CheckBox checkbox;
 	Spinner spinnerTipoCategoria, spinnerCategoria, spinnerMeses;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		
 		bd = new CrudDatabase(getActivity());
-		viewLista = inflater.inflate(R.layout.transacoes, null);
+		viewLista = inflater.inflate(R.layout.transacoes, null);		
 		poupSinner = inflater.inflate(R.layout.spinner_alterar_categoria, null);
 		poupSinnerDividirValor = inflater.inflate(R.layout.spinner_dividir_valor, null);
 		listViewTran = (ListView) viewLista.findViewById(R.id.listViewId);	
 		spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
 		spinnerTipoCategoria = (Spinner)poupSinner.findViewById(R.id.spinnerTipo);
 		spinnerCategoria = (Spinner)poupSinner.findViewById(R.id.spinnerCategoria);
+		checkbox = (CheckBox) viewLista.findViewById(R.id.checkBoxTransacaoTodos);
 		final AjusteSpinner ajusteSpinner = new AjusteSpinner();
 		ajusteListView = new AjusteListView();
 		ajusteSpinner.ajusteSpinnerMes(bd, spinnerMeses);
 		mesCorrent = bd.getMonth();
-		GerarTransacoes(bd, viewLista, listViewTran, ajusteListView,  Integer.parseInt(Notificacao.MesSMS) == 0 ? mesCorrent : Integer.parseInt(Notificacao.MesSMS)-1);
+		GerarTransacoes(bd, viewLista, listViewTran, ajusteListView, Integer.parseInt(Notificacao.MesSMS) == 0 ? mesCorrent : Integer.parseInt(Notificacao.MesSMS)-1);
 		
 		popularSpinnerTipoCategoria(spinnerTipoCategoria);
 		
@@ -82,7 +88,45 @@ public class Transacoes extends Fragment {
 		    public void onNothingSelected(AdapterView<?> parentView) {
 		    }
 		});
-		
+				
+		checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton vw, boolean isChecked) {
+            	if(isChecked)
+            	{
+            		/*int i9 = 0;
+            		
+            		
+            		for(int i = 0; i < arrayReceitas.size(); i++)
+            		{
+            			if(arrayReceitas.get(i).getCheck().booleanValue())
+            				i9++;
+            		}
+            		*/
+            		
+            		for(int i = 0; i < arrayReceitas.size(); i++)
+            		{
+            			arrayReceitas.get(i).setCheck(isChecked);
+            		}
+            		
+            		TransacoesAdapter adapter = new TransacoesAdapter(getActivity(), arrayReceitas, "red", isChecked);
+        			listViewTran.setAdapter(adapter);
+        			
+        			 Toast.makeText(getActivity().getApplicationContext(), "Transações selecionadas ainda não foi finalizada.",
+                             Toast.LENGTH_SHORT).show();
+            	}
+            	else
+            	{
+            		for(int i = 0; i < arrayReceitas.size(); i++)
+            		{
+            			arrayReceitas.get(i).setCheck(isChecked);
+            		}
+            		
+            		TransacoesAdapter adapter = new TransacoesAdapter(getActivity(), arrayReceitas, "red", isChecked);
+        			listViewTran.setAdapter(adapter);
+            	}
+            }
+        });
 		return(viewLista);
 	}
 	
@@ -163,6 +207,8 @@ public class Transacoes extends Fragment {
 		List<MovimentosGastos> aMovimentos = bd.SelecionarTodosMovimentos("","_IDMov DESC", MesReferencia);
 		if(aMovimentos.size() != 0)
 		{
+			checkbox.setVisibility(View.VISIBLE);
+			
 			for (int i = 0; i < aMovimentos.size(); i++) {
 				arrayReceitas.add(new com.br.i9.Class.Transacoes(
 						aMovimentos.get(i).getEstabelecimeno(), 
@@ -176,7 +222,7 @@ public class Transacoes extends Fragment {
 						aMovimentos.get(i).getCodigo()		
 						));
 			}
-			TransacoesAdapter adapter = new TransacoesAdapter(getActivity(), arrayReceitas, "red");
+			TransacoesAdapter adapter = new TransacoesAdapter(getActivity(), arrayReceitas, "red", false);
 			listViewTran.setAdapter(adapter);
 
 			ajusteListView.ajustarListViewInScrollView(listViewTran);
@@ -184,6 +230,7 @@ public class Transacoes extends Fragment {
 		else
 		{
 			listViewTran.setAdapter(null);
+			checkbox.setVisibility(View.INVISIBLE);
 			TextView textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
 			listViewTran.setEmptyView(textView);
 		}

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class SendEmail extends Fragment {
 
@@ -69,7 +70,7 @@ public class SendEmail extends Fragment {
 	
 	public void EnviarEmail(String Subject, String Message)
 	{
-		  String to = "educador.cesar@gmail.com";
+		  String to = "i9aplicativos@gmail.com";
 		  String subject = Subject;
 		  String message = Message;
 
@@ -80,5 +81,8 @@ public class SendEmail extends Fragment {
 		  email.setType("message/rfc822");
 		  
 		  startActivity(Intent.createChooser(email, "Escolhe o seu aplicativo de email"));
+		  
+			Toast.makeText(getActivity().getApplicationContext(), "E-mail enviado com sucesso",
+                    Toast.LENGTH_SHORT).show();
 	}
 }

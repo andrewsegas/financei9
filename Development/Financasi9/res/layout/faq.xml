@@ -26,7 +26,7 @@
 	  	/>
 	    
 	    <TextView android:text="@string/respo1Faq"
-	  			android:textSize="13dip"
+	  			android:textSize="14dip"
 	  			android:id="@+id/resposta1"
 	  			android:layout_width="wrap_content"
 	  			android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
 	  	/>
 	    
 	    <TextView android:text="@string/respo2Faq"
-	  			android:textSize="13dip"
+	  			android:textSize="14dip"
 	  			android:id="@+id/resposta2"
 	  			android:layout_width="fill_parent"
 	  			android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
 	  	/>
 	    
 	    <TextView android:text="@string/respo3Faq"
-	  			android:textSize="13dip"
+	  			android:textSize="14dip"
 	  			android:id="@+id/resposta3"
 	  			android:layout_width="fill_parent"
 	  			android:layout_height="wrap_content"
@@ -95,8 +95,5 @@
 	  			android:textStyle="normal"
 	  			android:textColor="@android:color/black"
 	  	/>
-	    
-	
-	
 	</LinearLayout>
 </ScrollView>

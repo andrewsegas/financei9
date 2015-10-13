@@ -228,7 +228,7 @@ public class TheFirstPage extends ActionBarActivity {
 			  
 			  Popup.setTitle("Finançasi9")
 			    .setCancelable(true)
-			     .setMessage("Deseja sair do Finançasi9 ?")
+			     .setMessage("Deseja sair do Finançasi9?")
 			     .setPositiveButton("Sair", new DialogInterface.OnClickListener() {
 			         public void onClick(DialogInterface dialog, int which) { 
 			        	 bd.DeslogarUsuario(recuperado);

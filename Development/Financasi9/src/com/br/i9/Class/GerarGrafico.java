@@ -33,11 +33,12 @@ public class GerarGrafico {
         
         Legend l = mChart.getLegend();
         l.setPosition(LegendPosition.BELOW_CHART_CENTER);	        
+       
+            AdicionarValores(yDataValues);
+	        AdicionarTextos(xDataStrings);
+	        AdicionarCores(cores);
         
-        AdicionarValores(yDataValues);
-        AdicionarTextos(xDataStrings);
-        AdicionarCores(cores);
-        PopularChart(mChart);
+	        PopularChart(mChart);
 	}
 	
 	private static void PopularChart(PieChart mChart)
@@ -82,11 +83,9 @@ public class GerarGrafico {
         nfMult = (nfTotal/100) ;
         
         for (int i = 0; i < yDataValues.length; i++){
-        	yDataValues[i] /= nfMult ;
+        	yDataValues[i] /= nfMult;
         	yVals1.add(new Entry(yDataValues[i], i));
         }
-        
-        
 	}
 	
 	private static void AdicionarTextos(String[] xDataStrings)

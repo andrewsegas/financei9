@@ -19,8 +19,7 @@ public class NovaTransacao extends Fragment {
 	CrudDatabase bd;
 	Builder Popup;
 	String label;
-	View viewLista;
-	int CorGrafica;
+	View viewLista;	int CorGrafica;
 /*
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -30,7 +29,7 @@ public class NovaTransacao extends Fragment {
 		bd = new CrudDatabase(getActivity());
 		nmNovaCategoria = (EditText) viewLista.findViewById(R.id.txtNomeCategoria);
 		Button btnCadastar = (Button)viewLista.findViewById(R.id.btnCadastar);
-		View escolherCor = viewLista.findViewById(R.id.escolherCor);
+		View escolherCor = vi	ewLista.findViewById(R.id.escolherCor);
 
 		//popularSpinnerTipoCategoria(spinnerTipo);
 
