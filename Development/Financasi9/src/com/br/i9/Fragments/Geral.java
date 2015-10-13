@@ -109,10 +109,16 @@ public class Geral extends Fragment {
 				
 		sTotal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Double.parseDouble(sTotal));
 		
-		if (sTotal.contains("-")){   //negativo deve colocar o RED "NAO MEXE CESAR VIADO"
-			situacaoAtual.setText(Html.fromHtml(" Situação Atual: "+"<font color='red'>" + sTotal.replace("-R$", "R$ -") 
+		if (sTotal.contains("-") ){   //negativo deve colocar o RED "NAO MEXE CESAR VIADO"
+			situacaoAtual.setText(Html.fromHtml("<font color='red'> Situação Atual: " + sTotal.replace("-R$", "R$ -") 
 					+ "</font>" ));
-		}else{
+		}else if(sTotal.contains("(")){
+			situacaoAtual.setText(Html.fromHtml("<font color='red'> Situação Atual: " + sTotal.replace("(", "")
+					.replace(")", "")
+					.replace("R$", "R$ -")
+			+ "</font>" ));
+		}else
+		{
 			situacaoAtual.setText("Situação Atual: " + sTotal.replace("R$", "R$ "));
 		}
 		

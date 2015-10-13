@@ -29,7 +29,7 @@ public class i9Database extends SQLiteOpenHelper {
 		try{
 		bd.execSQL("CREATE TABLE IF NOT EXISTS Usuarios(_USUid INTEGER NOT NULL Primary key AUTOINCREMENT,"
 				+ "UsuNome VARCHAR(50) NOT NULL collate nocase,"
-				+ "USULogin CHAR(20) NOT NULL collate nocase,"
+				+ "USULogin CHAR(50) NOT NULL collate nocase,"
 				+ "USUEmail VARCHAR(250) NOT NULL collate nocase,"
 				+ "USUSenha CHAR(10) NOT NULL collate nocase,"
 				+ "USUAtivo BIT NOT NULL DEFAULT 1,"
