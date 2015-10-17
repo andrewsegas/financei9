@@ -2,6 +2,7 @@
  * 
  */
 package com.br.i9.Class;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.br.i9.R;
@@ -12,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 /**
  * @author Cesar
@@ -26,6 +29,7 @@ public class TransacoesAdapter extends BaseAdapter {
 	private String cor;
 	CorValor CorValor;
 	Boolean _selectAllCheckbox;
+	com.br.i9.Fragments.Transacoes transacoesFragment;
 	
 	public TransacoesAdapter(Context context, List<Transacoes> listTransacoes, String corIngles, Boolean selectAllCheckbox) {
 		this.listTransacoes = listTransacoes;
@@ -34,6 +38,8 @@ public class TransacoesAdapter extends BaseAdapter {
 		this.cor = corIngles;
 		this._selectAllCheckbox = selectAllCheckbox;
 		CorValor = new CorValor();
+		transacoesFragment = new com.br.i9.Fragments.Transacoes(); 
+
 	}
 
 	public int getCount() {
@@ -48,8 +54,8 @@ public class TransacoesAdapter extends BaseAdapter {
 		return listTransacoes.get(position).getId();
 	}
 
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		final ViewHolder holder;
 		if (convertView == null) 
 		{
 			holder = new ViewHolder();
@@ -79,7 +85,16 @@ public class TransacoesAdapter extends BaseAdapter {
 			holder.txt_valor.setText(CorValor.mudarCorValor("R$ " + transacoes.getvalor(), "gray"));
 		else
 			holder.txt_valor.setText(CorValor.mudarCorValor("R$ " + transacoes.getvalor(), this.cor));
+
+		holder.checkbox.setTag(position);
 		
+		holder.checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton vw, boolean isChecked) {
+            	transacoesFragment.itemSelecionado(isChecked, (int) holder.checkbox.getTag(), (ArrayList<Transacoes>) listTransacoes, _selectAllCheckbox);
+            }
+        });
+
 		return convertView;
 	}
 

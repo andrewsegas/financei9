@@ -9,6 +9,26 @@
           android:onClick="MenuItemSelected"
        	  Financasi9:showAsAction="always"/>
         
+     <!-- Check updates -->
+    <item android:id="@+id/action_alterTypeITem"
+          android:icon="@drawable/bookmark"
+          android:title="Ajustar Categorias"
+          android:showAsAction="always"
+          android:onClick="MenuItemSelected"
+          Financasi9:showAsAction="always"
+	/>
+    
+    
+    <!-- Check updates -->
+    <item android:id="@+id/action_deleteItem"
+          android:icon="@drawable/trash"
+          android:title="Apagar Itens"
+          android:showAsAction="always"
+          android:onClick="MenuItemSelected"
+          Financasi9:showAsAction="always"
+	/>
+    
+    
     <!-- Check updates -->
     <item android:id="@+id/action_check_updates"
           android:icon="@drawable/ic_action_refresh"

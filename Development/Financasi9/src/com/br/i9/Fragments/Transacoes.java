@@ -6,12 +6,14 @@ import java.util.List;
 import com.br.i9.R;
 import com.br.i9.Class.AjusteListView;
 import com.br.i9.Class.AjusteSpinner;
+import com.br.i9.Class.InstanciaMenu;
 import com.br.i9.Class.MovimentosGastos;
 import com.br.i9.Class.Notificacao;
 import com.br.i9.Class.PopUp;
 import com.br.i9.Class.TransacoesAdapter;
 import com.br.i9.Database.CrudDatabase;
 
+import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -50,8 +52,11 @@ public class Transacoes extends Fragment {
 	int mesCorrent;
 	CrudDatabase bd = null;
 	AjusteListView ajusteListView;
+	ProgressDialog pdialog = null;
 	CheckBox checkbox;
+	Menu menuCorrente;
 	Spinner spinnerTipoCategoria, spinnerCategoria, spinnerMeses;
+	InstanciaMenu instMenu = new InstanciaMenu();
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -65,10 +70,12 @@ public class Transacoes extends Fragment {
 		spinnerTipoCategoria = (Spinner)poupSinner.findViewById(R.id.spinnerTipo);
 		spinnerCategoria = (Spinner)poupSinner.findViewById(R.id.spinnerCategoria);
 		checkbox = (CheckBox) viewLista.findViewById(R.id.checkBoxTransacaoTodos);
+		
 		final AjusteSpinner ajusteSpinner = new AjusteSpinner();
 		ajusteListView = new AjusteListView();
 		ajusteSpinner.ajusteSpinnerMes(bd, spinnerMeses);
 		mesCorrent = bd.getMonth();
+		
 		GerarTransacoes(bd, viewLista, listViewTran, ajusteListView, Integer.parseInt(Notificacao.MesSMS) == 0 ? mesCorrent : Integer.parseInt(Notificacao.MesSMS)-1);
 		
 		popularSpinnerTipoCategoria(spinnerTipoCategoria);
@@ -88,21 +95,13 @@ public class Transacoes extends Fragment {
 		    public void onNothingSelected(AdapterView<?> parentView) {
 		    }
 		});
-				
+		
 		checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton vw, boolean isChecked) {
             	if(isChecked)
             	{
-            		/*int i9 = 0;
-            		
-            		
-            		for(int i = 0; i < arrayReceitas.size(); i++)
-            		{
-            			if(arrayReceitas.get(i).getCheck().booleanValue())
-            				i9++;
-            		}
-            		*/
+            		ajustarIconsActionBar(isChecked);
             		
             		for(int i = 0; i < arrayReceitas.size(); i++)
             		{
@@ -111,12 +110,11 @@ public class Transacoes extends Fragment {
             		
             		TransacoesAdapter adapter = new TransacoesAdapter(getActivity(), arrayReceitas, "red", isChecked);
         			listViewTran.setAdapter(adapter);
-        			
-        			 Toast.makeText(getActivity().getApplicationContext(), "Transações selecionadas ainda não foi finalizada.",
-                             Toast.LENGTH_SHORT).show();
             	}
             	else
             	{
+            		ajustarIconsActionBar(isChecked);
+            		
             		for(int i = 0; i < arrayReceitas.size(); i++)
             		{
             			arrayReceitas.get(i).setCheck(isChecked);
@@ -127,6 +125,7 @@ public class Transacoes extends Fragment {
             	}
             }
         });
+		
 		return(viewLista);
 	}
 	
@@ -141,9 +140,9 @@ public class Transacoes extends Fragment {
   @Override   
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)  
     {  
-            super.onCreateContextMenu(menu, v, menuInfo);
-            MenuInflater m = getActivity().getMenuInflater();
-            m.inflate(R.menu.long_click_menu, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater m = getActivity().getMenuInflater();
+        m.inflate(R.menu.long_click_menu, menu);
     }  
   
     @Override    
@@ -183,9 +182,11 @@ public class Transacoes extends Fragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 	    // TODO Add your menu entries here
 	    super.onCreateOptionsMenu(menu, inflater);
-	    
+	    menuCorrente = menu;
 	    menu.findItem(R.id.action_check_updates).setVisible(false);
 	    menu.findItem(R.id.action_search).setVisible(true);
+	    menu.findItem(R.id.action_deleteItem).setVisible(false);
+		menu.findItem(R.id.action_alterTypeITem).setVisible(false);
 	    
 	    menu.findItem(R.id.action_search).setOnMenuItemClickListener(new OnMenuItemClickListener(){
 	        @Override
@@ -198,11 +199,29 @@ public class Transacoes extends Fragment {
 	            return true;
 	        }
 	    });
+	    
+	    menu.findItem(R.id.action_alterTypeITem).setOnMenuItemClickListener(new OnMenuItemClickListener(){
+	        @Override
+	        public boolean onMenuItemClick(MenuItem item) {
+	        	alterarCategoriaTransacao();
+	            return true;
+	        }
+	    });
+	    
+	    menu.findItem(R.id.action_deleteItem).setOnMenuItemClickListener(new OnMenuItemClickListener(){
+	        @Override
+	        public boolean onMenuItemClick(MenuItem item) {
+	        	apagarTransacoesSelecionadas();
+	            return true;
+	        }
+	    });
+	    
+	    instMenu.setInstancia(menuCorrente);
+	    instMenu.setContextCurrent(getActivity());
 	}
 
 	public void GerarTransacoes(CrudDatabase bd, View viewLista, ListView listViewTran, AjusteListView ajusteListView, int MesReferencia)
-	{ 
-		
+	{ 		
 		arrayReceitas = new ArrayList<com.br.i9.Class.Transacoes>();
 		List<MovimentosGastos> aMovimentos = bd.SelecionarTodosMovimentos("","_IDMov DESC", MesReferencia);
 		if(aMovimentos.size() != 0)
@@ -317,7 +336,6 @@ public class Transacoes extends Fragment {
 		      }).setIcon(android.R.drawable.ic_dialog_alert).show();
 	}
 	
-
 	private void popularSpinnerTipoCategoria(Spinner spinnerTipoCategoria)
 	{	     
 
@@ -353,5 +371,202 @@ public class Transacoes extends Fragment {
 			    public void onNothingSelected(AdapterView<?> parentView) {
 			    }
 			});
+	}
+	
+	private void apagarTransacoesSelecionadas()
+	{
+		Boolean existeItemSelecionado = false;
+		
+		if(bd == null)
+			bd = new CrudDatabase(instMenu.getContext());
+			
+		for(int i = 0; i < arrayReceitas.size(); i++)
+    		{
+    			if(arrayReceitas.get(i).getCheck().booleanValue())
+    			{
+    				existeItemSelecionado = true;
+    				break;
+    			}
+    		}
+	
+		if(existeItemSelecionado.booleanValue())
+		{
+			Popup = PopUp.Popup(viewLista.getContext());
+			 Popup.setCancelable(false);
+			 Popup.setTitle("Finançasi9")
+			 .setMessage("Deseja apagar as transações selecionadas?")
+			 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+		         
+				 public void onClick(DialogInterface dialog, int which) { 				 
+					 pdialog = ProgressDialog.show(viewLista.getContext(), "", "Apagando transações...", true);     
+	
+	       					for(int i = 0; i < arrayReceitas.size(); i++)
+	       	         		{
+	       	         			if(arrayReceitas.get(i).getCheck().booleanValue())
+	       	         				 bd.ApagarMovimento(arrayReceitas.get(i).getIdMov());
+	       	         		}
+	       			
+	       			pdialog.dismiss();
+	       				
+		        	 Toast.makeText(getActivity().getApplicationContext(), "Transações apagadas com sucesso",
+	                       Toast.LENGTH_SHORT).show();
+		        	 
+	       		    GerarTransacoes(bd, viewLista, listViewTran, ajusteListView, mesCorrent);
+	       		    
+	       		    desativarChecksBox();
+	       		    
+	       		    ajustarIconsActionBar(false);
+		         }
+		      })
+		     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+		         public void onClick(DialogInterface dialog, int which) { 
+		        	 dialog.dismiss();
+		         }
+		      })
+		      .setIcon(android.R.drawable.ic_dialog_info).show();
+		}
+		else
+		{
+			Popup = PopUp.Popup(viewLista.getContext());
+			 Popup.setCancelable(false);
+			 Popup.setTitle("Finançasi9")
+			 .setMessage("Não há transações selecionadas")
+		     .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+		         public void onClick(DialogInterface dialog, int which) { 
+		        	 dialog.dismiss();
+		         }
+		      })
+		      .setIcon(android.R.drawable.ic_dialog_info).show();
+		}
+	}
+
+	private void alterarCategoriaTransacao()
+	{
+		Boolean existeItemSelecionado = false;
+		
+		if(bd == null)
+			bd = new CrudDatabase(instMenu.getContext());
+			
+		for(int i = 0; i < arrayReceitas.size(); i++)
+    		{
+    			if(arrayReceitas.get(i).getCheck().booleanValue())
+    			{
+    				existeItemSelecionado = true;
+    				break;
+    			}
+    		}
+	
+		if(existeItemSelecionado.booleanValue())
+		{
+			Popup = PopUp.Popup(viewLista.getContext());
+			 Popup.setCancelable(false);
+			 Popup.setTitle("Finançasi9")
+			 .setMessage("Deseja alterar as categorias das transações selecionadas?")
+			 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+		         
+				 public void onClick(DialogInterface dialog, int which) { 				 
+					 
+					 Popup = PopUp.Popup(viewLista.getContext());
+					 Popup.setCancelable(false);
+					 Popup.setTitle("Finançasi9").setView(poupSinner)
+					 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
+				         public void onClick(DialogInterface dialog, int which) { 
+				        	 
+				        	 for(int i = 0; i < arrayReceitas.size(); i++)
+		       	         		{
+		       	         			if(arrayReceitas.get(i).getCheck().booleanValue())
+		       	         				bd.AtualizarCategoriaMovimentos(nmNovaCategoria, nmTipoCategoria, Integer.parseInt(arrayReceitas.get(i).getIdMov().toString()));
+		       	         		}
+				        	 
+				        	 GerarTransacoes(bd, viewLista, listViewTran, ajusteListView, mesCorrent);
+				        	 
+				        	 Toast.makeText(getActivity().getApplicationContext(), "Transações atualizadas com sucesso",
+			                         Toast.LENGTH_SHORT).show();
+				        	 
+				        	 ((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
+				        	 
+				        	 desativarChecksBox();
+				         }
+				      })
+				     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+				         public void onClick(DialogInterface dialog, int which) { 
+				        	((ViewGroup)poupSinner.getParent()).removeView(poupSinner);
+				        	 dialog.dismiss();
+				         }
+				      })
+				      .setIcon(android.R.drawable.ic_dialog_info).show();
+					
+	       		    ajustarIconsActionBar(false);
+		         }
+		      })
+		     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+		         public void onClick(DialogInterface dialog, int which) { 
+		        	 dialog.dismiss();
+		         }
+		      })
+		      .setIcon(android.R.drawable.ic_dialog_info).show();
+		}
+		else
+		{
+			Popup = PopUp.Popup(viewLista.getContext());
+			 Popup.setCancelable(false);
+			 Popup.setTitle("Finançasi9")
+			 .setMessage("Não há transações selecionadas")
+		     .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+		         public void onClick(DialogInterface dialog, int which) { 
+		        	 dialog.dismiss();
+		         }
+		      })
+		      .setIcon(android.R.drawable.ic_dialog_info).show();
+		}
+	}
+	
+	public void itemSelecionado(Boolean ischecked, int idposition, ArrayList<com.br.i9.Class.Transacoes> array, Boolean selectAll)
+	{
+		if(!selectAll.booleanValue())
+			ajustarIconsActionBar(ischecked.booleanValue());
+		
+		array.get(idposition).setCheck(ischecked.booleanValue());
+		
+		arrayReceitas = array;
+	}
+	
+	private void desativarChecksBox()
+	{
+		checkbox.setChecked(false);
+		
+		if(arrayReceitas.size() != 0)
+		{
+			for(int i = 0; i < arrayReceitas.size(); i++)
+			{
+				arrayReceitas.get(i).setCheck(false);
+			}
+			
+			TransacoesAdapter adapter = new TransacoesAdapter(getActivity(), arrayReceitas, "red", false);
+			listViewTran.setAdapter(adapter);
+		}
+	}
+	
+	private void ajustarIconsActionBar(Boolean isChecked)
+	{
+		if(menuCorrente == null)
+			menuCorrente = instMenu.getInstancia();
+		
+		if(isChecked)
+		{
+			menuCorrente.findItem(R.id.action_deleteItem).setVisible(isChecked.booleanValue());
+			menuCorrente.findItem(R.id.action_alterTypeITem).setVisible(isChecked.booleanValue());
+			
+			menuCorrente.findItem(R.id.action_check_updates).setVisible(!isChecked.booleanValue());
+			menuCorrente.findItem(R.id.action_search).setVisible(!isChecked.booleanValue());
+		}
+		else
+		{
+			menuCorrente.findItem(R.id.action_deleteItem).setVisible(isChecked.booleanValue());
+			menuCorrente.findItem(R.id.action_alterTypeITem).setVisible(isChecked.booleanValue());
+			
+			menuCorrente.findItem(R.id.action_check_updates).setVisible(isChecked.booleanValue());
+			menuCorrente.findItem(R.id.action_search).setVisible(!isChecked.booleanValue());
+		}
 	}
 }

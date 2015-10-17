@@ -112,6 +112,8 @@ public class Receitas extends Fragment{
 	    
 	    menu.findItem(R.id.action_check_updates).setVisible(false);
 	    menu.findItem(R.id.action_search).setVisible(true);
+	    menu.findItem(R.id.action_deleteItem).setVisible(false);
+		menu.findItem(R.id.action_alterTypeITem).setVisible(false);
 	}
 	
 	public void gerarReceitas(CrudDatabase db, TextView receitasMes, AjusteSpinner ajusteSpinner,Spinner spinnerMeses,AjusteListView ajusteListView,ListView listViewTran, View viewLista, int MesReferencia)

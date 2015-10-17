@@ -104,6 +104,8 @@ public class NovaCategoria extends Fragment {
 	    
 	    menu.findItem(R.id.action_check_updates).setVisible(false);
 	    menu.findItem(R.id.action_search).setVisible(false);
+	    menu.findItem(R.id.action_deleteItem).setVisible(false);
+		menu.findItem(R.id.action_alterTypeITem).setVisible(false);
 	}
 	
 	private void popularSpinnerTipoCategoria(Spinner spinnerTipoCategoria)

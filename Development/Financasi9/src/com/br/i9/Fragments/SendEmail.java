@@ -52,6 +52,8 @@ public class SendEmail extends Fragment {
 	    
 	    menu.findItem(R.id.action_check_updates).setVisible(false);
 	    menu.findItem(R.id.action_search).setVisible(false);
+	    menu.findItem(R.id.action_deleteItem).setVisible(false);
+		menu.findItem(R.id.action_alterTypeITem).setVisible(false);
 	}
 	
 	public void enviarFeedBack(View v, EditText emailtext)
