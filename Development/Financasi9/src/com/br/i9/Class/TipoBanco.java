@@ -50,7 +50,7 @@ public class TipoBanco implements Serializable  {
     public CharSequence SegurancaSantander() {return "Seguranca Santander:";}//"{BANCOAPP}Santander Informa:";}
     public CharSequence Itau() {return "ITAU";}
     public CharSequence Hsbc() {return "HSBC Alertas";}
-    public CharSequence BancoBrasil() {return "BB Informa:";}
+    public CharSequence BancoBrasil() {return "BB InformaXX:";}
 }
 
 

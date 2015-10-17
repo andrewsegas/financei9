@@ -169,7 +169,7 @@ public class TheFirstPage extends ActionBarActivity {
 			UsuName = recuperado.getNome(); //popula a variavel global
 			UsuID = Integer.parseInt(String.valueOf(recuperado.getId())) ; 
 			TextView nomeView = (TextView) findViewById(R.id.nomeView);
-			nomeView.setText("Seja Bem-vindo(a): " + recuperado.getLogin().toUpperCase().toString());
+			nomeView.setText("Seja Bem-vindo(a): " + recuperado.getNome().toUpperCase().toString());
 		    	    
 		    TextView ultimoAcesso = (TextView) findViewById(R.id.ultimoAcesso);
 		    ultimoAcesso.setText("Último acesso: " + recuperado.getUltimoAcesso().toUpperCase().toString());
@@ -234,6 +234,11 @@ public class TheFirstPage extends ActionBarActivity {
 			     .setPositiveButton("Sair", new DialogInterface.OnClickListener() {
 			         public void onClick(DialogInterface dialog, int which) { 
 			        	 bd.DeslogarUsuario(recuperado);
+			        	 
+			        	 if (MainActivity.ConectadoGoogle == 1){
+			        		 MainActivity.ConectadoGoogle = 2; //mostra que tem que desconectar com o google
+			        	 }
+			        	 
 			        	 Intent intent = new Intent(TheFirstPage.this, MainActivity.class);
 			        	 startActivity(intent);
 			        	 TheFirstPage.this.finish();
