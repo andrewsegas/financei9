@@ -89,7 +89,9 @@ public class Transacoes extends Fragment {
 		    	GerarTransacoes(bd, viewLista, listViewTran, ajusteListView, Integer.parseInt(Notificacao.MesSMS) == 0 ? mesCorrent : Integer.parseInt(Notificacao.MesSMS)-1);
 		    	AjusteSpinner.nMesDoSpinner = Integer.parseInt(Notificacao.MesSMS) == 0 ? (mesCorrent == 0 ? -1 : mesCorrent) : Integer.parseInt(Notificacao.MesSMS)-1;
 		    	onResume();
-		    	Notificacao.MesSMS = "0"; 
+		    	Notificacao.MesSMS = "0";
+		    	
+		    	ajusteListView.ajustarListViewInScrollView(listViewTran);
 		    }
 		    @Override
 		    public void onNothingSelected(AdapterView<?> parentView) {
@@ -124,7 +126,7 @@ public class Transacoes extends Fragment {
         			listViewTran.setAdapter(adapter);
             	}
             }
-        });
+		});
 		
 		return(viewLista);
 	}

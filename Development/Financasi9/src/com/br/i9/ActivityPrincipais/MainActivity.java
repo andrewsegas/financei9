@@ -69,7 +69,7 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
   			}
   		}).start();
         
-        btSignInDefault = (SignInButton) findViewById(R.id.btSignInDefault);
+       /*btSignInDefault = (SignInButton) findViewById(R.id.btSignInDefault);
         btSignInDefault.setOnClickListener(MainActivity.this);
         
         googleApiClient = new GoogleApiClient.Builder(MainActivity.this)
@@ -77,7 +77,7 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
         		.addOnConnectionFailedListener(MainActivity.this)
         		.addApi(Plus.API)
         		.addScope(Plus.SCOPE_PLUS_LOGIN)
-        		.build();
+        		.build();*/
     }
 
     @Override
@@ -302,11 +302,8 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
 			ConectadoGoogle = 1 ;
 			if(!TextUtils.isEmpty(usuario.getLogin().toString()))
 			{ 
-				//Toast.makeText(MainActivity.this, "JA EXISTE, LOGAR COM EXISTENTE", Toast.LENGTH_LONG).show();
-				
 				listLogin = (Login) bd.VerificarUsuario(login, false);
-				
-			     
+
 		         new Thread(new Runnable() {
 		   			@Override
 		   			public void run() {
@@ -326,15 +323,12 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
 		   				}
 		   			}
 		   		}).start();
-				
-				
-				
+		         
 			}else {
 				
 				bd.RegisterNewUser(login);
 				listLogin = (Login) bd.VerificarUsuario(login, false);
 				
-				     
 		         new Thread(new Runnable() {
 		   			@Override
 		   			public void run() {
