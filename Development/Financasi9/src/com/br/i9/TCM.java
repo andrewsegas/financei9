@@ -26,7 +26,7 @@ public class TCM {
 		//context.startManagingCursor(c);
 		int totalSMS = cursor.getCount();
 
-		if (cursor.moveToLast()) {
+		if (cursor.moveToFirst()) {
 			for (int i = 0; i < totalSMS; i++) {
         		
 				try{
@@ -51,8 +51,26 @@ public class TCM {
 				}catch(Exception e){
 
 				}
+				
+
         		
-				cursor.moveToPrevious();
+
+				/*objSms = new Sms();
+				objSms.setId(cursor.getString(cursor.getColumnIndexOrThrow("_id")));
+				objSms.setAddress(cursor.getString(cursor
+						.getColumnIndexOrThrow("address")));
+				objSms.setMsg(cursor.getString(cursor.getColumnIndexOrThrow("body")));
+				//objSms.setReadState(cursor.getString(cursor.getColumnIndex("read")));
+				objSms.setTime(cursor.getString(cursor.getColumnIndexOrThrow("date")));
+				if (cursor.getString(cursor.getColumnIndexOrThrow("type")).contains("1")) {
+					objSms.setFolderName("inbox");
+				} else {
+					objSms.setFolderName("sent");
+				}
+
+				lstSms.add(objSms);*/
+        		
+				cursor.moveToNext();
 			}
 		}
 		cursor.close();
