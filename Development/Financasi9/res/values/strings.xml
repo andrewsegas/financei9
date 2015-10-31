@@ -53,6 +53,7 @@
     <string name="receitas_FirstPage">Total:&#160;&#160;&#160;&#160;[@valor]</string>
     <string name="despesas_FirstPage">Total:&#160;&#160;&#160;&#160;[@valor]</string>
     <string name="situacaoAtual">Situação atual:&#160;&#160;&#160;&#160;[@valor]</string>
+    <string name="saldoAtual">Saldo atual:&#160;&#160;&#160;&#160;[@valor]</string>
     <string name="AcompanhamentoGrafico">Acompanhamento gráfico</string>
     <string name="InformacoesReceitas">Acompanhamento de receitas</string>
     <string name="InformacoesDespesas">Acompanhamento de despesas</string>

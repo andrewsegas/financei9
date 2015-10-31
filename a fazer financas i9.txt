@@ -12,6 +12,4 @@ HSBC Alertas: Cartao 4446 62** **** **11 realizou uma compra de R$ 13,66 na loja
 
 
 ERROS
-Quando passa de mil, o banco manda o valor com ponto ex 1.500,00 E Nao esta contabilizando.
-
 quando é um resgate da poupança o banco envia 2 sms's iguais - Santander.

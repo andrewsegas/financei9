@@ -554,6 +554,7 @@ public class CrudDatabase {
 	public void ApagarMovimento(Long idMov)
 	{		
 		bd.delete("MOVIMENTOS", "_IDMov = '"+ idMov + "'", null);
+		//atualiza saldo
 	}
 	
 	@SuppressLint("SimpleDateFormat")
@@ -578,6 +579,49 @@ public class CrudDatabase {
 		Date data = new Date(System.currentTimeMillis());  	
 		SimpleDateFormat dfmt = new SimpleDateFormat("MMMM");   
 	    return dfmt.format(data);
+	}
+	
+	public void SetSaldoInicial(String nfSaldo)
+	{
+		ContentValues valores = new ContentValues();
+		valores.put("SLD_SALDO",  nfSaldo.replace(".", ","));
+		valores.put("SLD_DATA", "");
+		valores.put("SLD_IDMOV", "INICIAL"); 
+		valores.put("SLD_USUID",  TheFirstPage.UsuID);
+		valores.put("SLD_USULOGIN",  TheFirstPage.UsuName);
+		bd.insert("SALDO", null, valores);
+	}	
+	
+	public boolean ExistSaldoInicial()
+	{
+		String[] colunas = new String[]{ "SLD_SALDO"};
+		
+		Cursor cursor = bd.query("SALDO", colunas , "SLD_USUID = '" + TheFirstPage.UsuID + "'" , null, null, null, null);
+		
+		if(cursor.getCount() > 0){
+			cursor.close();
+			return true;
+		}
+		
+		cursor.close();
+		return false;
+	}
+	
+	public String SaldoAtual()
+	{
+		String[] colunas = new String[]{ "SLD_SALDO"};
+		String sReturn;
+		Cursor cursor = bd.query("SALDO", colunas , "SLD_USUID = '" + TheFirstPage.UsuID + "'" , null, null, null, null);
+		
+		if(cursor.getCount() == 0){
+			cursor.close();
+			return "0";
+		}
+		
+		cursor.moveToFirst();
+		sReturn = cursor.getString(0);
+		cursor.close();
+		return sReturn;
 	}
 	
 }

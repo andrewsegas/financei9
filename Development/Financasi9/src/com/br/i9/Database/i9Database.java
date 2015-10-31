@@ -51,6 +51,14 @@ public class i9Database extends SQLiteOpenHelper {
 				+ "MOV_USULOGIN CHAR(20)"
 				+ ");");
 		
+		bd.execSQL("CREATE TABLE IF NOT EXISTS SALDO(_IDSLD INTEGER Primary key AUTOINCREMENT,"
+				+ "SLD_SALDO VARCHAR2(10) NOT NULL,"
+				+ "SLD_DATA VARCHAR2(20) NOT NULL,"
+				+ "SLD_IDMOV INTEGER, "
+				+ "SLD_USUID INTEGER,"
+				+ "SLD_USULOGIN CHAR(20)"
+				+ ");");
+		
 		bd.execSQL("CREATE TABLE IF NOT EXISTS CATEGORIAS (_IDCAT INTEGER Primary key AUTOINCREMENT,"
 				+ "CAT_NOME VARCHAR2(30) NOT NULL collate nocase,"		//Nome da categoria
 				+ "CAT_GRUPO CHAR(1) NOT NULL,"	//Grupo de categoria pertencente
@@ -68,7 +76,7 @@ public class i9Database extends SQLiteOpenHelper {
 				+ "CXE_USULOGIN CHAR(20)"						//usuario da categoria
 				+ ");");
 		
-		bd.execSQL("CREATE TABLE IF NOT EXISTS CONFIG("
+		bd.execSQL("CREATE TABLE IF NOT EXISTS CONFIG(_IDCFG INTEGER Primary key AUTOINCREMENT,"
 				+ "CFG_NOTIFI CHAR(1) NOT NULL,"
 				+ "CFG_VARRESMS CHAR(1),"
 				+ "CFG_USUID INTEGER NOT NULL,"
