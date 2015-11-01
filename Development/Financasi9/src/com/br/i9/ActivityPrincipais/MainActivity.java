@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
 	Login usuario;
 	Builder Popup;
 	Login listLogin = new Login();
-	public static GoogleApiClient googleApiClient;
+	private GoogleApiClient googleApiClient;
 	private ConnectionResult connectionResult;
 	private SignInButton btSignInDefault;
 	private boolean isConsentScreenOpened;
