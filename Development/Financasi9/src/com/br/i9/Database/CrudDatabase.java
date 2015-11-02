@@ -70,6 +70,8 @@ public class CrudDatabase {
 		valores.put("CFG_USULOGIN",  TheFirstPage.UsuName);
 		bd.insert("CONFIG", null, valores);
 	}
+	
+	
 	public void DeslogarUsuario(Login usuario)
 	{
 		ContentValues valores = new ContentValues();
@@ -100,9 +102,18 @@ public class CrudDatabase {
 	public void AtualizarCategoriaTransacao(String newCat, String oldCat)
 	{	
 		ContentValues valores = new ContentValues();
+		String[] colunas = new String[]{"_IDCAT" };
+		String sWhere = "CAT_NOME = '" + newCat + "'" ;
+		
+		Cursor cursor = bd.query("CATEGORIAS", colunas , sWhere, null, null, null, "_IDCAT ASC");
+		
+		cursor.moveToFirst();
+		valores.put("MOV_IDCAT",  cursor.getString(0));
+		
 		valores.put("CATEGORIA",  newCat);
 		
 		bd.update("MOVIMENTOS", valores, "CATEGORIA = '"+ oldCat + "'", null);
+		cursor.close();
 	}
 	
 	public void AtualizarCategoriaMovimentos(String nmNovaCategoria, String nmTipoCategoria , int idMov)
@@ -124,7 +135,8 @@ public class CrudDatabase {
 		valores.put("cRecDesp",  nmTipoCategoria);
 		valores.put("CATEGORIA",  nmNovaCategoria);
 		
-		bd.update("MOVIMENTOS", valores, "_IDMov = '"+ idMov + "'", null);		
+		bd.update("MOVIMENTOS", valores, "_IDMov = '"+ idMov + "'", null);
+		cursor.close();
 	}
 	
 	public void ApagarUsuario(Login usuario)
@@ -585,11 +597,21 @@ public class CrudDatabase {
 	{
 		ContentValues valores = new ContentValues();
 		valores.put("SLD_SALDO",  nfSaldo.replace(".", ","));
-		valores.put("SLD_DATA", "");
+		valores.put("SLD_DATA", this.getDateTime("dd/MM/yyyy"));
 		valores.put("SLD_IDMOV", "INICIAL"); 
 		valores.put("SLD_USUID",  TheFirstPage.UsuID);
 		valores.put("SLD_USULOGIN",  TheFirstPage.UsuName);
 		bd.insert("SALDO", null, valores);
+	}	
+	
+	public void CorrigeSaldo(String nfSaldo)
+	{
+		ContentValues valores = new ContentValues();
+		valores.put("SLD_SALDO",  nfSaldo.replace(".", ","));
+		valores.put("SLD_DATA", this.getDateTime("dd/MM/yyyy") );
+		valores.put("SLD_IDMOV", "CORRIGE");
+		
+		bd.update("SALDO", valores, "SLD_USUID = '"+ TheFirstPage.UsuID + "'", null);
 	}	
 	
 	public boolean ExistSaldoInicial()

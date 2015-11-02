@@ -31,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
@@ -40,11 +41,11 @@ public class Categorias extends Fragment {
 	Builder Popup;
 	int categoriaSistema, idNovaCategoria, idOldCategoria;
 	View viewLista,  poupSinner;
-	Spinner spinnerCategoria;
+	Spinner spinnerCategoria ;
 	CategoriasAdapter adapter;
 	CrudDatabase bd;
 	ListView listViewRenda, listViewDespesas;
-	String label, nmcategoriaOld, nmCategoriaNew;
+	String label, nmcategoriaOld, nmCategoriaNew, sTipoCatOld;
 	List<com.br.i9.Class.Categorias> listReceitas;
 	List<com.br.i9.Class.Categorias> listDespesas;
 	List<Integer> imgListArrayReceitas = new ArrayList<Integer>();
@@ -58,6 +59,7 @@ public class Categorias extends Fragment {
 		 listViewDespesas = (ListView) viewLista.findViewById(R.id.listViewEssenciais);
 		 poupSinner = inflater.inflate(R.layout.spinner_alterar_categoria, null);
 		 Spinner spinnerTipoCategoria = (Spinner)poupSinner.findViewById(R.id.spinnerTipo);
+		 TextView tipoCategoria = (TextView) poupSinner.findViewById(R.id.tipoCategoria);
 		 spinnerCategoria = (Spinner)poupSinner.findViewById(R.id.spinnerCategoria);
 		 bd = new CrudDatabase(getActivity());
 		 Popup = PopUp.Popup(viewLista.getContext());
@@ -101,6 +103,7 @@ public class Categorias extends Fragment {
 				categoriaSistema = Integer.parseInt(listReceitas.get(position).getcatSistema());
 				idOldCategoria = listReceitas.get(position).getnId();
 				nmcategoriaOld = listReceitas.get(position).getnmCategoria();
+				sTipoCatOld    = listReceitas.get(position).getgrCategoria();
 				return false;
 			}
 		});
@@ -113,11 +116,15 @@ public class Categorias extends Fragment {
 				categoriaSistema = Integer.parseInt(listDespesas.get(position).getcatSistema());
 				idOldCategoria = listDespesas.get(position).getnId();
 				nmcategoriaOld = listDespesas.get(position).getnmCategoria();
+				sTipoCatOld    = listDespesas.get(position).getgrCategoria();
 				return false;
 			}
 		});
-		 
-		popularSpinnerTipoCategoria(spinnerTipoCategoria);
+		
+		// deve ter apenas a lista de categorias do mesmo tipo "Receita ou despesa", ou seja, nao deve aparecer o tipo 
+		// para o usuario selecionar.
+		spinnerTipoCategoria.setVisibility(viewLista.INVISIBLE); 
+		tipoCategoria.setVisibility(viewLista.INVISIBLE);
 		 
 		return(viewLista);
 	}
@@ -139,6 +146,7 @@ public class Categorias extends Fragment {
             		
             		if(aMovimentos.size() != 0)
             		{
+            			 popularSpinnerCategoria(sTipoCatOld);
 		        		 Popup = PopUp.Popup(viewLista.getContext());
 		           		 Popup.setCancelable(false);
 		           		 Popup.setTitle("Finançasi9").setView(poupSinner).setMessage("Há transações vinculadas a esta categoria. Por favor, "
@@ -257,23 +265,6 @@ public class Categorias extends Fragment {
 		ajusteListView.ajustarListViewInScrollView(listview);
 	}
 	
-	public void popularSpinnerTipoCategoria(Spinner spinnerTipoCategoria)
-	{		 
-	     spinnerTipoCategoria.setOnItemSelectedListener(new OnItemSelectedListener() {
-			    @Override
-			    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-			        label = parentView.getItemAtPosition(position).toString();
-			        if(label.contains("Receitas"))
-			        	popularSpinnerCategoria("1");
-			        else
-			        	popularSpinnerCategoria("2");
-			    }
-			    @Override
-			    public void onNothingSelected(AdapterView<?> parentView) {
-			    }
-			});
-	}
-	
 	private void popularSpinnerCategoria(final String tipoCategoria)
 	{
 		 List<String> lables = bd.lerCategorias("CAT_GRUPO ='" + tipoCategoria + "' AND _IDCAT <> '"+ idOldCategoria +"'");
@@ -286,7 +277,7 @@ public class Categorias extends Fragment {
 	     spinnerCategoria.setOnItemSelectedListener(new OnItemSelectedListener() {
 			    @Override
 			    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-			        if(label.contains("Receitas"))
+			        if(sTipoCatOld == "1")
 			        {
 			        	List<com.br.i9.Class.Categorias> Receitas = bd.TodasCategorias("CAT_GRUPO ='1' AND _IDCAT <> '"+ idOldCategoria +"'");
 			        	idNovaCategoria = Receitas.get(position).getnId();

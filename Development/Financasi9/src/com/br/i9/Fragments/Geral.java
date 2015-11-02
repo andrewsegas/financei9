@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
@@ -37,7 +38,8 @@ public class Geral extends Fragment {
 	Spinner spinnerMeses ; 
 	Builder Popup;
 	CrudDatabase db;
-	EditText TxtSaldoInicial ;
+	EditText TxtSaldoInicial;
+	TextView TextodoSaldo, TxtsaldoAtual ;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){	
 		
@@ -45,14 +47,15 @@ public class Geral extends Fragment {
 		viewLista = inflater.inflate(R.layout.geral, null);
 		ViewSaldoInicial = inflater.inflate(R.layout.saldo_snicial,null);
 		TxtSaldoInicial = (EditText) ViewSaldoInicial.findViewById(R.id.txtsaldoinicial);
+		TextodoSaldo = (TextView) ViewSaldoInicial.findViewById(R.id.saldoinicial);
 		final PieChart mChart = (PieChart) viewLista.findViewById(R.id.pieChart1);
 		final TextView receitasMes = (TextView) viewLista.findViewById(R.id.receitasId);
 		final TextView despesasMes = (TextView) viewLista.findViewById(R.id.despesasId);
 		final TextView situacaoAtual = (TextView) viewLista.findViewById(R.id.situacaoAtualid);
-		final TextView saldoAtual = (TextView) viewLista.findViewById(R.id.saldoid);
+		TxtsaldoAtual = (TextView) viewLista.findViewById(R.id.saldoid);
+		View AtualizaSaldo = viewLista.findViewById(R.id.saldoid);
 		spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
 		ajusteListView = new AjusteListView();
-		String sSaldoAtual ;
 		final AjusteSpinner ajusteSpinner = new AjusteSpinner();
 		
 		if (db.ExistSaldoInicial() == false){
@@ -63,17 +66,7 @@ public class Geral extends Fragment {
 		ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);
 		gerarGraficoGeral(db, receitasMes, despesasMes, situacaoAtual, mChart, db.getMonth());
 		
-		sSaldoAtual = db.SaldoAtual();
-		sSaldoAtual = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Double.parseDouble(sSaldoAtual)) ;
-		if(sSaldoAtual.contains("(")){
-			saldoAtual.setText(Html.fromHtml("<font color='red'> Saldo: " + sSaldoAtual.replace("(", "")
-					.replace(")", "")
-					.replace("R$", "R$ -")
-			+ "</font>" ));
-		}else
-		{
-			saldoAtual.setText("Saldo: " + sSaldoAtual.replace("R$", "R$ "));
-		}
+		refreshSaldoAtual();
 		
 		spinnerMeses.setOnItemSelectedListener(new OnItemSelectedListener() {
 		    @Override
@@ -88,7 +81,51 @@ public class Geral extends Fragment {
 		    }
 		});
 
+		AtualizaSaldo.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				TextodoSaldo.setText("Digite o saldo correto:");
+				Popup = PopUp.Popup(viewLista.getContext());
+				Popup.setCancelable(false);
+				Popup.setTitle("Finançasi9").setView(ViewSaldoInicial)
+				.setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) { 
+						
+						if (TxtSaldoInicial.getText().toString().isEmpty() ){
+							((ViewGroup)ViewSaldoInicial.getParent()).removeView(ViewSaldoInicial);
+							Toast.makeText(getActivity().getApplicationContext(), "Nenhum valor foi inserido", Toast.LENGTH_LONG).show();
+						}else{
+							db.CorrigeSaldo(TxtSaldoInicial.getText().toString());
+							refreshSaldoAtual();
+							((ViewGroup)ViewSaldoInicial.getParent()).removeView(ViewSaldoInicial);
+						}
+									
+					}
+				})
+				.setIcon(android.R.drawable.ic_dialog_info).show();
+			}
+		});
+		
+		
 		return(viewLista);
+		
+	}
+	
+	private void refreshSaldoAtual(){
+		String sSaldoAtual ;
+		sSaldoAtual = db.SaldoAtual();
+		sSaldoAtual = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Double.parseDouble(sSaldoAtual)) ;
+		if(sSaldoAtual.contains("(")){
+			TxtsaldoAtual.setText(Html.fromHtml("<u><font color='red'>Saldo da conta: " + sSaldoAtual.replace("(", "")
+					.replace(")", "")
+					.replace("R$", "R$ -")
+			+ " </font></u>" ));
+		}else
+		{
+			TxtsaldoAtual.setText(Html.fromHtml("<u>Saldo da conta:  " + sSaldoAtual.replace("R$", "R$ -")
+			+ " </u> " ));
+		}
 	}
 	
 	@Override
@@ -108,8 +145,6 @@ public class Geral extends Fragment {
 	    menu.findItem(R.id.action_deleteItem).setVisible(false);
 		menu.findItem(R.id.action_alterTypeITem).setVisible(false);
 	}
-	
-	
 	
 	private void gerarGraficoGeral(CrudDatabase db, TextView receitasMes, TextView despesasMes, TextView situacaoAtual, PieChart mChart, int MesReferencia)
 	{
@@ -140,16 +175,16 @@ public class Geral extends Fragment {
 		sTotal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Double.parseDouble(sTotal));
 		
 		if (sTotal.contains("-") ){   //negativo deve colocar o RED "NAO MEXE CESAR VIADO"
-			situacaoAtual.setText(Html.fromHtml("<font color='red'> Situação no Mês: " + sTotal.replace("-R$", "R$ -") 
+			situacaoAtual.setText(Html.fromHtml("<font color='red'> Total: " + sTotal.replace("-R$", "R$ -") 
 					+ "</font>" ));
 		}else if(sTotal.contains("(")){
-			situacaoAtual.setText(Html.fromHtml("<font color='red'> Situação no Mês: " + sTotal.replace("(", "")
+			situacaoAtual.setText(Html.fromHtml("<font color='red'> Total: " + sTotal.replace("(", "")
 					.replace(")", "")
 					.replace("R$", "R$ -")
 			+ "</font>" ));
 		}else
 		{
-			situacaoAtual.setText("Situação no Mês: " + sTotal.replace("R$", "R$ "));
+			situacaoAtual.setText("Total: " + sTotal.replace("R$", "R$ "));
 		}
 		
 		
@@ -160,24 +195,12 @@ public class Geral extends Fragment {
         if(sRec != "0" || sDesp != "0")
         {
         	mChart.setVisibility(View.VISIBLE);
-        	
-        	TextView textView = (TextView) viewLista.findViewById(R.id.acompanhemtoGraficoId);
-	        ajusteListView.validarExistenciaDados(textView, true);
-	        
-	        textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
-	        ajusteListView.validarExistenciaDados(textView, false);
 	        
         	GerarGrafico.GerarGraficoPie(mChart, yData, xData, cores);
         }
         else
         {
         	mChart.setVisibility(View.INVISIBLE);
-        
-	        TextView textView = (TextView) viewLista.findViewById(R.id.acompanhemtoGraficoId);
-	        ajusteListView.validarExistenciaDados(textView, false);
-	        
-	        textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
-	        ajusteListView.validarExistenciaDados(textView, true);
         }
 	}
 	
@@ -195,6 +218,7 @@ public class Geral extends Fragment {
 					popupSaldoIni() ;
 				}else{
 					db.SetSaldoInicial(TxtSaldoInicial.getText().toString());
+					refreshSaldoAtual();
 					((ViewGroup)ViewSaldoInicial.getParent()).removeView(ViewSaldoInicial);
 				}
 							

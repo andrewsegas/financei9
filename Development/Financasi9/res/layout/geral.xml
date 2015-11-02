@@ -10,20 +10,21 @@
 	  android:layout_width="match_parent"
 	  android:layout_height="match_parent">
 	  
-	    <TextView android:text="@string/escolhaMeses"
-	  			android:textSize="14dip"
-	  			android:id="@+id/escolhaMesesid"
+	    <TextView android:text="Situação do mês selecionado"
+	  			android:textSize="15sp"
+	  			android:id="@+id/lblselecionames"
 	  			android:layout_width="fill_parent"
-	        	android:layout_height="fill_parent"
-	        	android:gravity="center"
-	  			android:layout_marginBottom="2dp"
-	  			android:layout_marginTop="20dp"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="1dp"
+	  			android:layout_marginTop="15dp"
+	  			android:layout_marginLeft="20dp"
 	  			android:textAlignment="gravity"
-	  			android:textColor="@android:color/holo_orange_dark"/>
+	  			android:textColor="@android:color/black"
+	  			/>
 	    
-	      <View	android:id="@+id/secondtDivider"
+	    <View	android:id="@+id/secondtDivider"
 	        	android:layout_height="1dp"
-	        	android:layout_marginTop="15dp"
+	        	android:layout_marginTop="2dp"
 	        	android:layout_width="fill_parent"
 	        	android:layout_marginLeft="28dp"
 	        	android:layout_marginRight="28dp"
@@ -40,14 +41,6 @@
 	  			android:entries="@array/itensmeses"
 	  			android:prompt="@string/Meses"
 	  	/>
-	    
-	     <View	android:id="@+id/threeDivider"
-	        	android:layout_height="1dp"
-	        	android:layout_marginTop="8dp"
-	        	android:layout_width="fill_parent"
-	        	android:layout_marginLeft="28dp"
-	        	android:layout_marginRight="28dp"
-	        	android:background="#C8C8C8" />
 	  
 	  <TextView android:text="@string/receitasFirstPage"
 	  			android:textSize="18dip"
@@ -65,47 +58,67 @@
 	  			android:layout_height="fill_parent"
 	  			android:gravity="center"
 	  			android:layout_marginBottom="2dp"
-	  			android:layout_marginTop="10dp"
+	  			android:layout_marginTop="5dp"
 	  			android:textColor="@android:color/holo_red_light"/>
-	    
-	    <View	android:id="@+id/firstDivider"
-	        	android:layout_height="1dp"
-	        	android:layout_marginTop="8dp"
-	        	android:layout_width="fill_parent"
-	        	android:layout_marginLeft="50dp"
-	        	android:layout_marginRight="60dp"
-	        	android:background="#C8C8C8" />
 	    
 	    <TextView android:text="@string/situacaoAtual"
 	  			android:textSize="18dip"
 	  			android:id="@+id/situacaoAtualid"
-	  			android:textStyle="bold" 
-	  			android:layout_marginTop="10dp"
+	  			android:layout_marginTop="7dp"
 	  			android:layout_width="fill_parent"
 	  			android:layout_height="fill_parent"
 	  			android:gravity="center"
 	  			android:textColor="@android:color/holo_green_dark"/>
+	    
+	    <TextView android:text="Acumulado"
+	  			android:textSize="15sp"
+	  			android:id="@+id/lblacumulado"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="1dp"
+	  			android:layout_marginTop="8dp"
+	  			android:layout_marginLeft="20dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/black"
+	  			/>
+	    
+	    <View	android:id="@+id/threeDivider"
+	        	android:layout_height="1dp"
+	        	android:layout_marginTop="2dp"
+	        	android:layout_width="fill_parent"
+	        	android:layout_marginLeft="28dp"
+	        	android:layout_marginRight="28dp"
+	        	android:background="#C8C8C8" />
 	    
 	    <TextView android:text="@string/saldoAtual"
 	  			android:textSize="18dip"
 	  			android:id="@+id/saldoid"
-	  			android:textStyle="bold" 
+	  			android:textStyle="bold"
 	  			android:layout_marginTop="10dp"
 	  			android:layout_width="fill_parent"
 	  			android:layout_height="fill_parent"
 	  			android:gravity="center"
 	  			android:textColor="@android:color/holo_green_dark"/>
 	    
-	    <TextView
-	        android:layout_width="fill_parent"
-        	android:layout_height="fill_parent"
-        	android:gravity="center"
-	        android:layout_marginTop="17dp"
-	        android:text="@string/AcompanhamentoGrafico"
-	        android:textAlignment="center"
-	        android:textColor="@android:color/holo_orange_dark"
-	        android:textSize="17dip"
-	        android:id="@+id/acompanhemtoGraficoId" />
+	    <TextView android:text="Gráfico"
+	  			android:textSize="15sp"
+	  			android:id="@+id/lblgrafico"
+	  			android:layout_width="fill_parent"
+	  			android:layout_height="wrap_content"
+	  			android:layout_marginBottom="1dp"
+	  			android:layout_marginTop="8dp"
+	  			android:layout_marginLeft="20dp"
+	  			android:textAlignment="gravity"
+	  			android:textColor="@android:color/black"
+	  			/>
+	    
+	    <View	android:id="@+id/fourDivider"
+	        	android:layout_height="1dp"
+	        	android:layout_marginTop="2dp"
+	        	android:layout_width="fill_parent"
+	        	android:layout_marginLeft="28dp"
+	        	android:layout_marginRight="28dp"
+	        	android:background="#C8C8C8" />
 	    
 	    <TextView
 	        android:layout_width="fill_parent"
@@ -117,6 +130,7 @@
 	        android:textSize="16dip"
 	        android:visibility="invisible"
 	        android:id="@+id/validacaoExisteTransacao" />
+	    
         	
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart1"
