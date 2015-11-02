@@ -29,7 +29,6 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 //**************************************************************
 //* Tela principal da aplicacao de Login
 //* @author CesarAugusto

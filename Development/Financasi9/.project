@@ -3,6 +3,9 @@
 	<name>Financasi9</name>
 	<comment></comment>
 	<projects>
+		<project>AmbilWarna</project>
+		<project>android-support-v7-appcompat</project>
+		<project>google-play-services_lib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
