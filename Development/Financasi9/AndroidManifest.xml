@@ -22,6 +22,7 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.INTERNET" />
     
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ico_launcher"
@@ -29,7 +30,7 @@
         android:theme="@style/Theme.Actionbarlayout" 
         android:screenOrientation="portrait">
         
-        <meta-data
+       <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         
