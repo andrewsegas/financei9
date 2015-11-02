@@ -43,7 +43,7 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
 	Login usuario;
 	Builder Popup;
 	Login listLogin = new Login();
-	public static GoogleApiClient googleApiClient;
+	private GoogleApiClient googleApiClient;
 	private ConnectionResult connectionResult;
 	private SignInButton btSignInDefault;
 	private boolean isConsentScreenOpened;
@@ -68,7 +68,7 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
   			}
   		}).start();
         
-       /*btSignInDefault = (SignInButton) findViewById(R.id.btSignInDefault);
+       btSignInDefault = (SignInButton) findViewById(R.id.btSignInDefault);
         btSignInDefault.setOnClickListener(MainActivity.this);
         
         googleApiClient = new GoogleApiClient.Builder(MainActivity.this)
@@ -76,7 +76,7 @@ public class MainActivity extends Activity implements OnClickListener, Connectio
         		.addOnConnectionFailedListener(MainActivity.this)
         		.addApi(Plus.API)
         		.addScope(Plus.SCOPE_PLUS_LOGIN)
-        		.build();*/
+        		.build();
     }
 
     @Override

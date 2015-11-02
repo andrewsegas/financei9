@@ -7,9 +7,12 @@ import com.br.i9.R;
 import com.br.i9.Class.AjusteListView;
 import com.br.i9.Class.AjusteSpinner;
 import com.br.i9.Class.GerarGrafico;
+import com.br.i9.Class.PopUp;
 import com.br.i9.Database.CrudDatabase;
 import com.github.mikephil.charting.charts.PieChart;
 
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,31 +24,56 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Geral extends Fragment {
 	
 	AjusteListView ajusteListView;
-	View viewLista;
+	View viewLista, ViewSaldoInicial;
 	Spinner spinnerMeses ; 
+	Builder Popup;
 	CrudDatabase db;
+	EditText TxtSaldoInicial ;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){	
 		
 		db = new CrudDatabase(getActivity());
 		viewLista = inflater.inflate(R.layout.geral, null);
+		ViewSaldoInicial = inflater.inflate(R.layout.saldo_snicial,null);
+		TxtSaldoInicial = (EditText) ViewSaldoInicial.findViewById(R.id.txtsaldoinicial);
 		final PieChart mChart = (PieChart) viewLista.findViewById(R.id.pieChart1);
 		final TextView receitasMes = (TextView) viewLista.findViewById(R.id.receitasId);
 		final TextView despesasMes = (TextView) viewLista.findViewById(R.id.despesasId);
 		final TextView situacaoAtual = (TextView) viewLista.findViewById(R.id.situacaoAtualid);
+		final TextView saldoAtual = (TextView) viewLista.findViewById(R.id.saldoid);
 		spinnerMeses = (Spinner) viewLista.findViewById(R.id.dropdownMeses);
 		ajusteListView = new AjusteListView();
+		String sSaldoAtual ;
 		final AjusteSpinner ajusteSpinner = new AjusteSpinner();
+		
+		if (db.ExistSaldoInicial() == false){
+			popupSaldoIni();
+		}
+		
 		
 		ajusteSpinner.ajusteSpinnerMes(db, spinnerMeses);
 		gerarGraficoGeral(db, receitasMes, despesasMes, situacaoAtual, mChart, db.getMonth());
+		
+		sSaldoAtual = db.SaldoAtual();
+		sSaldoAtual = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Double.parseDouble(sSaldoAtual)) ;
+		if(sSaldoAtual.contains("(")){
+			saldoAtual.setText(Html.fromHtml("<font color='red'> Saldo: " + sSaldoAtual.replace("(", "")
+					.replace(")", "")
+					.replace("R$", "R$ -")
+			+ "</font>" ));
+		}else
+		{
+			saldoAtual.setText("Saldo: " + sSaldoAtual.replace("R$", "R$ "));
+		}
 		
 		spinnerMeses.setOnItemSelectedListener(new OnItemSelectedListener() {
 		    @Override
@@ -112,16 +140,16 @@ public class Geral extends Fragment {
 		sTotal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(Double.parseDouble(sTotal));
 		
 		if (sTotal.contains("-") ){   //negativo deve colocar o RED "NAO MEXE CESAR VIADO"
-			situacaoAtual.setText(Html.fromHtml("<font color='red'> Situação Atual: " + sTotal.replace("-R$", "R$ -") 
+			situacaoAtual.setText(Html.fromHtml("<font color='red'> Situação no Mês: " + sTotal.replace("-R$", "R$ -") 
 					+ "</font>" ));
 		}else if(sTotal.contains("(")){
-			situacaoAtual.setText(Html.fromHtml("<font color='red'> Situação Atual: " + sTotal.replace("(", "")
+			situacaoAtual.setText(Html.fromHtml("<font color='red'> Situação no Mês: " + sTotal.replace("(", "")
 					.replace(")", "")
 					.replace("R$", "R$ -")
 			+ "</font>" ));
 		}else
 		{
-			situacaoAtual.setText("Situação Atual: " + sTotal.replace("R$", "R$ "));
+			situacaoAtual.setText("Situação no Mês: " + sTotal.replace("R$", "R$ "));
 		}
 		
 		
@@ -151,6 +179,29 @@ public class Geral extends Fragment {
 	        textView = (TextView) viewLista.findViewById(R.id.validacaoExisteTransacao);
 	        ajusteListView.validarExistenciaDados(textView, true);
         }
+	}
+	
+	private void popupSaldoIni(){
+		
+		Popup = PopUp.Popup(viewLista.getContext());
+		Popup.setCancelable(false);
+		Popup.setTitle("Finançasi9").setView(ViewSaldoInicial)
+		.setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) { 
+				
+				if (TxtSaldoInicial.getText().toString().isEmpty() ){
+					((ViewGroup)ViewSaldoInicial.getParent()).removeView(ViewSaldoInicial);
+					Toast.makeText(getActivity().getApplicationContext(), "Por Favor, Insira um valor", Toast.LENGTH_LONG).show();
+					popupSaldoIni() ;
+				}else{
+					db.SetSaldoInicial(TxtSaldoInicial.getText().toString());
+					((ViewGroup)ViewSaldoInicial.getParent()).removeView(ViewSaldoInicial);
+				}
+							
+			}
+		})
+		.setIcon(android.R.drawable.ic_dialog_info).show();
+		
 	}
 }
 

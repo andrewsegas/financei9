@@ -29,25 +29,27 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
   
  @SuppressWarnings("deprecation")
 public class TheFirstPage extends ActionBarActivity {
@@ -64,6 +66,7 @@ public class TheFirstPage extends ActionBarActivity {
   public static String UsuName;
   public static int UsuID;
   
+  View ViewSaldoInicial = null;
   TCM tcm = new TCM();
   CrudDatabase bd;
   Login recuperado = new Login();
@@ -97,6 +100,7 @@ public class TheFirstPage extends ActionBarActivity {
 		  	  String[] from = {menuChecked, Menu};
 			  int[] to = { R.id.BotoesMenu , R.id.itensMenu};
 		
+			  ViewSaldoInicial = (ListView) findViewById(R.layout.saldo_snicial);
 			  itensMenu = getResources().getStringArray(R.array.itens);
 			  
 			  mTitle = (String)getTitle();

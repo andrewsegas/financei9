@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+        <TextView 
+            	android:text="Para começarmos um controle financeiro \n Digite o seu saldo atual:"
+	  			android:textSize="15dip"
+	  			android:id="@+id/saldoinicial"
+	  			android:layout_width="wrap_content"
+	        	android:layout_height="wrap_content"
+	        	android:gravity="center"
+	  			android:layout_marginBottom="2dp"
+	  			android:layout_marginTop="24dp"
+	  			android:layout_marginLeft="20dp"
+	  			android:textAlignment="center"
+	  			android:textColor="@android:color/holo_orange_dark"
+	  			/>
+     
+		<EditText
+	        android:id="@+id/txtsaldoinicial"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginTop="60dp"
+	        android:layout_marginLeft="16dp"
+		  	android:layout_marginRight="20dp"
+	        android:ems="10"
+	        android:hint="Saldo Atual"
+	        android:background="@drawable/textfield_activated_theme_textfield_focused_holo_dark"
+			android:layout_below="@+id/saldoinicial"
+	        android:maxLength="30"
+	        android:inputType="numberSigned"
+	        android:singleLine="true"
+	        android:textColor="@android:color/black"
+	        android:textColorHint="@android:color/darker_gray"
+	        android:textSize="15sp" 
+	        />
+
+</LinearLayout>
